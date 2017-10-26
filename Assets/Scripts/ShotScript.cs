@@ -81,14 +81,6 @@ public class ShotScript : MonoBehaviour
                         MakeShot(startPoint - shotTouch.Value.position);
                         isTakingAimNow = false;
                     }
-                    else
-                    {
-                        // throw new Exeption
-                    }
-                }
-                else
-                {
-                    // throw new Exeption
                 }
             }
         }
