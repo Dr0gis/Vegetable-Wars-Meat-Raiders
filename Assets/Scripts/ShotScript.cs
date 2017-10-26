@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class ShotScript : MonoBehaviour
 {
-    private Rigidbody2D catapultRigitbody;
+    private Rigidbody2D catapultRigidbody;
 
     private Vector2 startPoint;
 
     private bool isTakingAimNow;
-    private int shotFingerId;
 
-    public float MaxEndX;
-    public float MaxEndY;
+    public int ShotFingerId { get; private set; }
+
+    public float MaxTensionByX;
+    public float MaxTensionByY;
     public float StrengthScale;
 
     public GameObject CurrentVegetable;
@@ -21,7 +22,7 @@ public class ShotScript : MonoBehaviour
     {
         foreach (Touch touch in Input.touches)
         {
-            if (touch.fingerId == shotFingerId)
+            if (touch.fingerId == ShotFingerId)
             {
                 return touch;
             }
@@ -33,7 +34,7 @@ public class ShotScript : MonoBehaviour
     {
         foreach (Touch touch in Input.touches)
         {
-            if (catapultRigitbody.OverlapPoint(Camera.main.ScreenToWorldPoint(touch.position)) 
+            if (catapultRigidbody.OverlapPoint(Camera.main.ScreenToWorldPoint(touch.position)) 
                 && touch.phase == TouchPhase.Began)
             {
                 return touch;
@@ -44,8 +45,8 @@ public class ShotScript : MonoBehaviour
 
     private void MakeShot(Vector2 pushVector)
     {
-        pushVector.x = Mathf.Max(Mathf.Min(pushVector.x, MaxEndX), -MaxEndX);
-        pushVector.y = Mathf.Max(Mathf.Min(pushVector.y, MaxEndY), -MaxEndX);
+        pushVector.x = Mathf.Max(Mathf.Min(pushVector.x, MaxTensionByX), -MaxTensionByX);
+        pushVector.y = Mathf.Max(Mathf.Min(pushVector.y, MaxTensionByY), -MaxTensionByY);
 
         CurrentVegetable.GetComponent<Rigidbody2D>().velocity = pushVector * StrengthScale;
 
@@ -63,7 +64,7 @@ public class ShotScript : MonoBehaviour
                 {
                     isTakingAimNow = true;
                     startPoint = initialTouch.Value.position;
-                    shotFingerId = initialTouch.Value.fingerId;
+                    ShotFingerId = initialTouch.Value.fingerId;
                 }
             }
             else
@@ -95,7 +96,7 @@ public class ShotScript : MonoBehaviour
 
     void Start()
     {
-        catapultRigitbody = GetComponent<Rigidbody2D>();
+        catapultRigidbody = GetComponent<Rigidbody2D>();
         isTakingAimNow = false;
     }
 
