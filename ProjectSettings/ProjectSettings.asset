@@ -148,10 +148,10 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.KhNURE.VegetableWar
+    Android: com.MyApp.Vegetables
   buildNumber: {}
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 16
+  AndroidMinSdkVersion: 22
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -604,9 +604,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: c6dd880f-2221-4273-b6aa-e466b0175437
+  cloudProjectId: 51a53198-a923-4d83-922c-77a9c0d364ac
   projectName: Vegetable-Wars-Meat-Raiders
-  organizationId: gotthit
+  organizationId: unity_xhjkxw1zrh4r-w
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
