@@ -12,8 +12,8 @@ public class ShotScript : MonoBehaviour
 
     public int ShotFingerId { get; private set; }
 
-    public float MaxTensionByX;
-    public float MaxTensionByY;
+    public float MaxTensionByX = 200;
+    public float MaxTensionByY = 200;
     public float StrengthScale;
 
     public GameObject CurrentVegetable;
