@@ -55,7 +55,7 @@ public class ShotScript : MonoBehaviour
 
     private void TakeAim()
     {
-        if (Input.touchCount > 0 && !Camera.main.GetComponent<CameraMovementScript>().IsZooming)
+        if (Input.touchCount > 0 && !Camera.main.GetComponent<CameraMovementScript>().IsZooming && Time.timeScale != 0)
         {
             if (!IsTakingAimNow)
             {
