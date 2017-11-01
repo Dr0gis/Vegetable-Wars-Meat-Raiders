@@ -112,7 +112,7 @@ public class ShotScript : MonoBehaviour
         {
             Visualize(shotVector.Value);
         }
-        else
+        else if (shotVector.HasValue && isShotMade == true)
         {
             MakeShot(shotVector.Value);
         }
