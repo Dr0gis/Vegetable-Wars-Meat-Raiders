@@ -4,41 +4,49 @@ using UnityEngine;
 
 public class CameraMovementScript : MonoBehaviour
 {
-    private const float Speed = 0.02f;
-    private float LevelLength = 50;
-    private float LevelHeight = 20;
-    private float MinCameraXPosition;
-    private float MaxCameraXPosition;
-    private float MinCameraYPosition;
-    private float MaxCameraYPosition;
-    private float MaxCameraSize;
-    private float MinCameraSize = 4.0f;
-    private float CameraSize = 7f;
-    private const float ZoomSpeed = 0.02f;
+    private const float speed = 0.02f;
+    private float levelLength = 50;
+    private float levelHeight = 20;
+    private float minCameraXPosition;
+    private float maxCameraXPosition;
+    private float minCameraYPosition;
+    private float maxCameraYPosition;
+    private float maxCameraSize;
+    private float minCameraSize = 4.0f;
+    private float cameraSize = 7f;
+    private const float zoomSpeed = 0.1f;
+    public bool IsZooming { get; private set; }
 
-    void Start()
+void Start()
     {
-        MaxCameraSize = Mathf.Min(LevelHeight / 2.0f, (LevelLength * Screen.height) / (2.0f * Screen.width));
-        SetCameraToBottom();
+        maxCameraSize = Mathf.Min(levelHeight / 2.0f, (levelLength * Screen.height) / (2.0f * Screen.width));
+        minCameraSize = 1.5f * GameObject.Find("Catapult").GetComponent<Collider2D>().bounds.size.x * Screen.height /
+                        Screen.width;
+        Camera.main.orthographicSize = Mathf.Clamp(cameraSize, minCameraSize, maxCameraSize);
+        SetCameraPosition();
+        IsZooming = false;
     }
 
     void SetCameraPositionBounds()
     {
-        var vertExtent = CameraSize;
+        var vertExtent = cameraSize;
         var horzExtent = vertExtent * Screen.width / Screen.height;
 
-        MinCameraXPosition = horzExtent - LevelLength / 2.0f;
-        MaxCameraXPosition = LevelLength / 2.0f - horzExtent;
-        MinCameraYPosition = vertExtent - LevelHeight / 2.0f;
-        MaxCameraYPosition = LevelHeight / 2.0f - vertExtent;
+        minCameraXPosition = horzExtent - levelLength / 2.0f;
+        maxCameraXPosition = levelLength / 2.0f - horzExtent;
+        minCameraYPosition = vertExtent - levelHeight / 2.0f;
+        maxCameraYPosition = levelHeight / 2.0f - vertExtent;
     }
 
-    void SetCameraToBottom()
+    void SetCameraPosition()
     {
         SetCameraPositionBounds();
         Vector3 tmpPosY = transform.position;
-        tmpPosY.y = MinCameraYPosition;
+        tmpPosY.y = minCameraYPosition;
         transform.position = tmpPosY;
+        Vector3 tmpPosX = transform.position;
+        tmpPosX.x = Mathf.Clamp(tmpPosX.x, minCameraXPosition, maxCameraXPosition);
+        transform.position = tmpPosX;
     }
 
 
@@ -46,6 +54,7 @@ public class CameraMovementScript : MonoBehaviour
     {
         if (Input.touchCount == 2)
         {
+            IsZooming = true;
             Touch touchZero = Input.GetTouch(0);
             Touch touchOne = Input.GetTouch(1);
 
@@ -55,24 +64,22 @@ public class CameraMovementScript : MonoBehaviour
             float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
             float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
             float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
-            CameraSize += deltaMagnitudeDiff * ZoomSpeed * Time.deltaTime;
+            cameraSize += deltaMagnitudeDiff * zoomSpeed * Time.deltaTime;
 
-            CameraSize = Mathf.Clamp(CameraSize, MinCameraSize, MaxCameraSize);
-            SetCameraToBottom();
-            Camera.main.orthographicSize = CameraSize;
+            cameraSize = Mathf.Clamp(cameraSize, minCameraSize, maxCameraSize);
+            SetCameraPosition();
+            Camera.main.orthographicSize = cameraSize;
         }
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        else
+        {
+            IsZooming = false;
+        }
+        if (Input.touchCount > 0 && !IsZooming && Input.GetTouch(0).phase == TouchPhase.Moved && !GameObject.Find("Catapult").GetComponent<ShotScript>().IsTakingAimNow)
         {
             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
-            transform.Translate(-touchDeltaPosition.x * Speed, -touchDeltaPosition.y * Speed, 0);
-
-            Vector3 tmpPosX = transform.position;
-            tmpPosX.x = Mathf.Clamp(tmpPosX.x, MinCameraXPosition, MaxCameraXPosition);
-            transform.position = tmpPosX;
-
-            Vector3 tmpPosY = transform.position;
-            tmpPosY.y = MinCameraYPosition;
-            transform.position = tmpPosY;
+            transform.Translate(-touchDeltaPosition.x * speed, -touchDeltaPosition.y * speed, 0);
+            
+            SetCameraPosition();
         }
     }
 }

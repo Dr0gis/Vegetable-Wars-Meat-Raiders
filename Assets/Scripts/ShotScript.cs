@@ -8,9 +8,9 @@ public class ShotScript : MonoBehaviour
 
     private Vector2 startPoint;
 
-    private bool isTakingAimNow;
+    public bool IsTakingAimNow { get; private set; }
 
-    public int ShotFingerId { get; private set; }
+    private int shotFingerId;
 
     public float MaxTensionByX = 200;
     public float MaxTensionByY = 200;
@@ -22,7 +22,7 @@ public class ShotScript : MonoBehaviour
     {
         foreach (Touch touch in Input.touches)
         {
-            if (touch.fingerId == ShotFingerId)
+            if (touch.fingerId == shotFingerId)
             {
                 return touch;
             }
@@ -55,16 +55,16 @@ public class ShotScript : MonoBehaviour
 
     private void TakeAim()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && !Camera.main.GetComponent<CameraMovementScript>().IsZooming)
         {
-            if (!isTakingAimNow)
+            if (!IsTakingAimNow)
             {
                 Touch? initialTouch = GetInitialTouch();
                 if (initialTouch.HasValue)
                 {
-                    isTakingAimNow = true;
+                    IsTakingAimNow = true;
                     startPoint = initialTouch.Value.position;
-                    ShotFingerId = initialTouch.Value.fingerId;
+                    shotFingerId = initialTouch.Value.fingerId;
                 }
             }
             else
@@ -79,7 +79,7 @@ public class ShotScript : MonoBehaviour
                     else if (shotTouch.Value.phase == TouchPhase.Ended)
                     {
                         MakeShot(startPoint - shotTouch.Value.position);
-                        isTakingAimNow = false;
+                        IsTakingAimNow = false;
                     }
                 }
             }
@@ -89,7 +89,7 @@ public class ShotScript : MonoBehaviour
     void Start()
     {
         catapultRigidbody = GetComponent<Rigidbody2D>();
-        isTakingAimNow = false;
+        IsTakingAimNow = false;
     }
 
     void Update()
