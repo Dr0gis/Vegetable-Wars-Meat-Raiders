@@ -43,6 +43,11 @@ public class ShotScript : MonoBehaviour
         return null;
     }
 
+    private void Visualize(Vector2 pushVector)
+    {
+        // Visualize heare
+    }
+
     private void MakeShot(Vector2 pushVector)
     {
         pushVector.x = Mathf.Max(Mathf.Min(pushVector.x, MaxTensionByX), -MaxTensionByX);
@@ -53,8 +58,11 @@ public class ShotScript : MonoBehaviour
         // Change vegetable here
     }
 
-    private void TakeAim()
+    private void TakeAim(out Vector2? shotVector, out bool isShotMade)
     {
+        isShotMade = false;
+        shotVector = null;
+
         if (Input.touchCount > 0 && !Camera.main.GetComponent<CameraMovementScript>().IsZooming && Time.timeScale != 0)
         {
             if (!IsTakingAimNow)
@@ -72,13 +80,14 @@ public class ShotScript : MonoBehaviour
                 Touch? shotTouch = GetShotTouch();
                 if (shotTouch.HasValue)
                 {
+                    shotVector = startPoint - shotTouch.Value.position;
                     if (shotTouch.Value.phase == TouchPhase.Moved)
                     {
-                        // Probably visualization here
+                        isShotMade = false;
                     }
                     else if (shotTouch.Value.phase == TouchPhase.Ended)
                     {
-                        MakeShot(startPoint - shotTouch.Value.position);
+                        isShotMade = true;
                         IsTakingAimNow = false;
                     }
                 }
@@ -94,6 +103,19 @@ public class ShotScript : MonoBehaviour
 
     void Update()
     {
-        TakeAim();
+        Vector2? shotVector;
+        bool isShotMade;
+
+        TakeAim(out shotVector, out isShotMade);
+
+        if (shotVector.HasValue && isShotMade == false)
+        {
+            Visualize(shotVector.Value);
+        }
+        else
+        {
+            MakeShot(shotVector.Value);
+        }
+
     }
 }
