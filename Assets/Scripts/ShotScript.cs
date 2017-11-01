@@ -48,14 +48,23 @@ public class ShotScript : MonoBehaviour
         // Visualize heare
     }
 
-    private void MakeShot(Vector2 pushVector)
+    private GameObject GetNextDefaultVegetable()
     {
+        return CurrentVegetable;
+    }
+
+    private Vector2 PrepareVector(Vector2 vectorToPrepare)
+    {
+        Vector2 pushVector = vectorToPrepare;
         pushVector.x = Mathf.Max(Mathf.Min(pushVector.x, MaxTensionByX), -MaxTensionByX);
         pushVector.y = Mathf.Max(Mathf.Min(pushVector.y, MaxTensionByY), -MaxTensionByY);
+        pushVector *= StrengthScale;
+        return pushVector;
+    }
 
-        CurrentVegetable.GetComponent<Rigidbody2D>().velocity = pushVector * StrengthScale;
-
-        // Change vegetable here
+    private void MakeShot(Vector2 pushVector)
+    {
+        CurrentVegetable.GetComponent<Rigidbody2D>().velocity = pushVector;
     }
 
     private void TakeAim(out Vector2? shotVector, out bool isShotMade)
@@ -95,6 +104,8 @@ public class ShotScript : MonoBehaviour
         }
     }
 
+    public 
+
     void Start()
     {
         catapultRigidbody = GetComponent<Rigidbody2D>();
@@ -108,13 +119,18 @@ public class ShotScript : MonoBehaviour
 
         TakeAim(out shotVector, out isShotMade);
 
-        if (shotVector.HasValue && isShotMade == false)
+        if (shotVector.HasValue)
         {
-            Visualize(shotVector.Value);
-        }
-        else if (shotVector.HasValue && isShotMade == true)
-        {
-            MakeShot(shotVector.Value);
+            Vector2 pushVector = PrepareVector(shotVector.Value);
+            if (isShotMade == false)
+            {
+                Visualize(pushVector);
+            }
+            else if (isShotMade == true)
+            {
+                MakeShot(pushVector);
+                CurrentVegetable = GetNextDefaultVegetable();
+            }
         }
 
     }
