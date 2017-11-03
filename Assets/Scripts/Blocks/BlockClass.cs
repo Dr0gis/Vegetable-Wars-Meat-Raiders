@@ -6,32 +6,43 @@ namespace Assets.Scripts
     {
         public int Health;
         public int Score;
+        public string Prefab;
         public GameObject CurrentGameObject;
 
-        public BlockClass(int health, int score, GameObject gameObject)
+        protected BlockClass()
         {
+            Prefab = null;
+            Health = 1;
+            Score = 0;
+            CurrentGameObject = null;
+        }
+
+        public BlockClass(int health, int score, string prefab, GameObject gameObject)
+        {
+            Prefab = prefab;
             Health = health;
             Score = score;
             CurrentGameObject = gameObject;
         }
+
         public virtual void OnCollision2D(Collision2D collision)
         {
             switch (collision.gameObject.tag)
             {
                 case "Vegetable":
-                    //VegatableClass vegatable = collision.gameObject.GetComponent<VegetableClass>();
-                    //vegatable.Health -= 1;
-                    //vegatable.CheckHealth();
+                    VegetableClass vegatable = collision.gameObject.GetComponent<VegetableClass>();
+                    vegatable.Health -= 1;
+                    vegatable.CheckHealth();
                     break;
                 case "Block":
-                    //BlockClass block = collision.gameObject.GetComponent<BlockClass>();
-                    //block.Health -= 1;
-                    //block.CheckHealth();
+                    BlockClass block = collision.gameObject.GetComponent<BlockClass>();
+                    block.Health -= 1;
+                    block.CheckHealth();
                     break;
                 case "Meat":
-                    //MeatBlock meat = collision.gameObject.GetComponent<MeatClass>();
-                    //meat.Health -= 1;
-                    //meat.CheckHealth();
+                    MeatClass meat = collision.gameObject.GetComponent<MeatClass>();
+                    meat.Health -= 1;
+                    meat.CheckHealth();
                     break;
                 default:
                     Health -= 1;
@@ -50,6 +61,5 @@ namespace Assets.Scripts
                 OnDestroy();
             }
         }
-
     }
 }

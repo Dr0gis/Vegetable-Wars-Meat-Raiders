@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class VegetableController : MonoBehaviour
 {
-
     private bool isShoted;
+    private bool abilityUsed;
     private Rigidbody2D rigidbody2D;
-
 
 	void Start ()
 	{
@@ -15,10 +14,10 @@ public class VegetableController : MonoBehaviour
 	    rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
 	}
 
-    public void Shoot()
+    public void Shoot(Vector2 velocity)
     {
         isShoted = true;
-        //add velocity here
+        rigidbody2D.velocity = velocity;
     }
 
     public void CallDestroy()
@@ -28,10 +27,11 @@ public class VegetableController : MonoBehaviour
 	
 	void Update ()
     {
-	    gameObject.GetComponent<VegetableClass>().Check();
-        if (Input.touchCount>0 && Input.GetTouch(0).phase == TouchPhase.Began)
+	    gameObject.GetComponent<VegetableClass>().CheckVelocity();
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && isShoted && !abilityUsed)
         {
             gameObject.GetComponent<VegetableClass>().UseSpecialAbility();
+            abilityUsed = true;
         }
 	}
 }

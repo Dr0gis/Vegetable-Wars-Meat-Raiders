@@ -64,7 +64,7 @@ public class ShotScript : MonoBehaviour
 
     private void MakeShot(Vector2 pushVector)
     {
-        CurrentVegetable.GetComponent<Rigidbody2D>().velocity = pushVector;
+        CurrentVegetable.GetComponent<VegetableController>().Shoot(pushVector);
     }
 
     private void TakeAim(out Vector2? shotVector, out bool isShotMade)

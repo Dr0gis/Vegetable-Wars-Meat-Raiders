@@ -7,8 +7,12 @@ namespace Assets.Scripts
 {
     class BreadClass : BlockClass
     {
+        public BreadClass() : base()
+        {
 
-        public BreadClass(int health, int score, GameObject gameObject) : base(health, score, gameObject)
+        }
+
+        public BreadClass(int health, int score, string prefab, GameObject gameObject) : base(health, score, prefab, gameObject)
         {
 
         }

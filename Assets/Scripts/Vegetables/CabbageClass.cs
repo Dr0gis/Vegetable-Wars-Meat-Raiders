@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CabbageClass : MonoBehaviour {
+public class CabbageClass : VegetableClass
+{
+    public CabbageClass() : base()
+    {
+        
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public CabbageClass(int health, int damage, float speed, string prefab, GameObject gameObject) : base()
+    {
+        
+    }
+
+    public override void UseSpecialAbility()
+    {
+
+    }
 }

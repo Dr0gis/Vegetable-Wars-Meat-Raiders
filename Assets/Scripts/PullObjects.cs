@@ -1,31 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using UnityEngine;
 
 public class PullObjects : MonoBehaviour
 {
-    // public List<VegatableClass> Vegatables;
-    // public List<BlockClass> Blocks;
+    public List<VegetableClass> Vegatables;
+    public List<BlockClass> Blocks;
     public List<MeatClass> Meats;
 
     void Start()
     {
-        // Vegatables = new List<VegatableClass>();
+        Vegatables = new List<VegetableClass>
+        {
+            new PotatoClass(4, 1, 1, "Potato", null),
+            new TomatoClass(1, 3, 0.75f, "Tomato", null),
+            new CabbageClass(10, 5, 0.5f, "Cabbage", null)
+        };
 
-        // Vegatables.Add(new PotatoClass());
-        // Vegatables.Add(new PomidorClass());
-        // Vegatables.Add(new KapustaClass());
+        Blocks = new List<BlockClass>
+        {
+            new DishClass(5, 30, "Dish", null),
+            new CookieClass(1, 20, "Cookie", null),
+            new BreadClass(3, 25, "Bread", null)
+        };
 
-        // Blocks = new List<BlockClass>();
-
-        // Blocks.Add(new TarelkaClass());
-        // Blocks.Add(new CrekerClass());
-        // Blocks.Add(new HlebClass());
-
-        Meats = new List<MeatClass>();
-
-        Meats.Add(new MeatClass(1, "MeatSmall", null, false));
-        Meats.Add(new MeatClass(2, "MeatMiddle", null, false));
-        Meats.Add(new MeatClass(3, "MeatBig", null, false));
+        Meats = new List<MeatClass>
+        {
+            new MeatClass(1, 1, 10, "MeatSmall", null, false),
+            new MeatClass(2, 2, 20, "MeatMiddle", null, false),
+            new MeatClass(3, 3, 30, "MeatBig", null, false)
+        };
     }
 }

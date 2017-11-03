@@ -7,7 +7,12 @@ namespace Assets.Scripts
 {
     class CookieClass : BlockClass
     {
-        public CookieClass(int health, int score, GameObject gameObject) : base(health, score, gameObject)
+        public CookieClass() : base()
+        {
+
+        }
+
+        public CookieClass(int health, int score, string prefab, GameObject gameObject) : base(health, score, prefab, gameObject)
         {
 
         }

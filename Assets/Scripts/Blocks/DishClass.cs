@@ -3,10 +3,14 @@ namespace Assets.Scripts
 {
     class DishClass : BlockClass
     {
-        public DishClass(int health, int score, GameObject gameObject) : base(health, score, gameObject)
+        public DishClass() : base()
+        {
+            
+        }
+
+        public DishClass(int health, int score, string prefab, GameObject gameObject) : base(health, score, prefab, gameObject)
         {
 
         }
-        
     }
 }

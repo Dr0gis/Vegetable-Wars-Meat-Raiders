@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
@@ -35,9 +36,19 @@ public abstract class VegetableClass {
         switch (collider.gameObject.tag)
         {
             case "Block":
-                //collider.gameObject.GetComponent<BlockClass>().Health -= Damage;
+                BlockClass block = collider.gameObject.GetComponent<BlockClass>();
+                block.Health -= Damage;
+                block.CheckHealth();
                 break;
-                //.....
+            case "Meat":
+                MeatClass meat = collider.gameObject.GetComponent<MeatClass>();
+                meat.Health -= Damage;
+                meat.CheckHealth();
+                break;
+            default:
+                Health -= 1;
+                CheckHealth();
+                break;
         }
     }
 
@@ -48,13 +59,17 @@ public abstract class VegetableClass {
 
     public abstract void UseSpecialAbility();
 
-    public void Check()
+    public void CheckVelocity()
     {
-        if (Health <= 0)
+        if (CurrentGameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
         {
             OnDestroy();
         }
-        if (CurrentGameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+    }
+
+    public void CheckHealth()
+    {
+        if (Health <= 0)
         {
             OnDestroy();
         }
