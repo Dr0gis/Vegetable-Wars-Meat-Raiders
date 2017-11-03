@@ -20,11 +20,11 @@ public class ObjectManagerScript : MonoBehaviour
     {
         return () =>
         {
-            if (!AvaliableVegetables[indx].CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+            if (AvaliableVegetables[indx].CurrentGameObject != null && !AvaliableVegetables[indx].CurrentGameObject.GetComponent<VegetableController>().IsShoted)
             {
                 foreach (var vegetable in AvaliableVegetables)
                 {
-                    if (!vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+                    if (vegetable.CurrentGameObject != null && !vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
                     {
                         vegetable.CurrentGameObject.SetActive(false);
                     }
@@ -68,13 +68,14 @@ public class ObjectManagerScript : MonoBehaviour
         };
     }
 
-	public void Initiate ()
+	public void Initiate()
     { 
         AvaliableVegetables = GetAvaliableVegetables();
         foreach (var vegetable in AvaliableVegetables)
         {
             vegetable.CurrentGameObject = Instantiate((GameObject)Resources.Load(vegetable.Prefab), VegetableStartPosition, Quaternion.identity);
             vegetable.CurrentGameObject.SetActive(false);
+            vegetable.CurrentGameObject.GetComponent<VegetableController>().Vegetable = vegetable;
         }
     }
 

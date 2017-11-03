@@ -24,10 +24,9 @@ GameObject:
   - component: {fileID: 58414069209876724}
   - component: {fileID: 114023196323952074}
   - component: {fileID: 114831225510719552}
-  - component: {fileID: 114501594734538240}
   m_Layer: 0
   m_Name: Cabbage
-  m_TagString: Untagged
+  m_TagString: Vegetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,22 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b597029987505244ab0ad508e2afb23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114501594734538240
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1832466786747982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b72519557399ae748a80096e982a4ba4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 1
-  Damage: 0
-  Speed: 1
-  Prefab: 
-  CurrentGameObject: {fileID: 0}
 --- !u!114 &114831225510719552
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsShoted: 0
+  Rigidbody2D: {fileID: 0}
 --- !u!212 &212319220308199606
 SpriteRenderer:
   m_ObjectHideFlags: 1

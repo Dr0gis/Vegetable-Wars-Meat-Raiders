@@ -6,7 +6,7 @@ using UnityEngine.Timeline;
 using UnityEngine.UI;
 using System;
 
-public abstract class VegetableClass : MonoBehaviour
+public abstract class VegetableClass
 { 
     public int Health;
     public int Damage;
@@ -62,7 +62,7 @@ public abstract class VegetableClass : MonoBehaviour
 
     public void OnDestroyObject()
     {
-        if (false && CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+        if (CurrentGameObject.GetComponent<VegetableController>().IsShoted)
         {
             CurrentGameObject.GetComponent<VegetableController>().CallDestroy();
         }
@@ -72,7 +72,7 @@ public abstract class VegetableClass : MonoBehaviour
 
     public void CheckVelocity()
     {
-        if (false && CurrentGameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+        if (CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity == Vector2.zero)
         {
             OnDestroyObject();
         }

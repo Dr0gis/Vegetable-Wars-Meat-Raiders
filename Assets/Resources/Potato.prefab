@@ -24,10 +24,9 @@ GameObject:
   - component: {fileID: 58275341892830278}
   - component: {fileID: 114680973015113210}
   - component: {fileID: 114460911406326374}
-  - component: {fileID: 114528721730177622}
   m_Layer: 0
   m_Name: Potato
-  m_TagString: Untagged
+  m_TagString: Vegetable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,22 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsShoted: 0
---- !u!114 &114528721730177622
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1759599384383626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68a77b11e8dee4d41aecb07fa89618b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 1
-  Damage: 0
-  Speed: 1
-  Prefab: 
-  CurrentGameObject: {fileID: 0}
+  Rigidbody2D: {fileID: 0}
 --- !u!114 &114680973015113210
 MonoBehaviour:
   m_ObjectHideFlags: 1

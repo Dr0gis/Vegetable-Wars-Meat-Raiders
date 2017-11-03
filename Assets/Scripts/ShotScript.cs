@@ -16,6 +16,8 @@ public class ShotScript : MonoBehaviour
 
     public float MaxTensionByX = 200;
     public float MaxTensionByY = 200;
+    public float MinTensionByX = 50;
+    public float MinTensionByY = 50;
     public float StrengthScale;
 
     public GameObject CurrentVegetable;
@@ -122,7 +124,7 @@ public class ShotScript : MonoBehaviour
 
         TakeAim(out shotVector, out isShotMade);
 
-        if (shotVector.HasValue)
+        if (shotVector.HasValue && (Mathf.Abs(shotVector.Value.x) > MinTensionByX || Mathf.Abs(shotVector.Value.y) > MinTensionByY))
         {
             Vector2 pushVector = PrepareVector(shotVector.Value);
             if (isShotMade == false)

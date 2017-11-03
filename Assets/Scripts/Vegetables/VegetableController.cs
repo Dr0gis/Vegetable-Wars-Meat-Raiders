@@ -7,12 +7,13 @@ public class VegetableController : MonoBehaviour
     public bool IsShoted;
 
     private bool abilityUsed;
-    private Rigidbody2D rigidbody2D;
+    public Rigidbody2D Rigidbody2D;
+    public VegetableClass Vegetable;
 
 	void Start ()
 	{
 	    IsShoted = false;
-	    rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+	    Rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
 	}
 
     public void Shoot(Vector2 velocity)
@@ -20,7 +21,7 @@ public class VegetableController : MonoBehaviour
         if (!IsShoted)
         {
             IsShoted = true;
-            rigidbody2D.velocity = velocity;
+            Rigidbody2D.velocity = velocity;
         }
     }
 
@@ -31,15 +32,15 @@ public class VegetableController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        GetComponent<VegetableClass>().OnCollision2D(collision);
+        Vegetable.OnCollision2D(collision);
     }
 	
 	void Update ()
     {
-	    gameObject.GetComponent<VegetableClass>().CheckVelocity();
+        Vegetable.CheckVelocity();
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && IsShoted && !abilityUsed)
         {
-            gameObject.GetComponent<VegetableClass>().UseSpecialAbility();
+            Vegetable.UseSpecialAbility();
             abilityUsed = true;
         }
 	}

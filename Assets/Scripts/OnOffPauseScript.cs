@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OnOffPauseScript : MonoBehaviour {
-
-    private bool isPaused;
-
+public class OnOffPauseScript : MonoBehaviour
+{
     public float TimeSpeed;
 
     public GameObject PauseButton;
@@ -31,7 +29,6 @@ public class OnOffPauseScript : MonoBehaviour {
 
     void Start()
     {
-        isPaused = false;
         TimeSpeed = 1;
 
         ResumeButton.GetComponent<Button>().onClick.AddListener(Resume);
