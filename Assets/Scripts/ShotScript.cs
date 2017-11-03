@@ -8,9 +8,11 @@ public class ShotScript : MonoBehaviour
 
     private Vector2 startPoint;
 
+    private int shotFingerId;
+
     public bool IsTakingAimNow { get; private set; }
 
-    private int shotFingerId;
+    public ObjectManagerScript vegetableManager;
 
     public float MaxTensionByX = 200;
     public float MaxTensionByY = 200;
@@ -104,12 +106,13 @@ public class ShotScript : MonoBehaviour
         }
     }
 
-    public 
-
     void Start()
     {
         catapultRigidbody = GetComponent<Rigidbody2D>();
         IsTakingAimNow = false;
+        vegetableManager = GameObject.Find("Manager").GetComponent<ObjectManagerScript>();
+        vegetableManager.Initiate();
+        vegetableManager.SetNextVagetable();
     }
 
     void Update()
@@ -132,6 +135,5 @@ public class ShotScript : MonoBehaviour
                 CurrentVegetable = GetNextDefaultVegetable();
             }
         }
-
     }
 }

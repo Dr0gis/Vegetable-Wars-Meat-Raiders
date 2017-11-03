@@ -9,7 +9,8 @@ public class TomatoClass : VegetableClass
 
     }
 
-    public TomatoClass(int health, int damage, float speed, string prefab, GameObject gameObject) : base()
+    public TomatoClass(int health, int damage, float speed, string prefab, GameObject gameObject) 
+        : base(health, damage, speed, prefab, gameObject)
     {
 
     }
@@ -17,5 +18,10 @@ public class TomatoClass : VegetableClass
     public override void UseSpecialAbility()
     {
         
+    }
+
+    public override VegetableClass Clone()
+    {
+        return new TomatoClass(Health, Damage, Speed, Prefab, CurrentGameObject);
     }
 }

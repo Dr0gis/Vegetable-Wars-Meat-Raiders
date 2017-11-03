@@ -4,14 +4,17 @@ using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
+using System;
 
-public abstract class VegetableClass { 
-
+public abstract class VegetableClass : MonoBehaviour
+{ 
     public int Health;
     public int Damage;
     public float Speed;
     public string Prefab;
     public GameObject CurrentGameObject;
+
+    private bool wasCollision = false;
 
     public VegetableClass()
     {
@@ -33,6 +36,11 @@ public abstract class VegetableClass {
 
     public void OnCollision2D(Collision2D collider)
     {
+        if (!wasCollision && collider.gameObject.tag != "Catapult")
+        {
+            // GameObject.Find("Manager").GetComponent<ObjectManagerScript>().SetNextVagetable();
+            wasCollision = true;
+        }
         switch (collider.gameObject.tag)
         {
             case "Block":
@@ -52,18 +60,21 @@ public abstract class VegetableClass {
         }
     }
 
-    public void OnDestroy()
+    public void OnDestroyObject()
     {
-        CurrentGameObject.GetComponent<VegetableController>().CallDestroy();
+        if (false && CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+        {
+            CurrentGameObject.GetComponent<VegetableController>().CallDestroy();
+        }
     }
 
     public abstract void UseSpecialAbility();
 
     public void CheckVelocity()
     {
-        if (CurrentGameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+        if (false && CurrentGameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
         {
-            OnDestroy();
+            OnDestroyObject();
         }
     }
 
@@ -71,7 +82,9 @@ public abstract class VegetableClass {
     {
         if (Health <= 0)
         {
-            OnDestroy();
+            OnDestroyObject();
         }
     }
+
+    public abstract VegetableClass Clone();
 }

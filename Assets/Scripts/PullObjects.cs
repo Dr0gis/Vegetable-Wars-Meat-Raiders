@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class PullObjects : MonoBehaviour
 {
-    public List<VegetableClass> Vegatables;
+    public List<VegetableClass> Vegetables;
     public List<BlockClass> Blocks;
     public List<MeatClass> Meats;
 
-    void Start()
+    public void Initiate()
     {
-        Vegatables = new List<VegetableClass>
+        Vegetables = new List<VegetableClass>
         {
             new PotatoClass(4, 1, 1, "Potato", null),
             new TomatoClass(1, 3, 0.75f, "Tomato", null),
