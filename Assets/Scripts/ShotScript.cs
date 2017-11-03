@@ -43,19 +43,36 @@ public class ShotScript : MonoBehaviour
         return null;
     }
 
-    private void MakeShot(Vector2 pushVector)
+    private void Visualize(Vector2 pushVector)
     {
-        pushVector.x = Mathf.Max(Mathf.Min(pushVector.x, MaxTensionByX), -MaxTensionByX);
-        pushVector.y = Mathf.Max(Mathf.Min(pushVector.y, MaxTensionByY), -MaxTensionByY);
-
-        CurrentVegetable.GetComponent<Rigidbody2D>().velocity = pushVector * StrengthScale;
-
-        // Change vegetable here
+        // Visualize heare
     }
 
-    private void TakeAim()
+    private GameObject GetNextDefaultVegetable()
     {
-        if (Input.touchCount > 0 && !Camera.main.GetComponent<CameraMovementScript>().IsZooming)
+        return CurrentVegetable;
+    }
+
+    private Vector2 PrepareVector(Vector2 vectorToPrepare)
+    {
+        Vector2 pushVector = vectorToPrepare;
+        pushVector.x = Mathf.Max(Mathf.Min(pushVector.x, MaxTensionByX), -MaxTensionByX);
+        pushVector.y = Mathf.Max(Mathf.Min(pushVector.y, MaxTensionByY), -MaxTensionByY);
+        pushVector *= StrengthScale;
+        return pushVector;
+    }
+
+    private void MakeShot(Vector2 pushVector)
+    {
+        CurrentVegetable.GetComponent<Rigidbody2D>().velocity = pushVector;
+    }
+
+    private void TakeAim(out Vector2? shotVector, out bool isShotMade)
+    {
+        isShotMade = false;
+        shotVector = null;
+
+        if (Input.touchCount > 0 && !Camera.main.GetComponent<CameraMovementScript>().IsZooming && Time.timeScale != 0)
         {
             if (!IsTakingAimNow)
             {
@@ -72,19 +89,22 @@ public class ShotScript : MonoBehaviour
                 Touch? shotTouch = GetShotTouch();
                 if (shotTouch.HasValue)
                 {
+                    shotVector = startPoint - shotTouch.Value.position;
                     if (shotTouch.Value.phase == TouchPhase.Moved)
                     {
-                        // Probably visualization here
+                        isShotMade = false;
                     }
                     else if (shotTouch.Value.phase == TouchPhase.Ended)
                     {
-                        MakeShot(startPoint - shotTouch.Value.position);
+                        isShotMade = true;
                         IsTakingAimNow = false;
                     }
                 }
             }
         }
     }
+
+    public 
 
     void Start()
     {
@@ -94,6 +114,24 @@ public class ShotScript : MonoBehaviour
 
     void Update()
     {
-        TakeAim();
+        Vector2? shotVector;
+        bool isShotMade;
+
+        TakeAim(out shotVector, out isShotMade);
+
+        if (shotVector.HasValue)
+        {
+            Vector2 pushVector = PrepareVector(shotVector.Value);
+            if (isShotMade == false)
+            {
+                Visualize(pushVector);
+            }
+            else if (isShotMade == true)
+            {
+                MakeShot(pushVector);
+                CurrentVegetable = GetNextDefaultVegetable();
+            }
+        }
+
     }
 }
