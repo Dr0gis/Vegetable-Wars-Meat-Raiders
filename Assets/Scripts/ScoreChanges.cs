@@ -6,9 +6,15 @@ using UnityEngine.UI;
 public class ScoreChanges : MonoBehaviour
 {
     public Text Score;
+    public int ScoreValue = 0;
 
-    public void SetTextScore(string ScoreValue)
+    void Start()
     {
-        Score.text = ScoreValue;
+        //SetTextScore();
+    }
+
+    public void SetTextScore()
+    {
+        Score.text = ScoreValue.ToString();
     }
 }

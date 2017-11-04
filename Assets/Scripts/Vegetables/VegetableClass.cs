@@ -49,9 +49,9 @@ public abstract class VegetableClass
                 block.CheckHealth();
                 break;
             case "Meat":
-                /*MeatClass meat = collider.gameObject.GetComponent<MeatController>().Meat;
+                MeatClass meat = collider.gameObject.GetComponent<MeatController>().Meat;
                 meat.Health -= Damage;
-                meat.CheckHealth();*/
+                meat.CheckHealth();
                 break;
             default:
                 Health -= 1;

@@ -11,6 +11,7 @@ public class ObjectManagerScript : MonoBehaviour
 
     public List<VegetableClass> AvaliableVegetables;
     public List<BlockClass> AvaliableBlocks;
+    public List<MeatClass> AvaliableMeats;
 
     public Button VegetableButton1;
     public Button VegetableButton2;
@@ -100,6 +101,28 @@ public class ObjectManagerScript : MonoBehaviour
         return listBlocks;
     }
 
+    public List<MeatClass> GetAvaliableMeats()
+    {
+        List<MeatClass> listMeats = new List<MeatClass>();
+
+        MeatClass tempMeat = GetComponent<PullObjects>().Meats[0].Clone();
+        tempMeat.Position = new Vector2(15, -9);
+
+        listMeats.Add(tempMeat);
+
+        tempMeat = GetComponent<PullObjects>().Meats[1].Clone();
+        tempMeat.Position = new Vector2(17, -8.7f);
+
+        listMeats.Add(tempMeat);
+
+        tempMeat = GetComponent<PullObjects>().Meats[2].Clone();
+        tempMeat.Position = new Vector2(19, -8.5f);
+
+        listMeats.Add(tempMeat);
+
+        return listMeats;
+    }
+
 	public void Initiate()
     {
         GetComponent<PullObjects>().Initiate();
@@ -117,6 +140,13 @@ public class ObjectManagerScript : MonoBehaviour
         {
             block.CurrentGameObject = Instantiate((GameObject)Resources.Load(block.Prefab), block.Position, block.Rotation);
             block.CurrentGameObject.GetComponent<BlockController>().Block = block;
+        }
+
+        AvaliableMeats = GetAvaliableMeats();
+        foreach (var meat in AvaliableMeats)
+        {
+            meat.CurrentGameObject = Instantiate((GameObject)Resources.Load(meat.Prefab), meat.Position, Quaternion.identity);
+            meat.CurrentGameObject.GetComponent<MeatController>().Meat = meat;
         }
     }
 

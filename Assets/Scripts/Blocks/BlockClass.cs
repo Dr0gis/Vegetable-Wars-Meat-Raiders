@@ -46,9 +46,9 @@ namespace Assets.Scripts
                     block.CheckHealth();
                     break;
                 case "Meat":
-                    /*MeatClass meat = collision.gameObject.GetComponent<MeatController>().Meat;
+                    MeatClass meat = collision.gameObject.GetComponent<MeatController>().Meat;
                     meat.Health -= 1;
-                    meat.CheckHealth();*/
+                    meat.CheckHealth();
                     break;
                 default:
                     Health -= 0;
@@ -58,6 +58,9 @@ namespace Assets.Scripts
         }
         public virtual void OnDestroy()
         {
+            ScoreChanges scoreChanges =  GameObject.Find("EventSystem").GetComponent<ScoreChanges>();
+            scoreChanges.ScoreValue += Score;
+            scoreChanges.SetTextScore();
             CurrentGameObject.GetComponent<BlockController>().CallDestroy();
         }
         public virtual void CheckHealth()

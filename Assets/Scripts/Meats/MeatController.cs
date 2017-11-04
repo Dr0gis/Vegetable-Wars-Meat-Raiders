@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MeatController : MonoBehaviour
 {
+    public MeatClass Meat;
+
 	void Start ()
     {
 		
@@ -16,7 +18,7 @@ public class MeatController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision2D)
     {
-        GetComponent<MeatClass>().OnCollision2D(collision2D);
+        Meat.OnCollision2D(collision2D);
     }
 
     public void CallDestroy()
