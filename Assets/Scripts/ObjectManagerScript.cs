@@ -75,19 +75,19 @@ public class ObjectManagerScript : MonoBehaviour
         List<BlockClass> listBlocks = new List<BlockClass>();
 
         BlockClass tempBlock = GetComponent<PullObjects>().Blocks[0].Clone();
-        tempBlock.Position = new Vector2(6, -9f);
+        tempBlock.Position = new Vector2(6, -7.5f);
         tempBlock.Rotation = Quaternion.identity;
 
         listBlocks.Add(tempBlock);
 
         tempBlock = GetComponent<PullObjects>().Blocks[1].Clone();
-        tempBlock.Position = new Vector2(8, -9f);
+        tempBlock.Position = new Vector2(8, -7.5f);
         tempBlock.Rotation = Quaternion.identity;
 
         listBlocks.Add(tempBlock);
 
         tempBlock = GetComponent<PullObjects>().Blocks[2].Clone();
-        tempBlock.Position = new Vector2(11, -9f);
+        tempBlock.Position = new Vector2(11, -7.5f);
         tempBlock.Rotation = Quaternion.identity;
 
         listBlocks.Add(tempBlock);

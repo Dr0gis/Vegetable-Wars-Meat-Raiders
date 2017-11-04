@@ -53,6 +53,9 @@ public abstract class VegetableClass
                 meat.Health -= Damage;
                 meat.CheckHealth();
                 break;
+            case "Catapult":
+
+                break;
             default:
                 Health -= 1;
                 CheckHealth();

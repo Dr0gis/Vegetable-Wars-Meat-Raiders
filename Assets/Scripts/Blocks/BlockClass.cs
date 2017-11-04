@@ -10,6 +10,7 @@ namespace Assets.Scripts
         public Vector2 Position;
         public Quaternion Rotation;
         public GameObject CurrentGameObject;
+        private bool isFirstCollision = false;
 
         protected BlockClass()
         {
@@ -51,8 +52,15 @@ namespace Assets.Scripts
                     meat.CheckHealth();
                     break;
                 default:
-                    Health -= 0;
-                    CheckHealth();
+                    if (isFirstCollision)
+                    {
+                        Health -= 1;
+                        CheckHealth();
+                    }
+                    else
+                    {
+                        isFirstCollision = true;
+                    }
                     break;
             }
         }

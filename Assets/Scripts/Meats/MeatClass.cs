@@ -13,6 +13,7 @@ public class MeatClass
     public string Prefab;
     public GameObject CurrentGameObject;
     public bool isDead;
+    private bool isFirstCollision = false;
 
     public MeatClass()
     {
@@ -55,8 +56,15 @@ public class MeatClass
                 CheckHealth();
                 break;
             default:
-                Health -= 1;
-                CheckHealth();
+                if (isFirstCollision)
+                {
+                    Health -= 1;
+                    CheckHealth();
+                }
+                else
+                {
+                    isFirstCollision = true;
+                }
                 break;
         }
     }
