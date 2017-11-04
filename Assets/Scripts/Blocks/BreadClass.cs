@@ -27,5 +27,10 @@ namespace Assets.Scripts
             }
             base.OnCollision2D(collision);
         }
+
+        public override BlockClass Clone()
+        {
+            return new BreadClass(Health, Score, Prefab, CurrentGameObject);
+        }
     }
 }

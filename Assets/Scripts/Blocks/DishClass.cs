@@ -12,5 +12,10 @@ namespace Assets.Scripts
         {
 
         }
+
+        public override BlockClass Clone()
+        {
+            return new BreadClass(Health, Score, Prefab, CurrentGameObject);
+        }
     }
 }

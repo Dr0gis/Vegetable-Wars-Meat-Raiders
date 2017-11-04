@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Catapult
   - Vegetable
+  - Block
   layers:
   - Default
   - TransparentFX

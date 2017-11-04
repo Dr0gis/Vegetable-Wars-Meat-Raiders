@@ -16,5 +16,10 @@ namespace Assets.Scripts
         {
 
         }
+
+        public override BlockClass Clone()
+        {
+            return new CookieClass(Health, Score, Prefab, CurrentGameObject);
+        }
     }
 }

@@ -7,6 +7,8 @@ namespace Assets.Scripts
 {
     class BlockController : MonoBehaviour
     {
+        public BlockClass Block;
+
         void Start()
         {
             
@@ -17,7 +19,7 @@ namespace Assets.Scripts
         }
         void OnCollisionEnter2D(Collision2D collision)
         {
-            GetComponent<BlockClass>().OnCollision2D(collision);
+            Block.OnCollision2D(collision);
         }
         public void CallDestroy()
         {

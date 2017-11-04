@@ -44,14 +44,14 @@ public abstract class VegetableClass
         switch (collider.gameObject.tag)
         {
             case "Block":
-                BlockClass block = collider.gameObject.GetComponent<BlockClass>();
+                BlockClass block = collider.gameObject.GetComponent<BlockController>().Block;
                 block.Health -= Damage;
                 block.CheckHealth();
                 break;
             case "Meat":
-                MeatClass meat = collider.gameObject.GetComponent<MeatClass>();
+                /*MeatClass meat = collider.gameObject.GetComponent<MeatController>().Meat;
                 meat.Health -= Damage;
-                meat.CheckHealth();
+                meat.CheckHealth();*/
                 break;
             default:
                 Health -= 1;
