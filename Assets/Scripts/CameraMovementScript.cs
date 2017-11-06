@@ -24,6 +24,7 @@ void Start()
                         Screen.width;
         Camera.main.orthographicSize = Mathf.Clamp(cameraSize, minCameraSize, maxCameraSize);
         SetCameraPosition();
+        MoveToCatapult();
         IsZooming = false;
     }
 
@@ -81,5 +82,12 @@ void Start()
             
             SetCameraPosition();
         }
+    }
+
+    public void MoveToCatapult()
+    {
+        Vector3 currentPosition = transform.position;
+        currentPosition.x = Mathf.Clamp(GameObject.FindGameObjectWithTag("Catapult").transform.position.x, minCameraXPosition, maxCameraXPosition);
+        transform.position = currentPosition;
     }
 }
