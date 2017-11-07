@@ -34,8 +34,8 @@ public class ObjectManagerScript : MonoBehaviour
                 }
                 AvaliableVegetables[indx].CurrentGameObject.SetActive(true);
                 GameObject.Find("Catapult").GetComponent<ShotScript>().CurrentVegetable = AvaliableVegetables[indx].CurrentGameObject;
+                Camera.main.GetComponent<CameraMovementScript>().MoveToCatapult();
             }
-            Camera.main.GetComponent<CameraMovementScript>().MoveToCatapult();
         };
     }
 
