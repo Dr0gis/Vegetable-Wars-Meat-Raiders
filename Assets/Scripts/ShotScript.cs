@@ -16,8 +16,8 @@ public class ShotScript : MonoBehaviour
 
     public float MaxTensionByX = 300;
     public float MaxTensionByY = 300;
-    public float MinTensionByX = 25;
-    public float MinTensionByY = 25;
+    public float MinTensionByX = 55;
+    public float MinTensionByY = 55;
     public float StrengthScale = 0.05f;
 
     public GameObject CurrentVegetable;

@@ -2273,8 +2273,8 @@ MonoBehaviour:
   vegetableManager: {fileID: 0}
   MaxTensionByX: 300
   MaxTensionByY: 300
-  MinTensionByX: 25
-  MinTensionByY: 25
+  MinTensionByX: 55
+  MinTensionByY: 55
   StrengthScale: 0.05
   CurrentVegetable: {fileID: 0}
   PredictionStepsNumber: 250
