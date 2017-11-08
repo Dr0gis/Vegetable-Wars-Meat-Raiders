@@ -146,6 +146,8 @@ public class ShotScript : MonoBehaviour
         vegetableManager = GameObject.Find("Manager").GetComponent<ObjectManagerScript>();
         vegetableManager.Initiate();
         vegetableManager.SetNextVagetable();
+        GetComponent<LineRenderer>().startWidth = 0.2f;
+        GetComponent<LineRenderer>().endWidth = 0.05f;
     }
 
     void Update()
