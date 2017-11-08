@@ -171,5 +171,9 @@ public class ShotScript : MonoBehaviour
                 CurrentVegetable = GetNextDefaultVegetable();
             }
         }
+        else
+        {
+            GetComponent<LineRenderer>().positionCount = 0;
+        }
     }
 }
