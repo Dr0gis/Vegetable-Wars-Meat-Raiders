@@ -51,25 +51,34 @@ public class ShotScript : MonoBehaviour
 
     private void Visualize(Vector2 pushVector)
     {
-        LineRenderer sightLine = GetComponent<LineRenderer>();
-        Rigidbody2D rigidbody = CurrentVegetable.GetComponent<Rigidbody2D>();
-        Vector2 pos = new Vector2(CurrentVegetable.transform.position.x, CurrentVegetable.transform.position.y);
+        LineRenderer trajectoryLine = GetComponent<LineRenderer>();
+        Rigidbody2D vegetableRigitbody = CurrentVegetable.GetComponent<Rigidbody2D>();
 
         float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations;
-        Vector2 gravityAccel = Physics2D.gravity * rigidbody.gravityScale * timestep * timestep;
-        float drag = 1f - timestep * rigidbody.drag;
+
+        Vector2 gravityAccel = Physics2D.gravity * vegetableRigitbody.gravityScale * timestep * timestep;
+        float drag = 1f - timestep * vegetableRigitbody.drag;
         Vector2 moveStep = pushVector * timestep;
 
-        sightLine.positionCount = PredictionStepsNumber;
+        Vector2 currentPosition = new Vector2(CurrentVegetable.transform.position.x, CurrentVegetable.transform.position.y);
 
-        sightLine.SetPosition(0, pos);
+        trajectoryLine.positionCount = PredictionStepsNumber;
+        trajectoryLine.SetPosition(0, currentPosition);
+
         for (int i = 1; i < PredictionStepsNumber; ++i)
         {
             moveStep += gravityAccel;
             moveStep *= drag;
-            pos += moveStep;
+            currentPosition += moveStep;
 
-            sightLine.SetPosition(i, pos);
+            if (Physics2D.OverlapPoint(currentPosition) != null &&
+                Physics2D.OverlapPoint(currentPosition) != CurrentVegetable.GetComponent<Collider2D>())
+            {
+                trajectoryLine.positionCount = i;
+                break;
+            }
+
+            trajectoryLine.SetPosition(i, currentPosition);
         }
     }
 
