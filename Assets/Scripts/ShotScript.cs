@@ -14,13 +14,15 @@ public class ShotScript : MonoBehaviour
 
     public ObjectManagerScript vegetableManager;
 
-    public float MaxTensionByX = 200;
-    public float MaxTensionByY = 200;
-    public float MinTensionByX = 50;
-    public float MinTensionByY = 50;
-    public float StrengthScale;
+    public float MaxTensionByX = 300;
+    public float MaxTensionByY = 300;
+    public float MinTensionByX = 55;
+    public float MinTensionByY = 55;
+    public float StrengthScale = 0.05f;
 
     public GameObject CurrentVegetable;
+
+    public int PredictionStepsNumber = 250;
 
     private Touch? GetShotTouch()
     {
@@ -49,7 +51,35 @@ public class ShotScript : MonoBehaviour
 
     private void Visualize(Vector2 pushVector)
     {
-        // Visualize heare
+        LineRenderer trajectoryLine = GetComponent<LineRenderer>();
+        Rigidbody2D vegetableRigitbody = CurrentVegetable.GetComponent<Rigidbody2D>();
+
+        float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations;
+
+        Vector2 gravityAccel = Physics2D.gravity * vegetableRigitbody.gravityScale * timestep * timestep;
+        float drag = 1f - timestep * vegetableRigitbody.drag;
+        Vector2 moveStep = pushVector * timestep;
+
+        Vector2 currentPosition = new Vector2(CurrentVegetable.transform.position.x, CurrentVegetable.transform.position.y);
+
+        trajectoryLine.positionCount = PredictionStepsNumber;
+        trajectoryLine.SetPosition(0, currentPosition);
+
+        for (int i = 1; i < PredictionStepsNumber; ++i)
+        {
+            moveStep += gravityAccel;
+            moveStep *= drag;
+            currentPosition += moveStep;
+
+            if (Physics2D.OverlapPoint(currentPosition) != null &&
+                Physics2D.OverlapPoint(currentPosition) != CurrentVegetable.GetComponent<Collider2D>())
+            {
+                trajectoryLine.positionCount = i;
+                break;
+            }
+
+            trajectoryLine.SetPosition(i, currentPosition);
+        }
     }
 
     private GameObject GetNextDefaultVegetable()
@@ -68,6 +98,7 @@ public class ShotScript : MonoBehaviour
 
     private void MakeShot(Vector2 pushVector)
     {
+        GetComponent<LineRenderer>().positionCount = 0;
         CurrentVegetable.GetComponent<VegetableController>().Shoot(pushVector);
     }
 
@@ -115,6 +146,8 @@ public class ShotScript : MonoBehaviour
         vegetableManager = GameObject.Find("Manager").GetComponent<ObjectManagerScript>();
         vegetableManager.Initiate();
         vegetableManager.SetNextVagetable();
+        GetComponent<LineRenderer>().startWidth = 0.2f;
+        GetComponent<LineRenderer>().endWidth = 0.05f;
     }
 
     void Update()
@@ -124,7 +157,10 @@ public class ShotScript : MonoBehaviour
 
         TakeAim(out shotVector, out isShotMade);
 
-        if (shotVector.HasValue && (Mathf.Abs(shotVector.Value.x) > MinTensionByX || Mathf.Abs(shotVector.Value.y) > MinTensionByY))
+        if (CurrentVegetable != null &&
+            CurrentVegetable.GetComponent<VegetableController>().IsShoted == false &&
+            shotVector.HasValue && 
+            (Mathf.Abs(shotVector.Value.x) > MinTensionByX || Mathf.Abs(shotVector.Value.y) > MinTensionByY))
         {
             Vector2 pushVector = PrepareVector(shotVector.Value);
             if (isShotMade == false)
@@ -136,6 +172,10 @@ public class ShotScript : MonoBehaviour
                 MakeShot(pushVector);
                 CurrentVegetable = GetNextDefaultVegetable();
             }
+        }
+        else
+        {
+            GetComponent<LineRenderer>().positionCount = 0;
         }
     }
 }
