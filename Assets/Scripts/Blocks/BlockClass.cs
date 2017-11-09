@@ -4,6 +4,7 @@ namespace Assets.Scripts
 {
     public abstract class BlockClass
     {
+
         public int Health;
         public int Score;
         public string Prefab;
@@ -40,11 +41,13 @@ namespace Assets.Scripts
                     VegetableClass vegatable = collision.gameObject.GetComponent<VegetableController>().Vegetable;
                     vegatable.Health -= 1;
                     vegatable.CheckHealth();
+                    CurrentGameObject.GetComponent<AudioSource>().Play();
                     break;
                 case "Block":
                     BlockClass block = collision.gameObject.GetComponent<BlockController>().Block;
                     block.Health -= 1;
                     block.CheckHealth();
+                    CurrentGameObject.GetComponent<AudioSource>().Play();
                     break;
                 case "Meat":
                     MeatClass meat = collision.gameObject.GetComponent<MeatController>().Meat;
