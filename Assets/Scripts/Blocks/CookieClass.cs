@@ -14,7 +14,7 @@ namespace Assets.Scripts
 
         public CookieClass(int health, int score, string prefab, GameObject gameObject) : base(health, score, prefab, gameObject)
         {
-
+            
         }
 
         public override BlockClass Clone()

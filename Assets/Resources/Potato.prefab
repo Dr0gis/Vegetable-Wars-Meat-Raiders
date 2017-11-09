@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212281685926897076}
   - component: {fileID: 50037970529135038}
   - component: {fileID: 58275341892830278}
-  - component: {fileID: 114680973015113210}
   - component: {fileID: 114460911406326374}
   m_Layer: 0
   m_Name: Potato
@@ -92,17 +91,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsShoted: 0
   Rigidbody2D: {fileID: 0}
---- !u!114 &114680973015113210
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1759599384383626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b597029987505244ab0ad508e2afb23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212281685926897076
 SpriteRenderer:
   m_ObjectHideFlags: 1

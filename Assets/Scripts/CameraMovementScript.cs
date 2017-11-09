@@ -15,10 +15,13 @@ public class CameraMovementScript : MonoBehaviour
     private float minCameraSize = 4.0f;
     private float cameraSize = 7f;
     private const float zoomSpeed = 0.1f;
+    public bool FocusOnVegetable;
+    public GameObject VegetableToFocus;
     public bool IsZooming { get; private set; }
 
 void Start()
-    {
+{
+        FocusOnVegetable = false;
         maxCameraSize = Mathf.Min(levelHeight / 2.0f, (levelLength * Screen.height) / (2.0f * Screen.width));
         minCameraSize = 1.5f * GameObject.Find("Catapult").GetComponent<Collider2D>().bounds.size.x * Screen.height /
                         Screen.width;
@@ -50,9 +53,36 @@ void Start()
         transform.position = tmpPosX;
     }
 
+    void SetCameraPosition(float XPosition)
+    {
+        SetCameraPositionBounds();
+        Vector3 tmpPosY = transform.position;
+        tmpPosY.y = Mathf.Clamp(tmpPosY.y, minCameraYPosition, maxCameraYPosition);
+        transform.position = tmpPosY;
+        
+        Vector3 tmpPosX = transform.position;
+        float rightDeltaPosition = XPosition - (tmpPosX.x + (cameraSize * Screen.width / Screen.height) * 4 / 5);
+        float leftDeltaPosition = -XPosition + (tmpPosX.x - (cameraSize * Screen.width / Screen.height) * 4 / 5);
+
+        if (rightDeltaPosition > 0)
+        {
+            tmpPosX.x = Mathf.Min(maxCameraXPosition, tmpPosX.x + rightDeltaPosition);
+        }
+
+        if (leftDeltaPosition > 0)
+        {
+            tmpPosX.x = Mathf.Max(minCameraXPosition, tmpPosX.x - leftDeltaPosition);
+        }
+        transform.position = tmpPosX;
+    }
+
 
     void LateUpdate()
     {
+        if (FocusOnVegetable)
+        {
+            SetCameraPosition(VegetableToFocus.transform.position.x);
+        }
         if (Input.touchCount == 2)
         {
             IsZooming = true;
@@ -82,6 +112,7 @@ void Start()
             
             SetCameraPosition();
         }
+        SetCameraPosition();
     }
 
     public void MoveToCatapult()

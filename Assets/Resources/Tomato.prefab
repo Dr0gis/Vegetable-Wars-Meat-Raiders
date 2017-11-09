@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 212319220308199606}
   - component: {fileID: 50578569355565942}
   - component: {fileID: 58414069209876724}
-  - component: {fileID: 114023196323952074}
   - component: {fileID: 114744890171011242}
   m_Layer: 0
   m_Name: Tomato
@@ -79,17 +78,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &114023196323952074
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1832466786747982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b597029987505244ab0ad508e2afb23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114744890171011242
 MonoBehaviour:
   m_ObjectHideFlags: 1
