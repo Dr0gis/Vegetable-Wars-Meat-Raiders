@@ -20,6 +20,8 @@ public class VegetableController : MonoBehaviour
     {
         if (!IsShoted)
         {
+            Camera.main.GetComponent<CameraMovementScript>().VegetableToFocus = gameObject;
+            Camera.main.GetComponent<CameraMovementScript>().FocusOnVegetable = true;
             IsShoted = true;
             Rigidbody2D.velocity = velocity;
         }
@@ -27,6 +29,10 @@ public class VegetableController : MonoBehaviour
 
     public void CallDestroy()
     {
+        if (Camera.main.GetComponent<CameraMovementScript>().VegetableToFocus == gameObject)
+        {
+            Camera.main.GetComponent<CameraMovementScript>().FocusOnVegetable = false;
+        }
         Destroy(gameObject);
     }
 
