@@ -98,6 +98,7 @@ public class ShotScript : MonoBehaviour
 
     private void MakeShot(Vector2 pushVector)
     {
+        GetComponent<AudioSource>().Play();
         GetComponent<LineRenderer>().positionCount = 0;
         CurrentVegetable.GetComponent<VegetableController>().Shoot(pushVector);
     }
