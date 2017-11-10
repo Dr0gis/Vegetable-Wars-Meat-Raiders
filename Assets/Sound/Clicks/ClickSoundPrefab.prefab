@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4423338542450598}
   - component: {fileID: 82193499918002854}
   m_Layer: 0
-  m_Name: ClickSound
+  m_Name: ClickSoundPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
