@@ -56,6 +56,9 @@ public abstract class VegetableClass
             case "Catapult":
 
                 break;
+            case "Vegetable":
+
+                break;
             default:
                 Health -= 1;
                 CheckHealth();
