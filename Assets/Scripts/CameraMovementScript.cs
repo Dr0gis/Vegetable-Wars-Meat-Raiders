@@ -15,6 +15,7 @@ public class CameraMovementScript : MonoBehaviour
     private float minCameraSize = 4.0f;
     private float cameraSize = 7f;
     private const float zoomSpeed = 0.1f;
+    private float MinDistanceToBound = 0.8f;
     public bool FocusOnVegetable;
     public GameObject VegetableToFocus;
     public bool IsZooming { get; private set; }
@@ -61,8 +62,8 @@ void Start()
         transform.position = tmpPosY;
         
         Vector3 tmpPosX = transform.position;
-        float rightDeltaPosition = XPosition - (tmpPosX.x + (cameraSize * Screen.width / Screen.height) * 4 / 5);
-        float leftDeltaPosition = -XPosition + (tmpPosX.x - (cameraSize * Screen.width / Screen.height) * 4 / 5);
+        float rightDeltaPosition = XPosition - (tmpPosX.x + (cameraSize * Screen.width / Screen.height) * (1 - MinDistanceToBound));
+        float leftDeltaPosition = -XPosition + (tmpPosX.x - (cameraSize * Screen.width / Screen.height) * (1 - MinDistanceToBound));
 
         if (rightDeltaPosition > 0)
         {
@@ -100,6 +101,7 @@ void Start()
             cameraSize = Mathf.Clamp(cameraSize, minCameraSize, maxCameraSize);
             SetCameraPosition();
             Camera.main.orthographicSize = cameraSize;
+            GameObject.Find("Catapult").GetComponent<ShotScript>().IsTakingAimNow = false;
         }
         else
         {
@@ -109,7 +111,7 @@ void Start()
         {
             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
             transform.Translate(-touchDeltaPosition.x * speed, -touchDeltaPosition.y * speed, 0);
-            
+            FocusOnVegetable = false;
             SetCameraPosition();
         }
         SetCameraPosition();

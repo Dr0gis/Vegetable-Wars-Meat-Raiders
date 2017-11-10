@@ -10,7 +10,7 @@ public class ShotScript : MonoBehaviour
 
     private int shotFingerId;
 
-    public bool IsTakingAimNow { get; private set; }
+    public bool IsTakingAimNow;
 
     public ObjectManagerScript vegetableManager;
 
