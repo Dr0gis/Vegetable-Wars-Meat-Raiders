@@ -635,7 +635,7 @@ RectTransform:
   m_GameObject: {fileID: 759530276}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.022222223, y: 0.022222223, z: 0.022222223}
+  m_LocalScale: {x: 0.02222222, y: 0.02222222, z: 0.02222222}
   m_Children:
   - {fileID: 1174580229}
   - {fileID: 809666445}
@@ -747,7 +747,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 809666444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -344.99997, y: 169.99998, z: 0}
+  m_LocalPosition: {x: -345, y: 170, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1981175702}
@@ -1718,7 +1718,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1212305223}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 294.99997, y: 169.99998, z: 0}
+  m_LocalPosition: {x: 295, y: 170, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2046324633}
@@ -2046,7 +2046,7 @@ Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1979701321}
     m_Modifications:
     - target: {fileID: 4423338542450598, guid: 2e57c70a2ad39c84391fa4a33b27587c, type: 2}
       propertyPath: m_LocalPosition.x
@@ -2078,7 +2078,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4423338542450598, guid: 2e57c70a2ad39c84391fa4a33b27587c, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e57c70a2ad39c84391fa4a33b27587c, type: 2}
@@ -2086,6 +2086,16 @@ Prefab:
 --- !u!82 &1751326005 stripped
 AudioSource:
   m_PrefabParentObject: {fileID: 82193499918002854, guid: 2e57c70a2ad39c84391fa4a33b27587c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1751326004}
+--- !u!4 &1751326006 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4423338542450598, guid: 2e57c70a2ad39c84391fa4a33b27587c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1751326004}
+--- !u!1 &1751326007 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1256077529020688, guid: 2e57c70a2ad39c84391fa4a33b27587c,
     type: 2}
   m_PrefabInternal: {fileID: 1751326004}
 --- !u!1 &1803364096
@@ -2296,6 +2306,7 @@ GameObject:
   - component: {fileID: 1899426969}
   - component: {fileID: 1899426968}
   - component: {fileID: 1899426971}
+  - component: {fileID: 1899426972}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2361,6 +2372,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BackButton: {fileID: 809666446}
   BackScene: MainMenu
+--- !u!114 &1899426972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1899426967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0547d6b2d2e316d48ad0602347fca0c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickSoundPref: {fileID: 1751326007}
+  Buttons:
+  - {fileID: 809666446}
 --- !u!1 &1905543977
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,6 +2454,35 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1905543977}
+--- !u!1 &1979701320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1979701321}
+  m_Layer: 0
+  m_Name: Sounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979701321
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1979701320}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1751326006}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1981175701
 GameObject:
   m_ObjectHideFlags: 0
