@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class ObjectManagerScript : MonoBehaviour
 {
-    public Vector3 VegetableStartPosition = new Vector3(-10, -5, 0);
-
     public List<VegetableClass> AvaliableVegetables;
     public List<BlockClass> AvaliableBlocks;
     public List<MeatClass> AvaliableMeats;
@@ -129,10 +127,15 @@ public class ObjectManagerScript : MonoBehaviour
     {
         GetComponent<PullObjects>().Initiate();
 
+        GameObject catapult = GameObject.Find("Catapult");
+        Vector2 positionVegetable = catapult.GetComponent<Rigidbody2D>().position;
+
+        Vector3 vegetableStartPosition = new Vector3(positionVegetable.x, positionVegetable.y + 1, -1);
+
         AvaliableVegetables = GetAvaliableVegetables();
         foreach (var vegetable in AvaliableVegetables)
         {
-            vegetable.CurrentGameObject = Instantiate((GameObject)Resources.Load(vegetable.Prefab), VegetableStartPosition, Quaternion.identity);
+            vegetable.CurrentGameObject = Instantiate((GameObject)Resources.Load(vegetable.Prefab), vegetableStartPosition, Quaternion.identity);
             vegetable.CurrentGameObject.SetActive(false);
             vegetable.CurrentGameObject.GetComponent<VegetableController>().Vegetable = vegetable;
         }

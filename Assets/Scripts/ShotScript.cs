@@ -56,11 +56,11 @@ public class ShotScript : MonoBehaviour
 
         float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations;
 
-        Vector2 gravityAccel = Physics2D.gravity * vegetableRigitbody.gravityScale * timestep * timestep;
+        Vector3 gravityAccel = Physics2D.gravity * vegetableRigitbody.gravityScale * timestep * timestep * vegetableRigitbody.mass * vegetableRigitbody.mass;
         float drag = 1f - timestep * vegetableRigitbody.drag;
-        Vector2 moveStep = pushVector * timestep;
+        Vector3 moveStep = pushVector * timestep;
 
-        Vector2 currentPosition = new Vector2(CurrentVegetable.transform.position.x, CurrentVegetable.transform.position.y);
+        Vector3 currentPosition = new Vector3(CurrentVegetable.transform.position.x, CurrentVegetable.transform.position.y, -1);
 
         trajectoryLine.positionCount = PredictionStepsNumber;
         trajectoryLine.SetPosition(0, currentPosition);
