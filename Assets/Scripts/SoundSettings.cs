@@ -23,14 +23,4 @@ public class SoundSettings : MonoBehaviour
     {
         SoundManager.PlaySoundUI("clickSound");
     }
-    private void OnLevelWasLoaded(int level)
-    {
-        SceneLoad();
-    }
-    public void SceneLoad()
-    {
-        var Scene = SceneManager.GetActiveScene();
-        if(Scene.isLoaded == true)
-            SoundManager.PlaySound("LevelStartSound");
-    }
 }
