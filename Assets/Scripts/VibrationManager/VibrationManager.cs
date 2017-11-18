@@ -64,7 +64,7 @@ public class VibrationManager : MonoBehaviour
         _settings = Resources.Load<VibrationManagerSettings>("VibrationManagerSettings");
         if (_settings == null)
         {
-            Debug.LogWarning("SoundManagerSettings not founded resources. Using default settings");
+            Debug.LogWarning("VibrationManagerSettings not founded resources. Using default settings");
             _settings = ScriptableObject.CreateInstance<VibrationManagerSettings>();
         }
     }
