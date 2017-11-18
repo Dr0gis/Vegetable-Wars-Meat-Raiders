@@ -8,12 +8,19 @@ public class VibrationManager : MonoBehaviour
 
     public static void SetEnableVibration(bool enable)
     {
-        Instance._settings.SetEnableVibration(enable);
+        if (Instance != null)
+        {
+            Instance._settings.SetEnableVibration(enable);
+        }
     }
 
     public static bool GetEnableVibration()
     {
-        return Instance._settings.GetEnableVibration();
+        if (Instance != null)
+        {
+            return Instance._settings.GetEnableVibration();
+        }
+        return false;
     }
 
 
@@ -67,5 +74,7 @@ public class VibrationManager : MonoBehaviour
             Debug.LogWarning("VibrationManagerSettings not founded resources. Using default settings");
             _settings = ScriptableObject.CreateInstance<VibrationManagerSettings>();
         }
+
+        _settings.LoadSettings();
     }
 }

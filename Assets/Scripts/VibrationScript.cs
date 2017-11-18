@@ -6,8 +6,8 @@ public class VibrationScript : MonoBehaviour
 {
     void Start ()
     {
-        
-	}
+        GetComponent<VibrationManagerComponent>().GetEnableVibration();
+    }
 
     void OnDestroy()
     {

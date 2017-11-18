@@ -120,7 +120,7 @@ void Start()
     public void MoveToCatapult()
     {
         Vector3 currentPosition = transform.position;
-        currentPosition.x = Mathf.Clamp(GameObject.FindGameObjectWithTag("Catapult").transform.position.x, minCameraXPosition, maxCameraXPosition);
+        currentPosition.x = Mathf.Clamp(GameObject.FindGameObjectWithTag("Catapult").transform.position.x + 10, minCameraXPosition, maxCameraXPosition);
         transform.position = currentPosition;
     }
 }
