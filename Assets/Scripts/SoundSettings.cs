@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class SoundSettings : MonoBehaviour
 {
-
     public List<Button> Buttons;
+
     void Start()
     {
         foreach (var button in Buttons)

@@ -23,6 +23,16 @@ public class SoundManagerComponent : MonoBehaviour
         SoundManager.SetMusicVolume(volume);
     }
 
+    public float GetCurrentMusicVolume()
+    {
+        return SoundManager.GetMusicVolume();
+    }
+
+    public float GetCurrentSoundVolume()
+    {
+        return SoundManager.GetSoundVolume();
+    }
+
     public void ToggleMusicMuted()
     {
         SoundManager.SetMusicMuted(!SoundManager.GetMusicMuted());
