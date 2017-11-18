@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class SoundSettings : MonoBehaviour
 {
-
     public List<Button> Buttons;
+
     void Start()
     {
         foreach (var button in Buttons)
@@ -22,15 +22,5 @@ public class SoundSettings : MonoBehaviour
     public void ClickSoundListener()
     {
         SoundManager.PlaySoundUI("clickSound");
-    }
-    private void OnLevelWasLoaded(int level)
-    {
-        SceneLoad();
-    }
-    public void SceneLoad()
-    {
-        var Scene = SceneManager.GetActiveScene();
-        if(Scene.isLoaded == true)
-            SoundManager.PlaySound("LevelStartSound");
     }
 }
