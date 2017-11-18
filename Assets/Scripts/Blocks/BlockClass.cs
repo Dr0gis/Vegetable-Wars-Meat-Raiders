@@ -71,6 +71,9 @@ namespace Assets.Scripts
         {
             ScoreChanges scoreChanges =  GameObject.Find("EventSystem").GetComponent<ScoreChanges>();
             scoreChanges.ScoreValue += Score;
+
+            GameObject.Find("Manager").GetComponent<Scores>().Score += Score;
+
             scoreChanges.SetTextScore();
             CurrentGameObject.GetComponent<BlockController>().CallDestroy();
         }

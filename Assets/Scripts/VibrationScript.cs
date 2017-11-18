@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,25 +27,4 @@ public class VibrationScript : MonoBehaviour {
     }
 
 }
-=======
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class VibrationScript : MonoBehaviour
-{
-    void Start ()
-    {
-        
-	}
-
-    void OnDestroy()
-    {
-        if (GetComponent<VibrationManagerComponent>().GetEnableVibration().Equals(1f))
-        { 
-            Handheld.Vibrate();
-        }
-    }
-
-}
->>>>>>> 13faec30fb397ba8ba391b78a46b3e5ca3c87e83
