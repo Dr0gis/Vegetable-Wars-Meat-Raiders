@@ -35,9 +35,9 @@ public class VibrationManager : MonoBehaviour
         {
             if (applicationIsQuitting)
             {
-                Debug.LogWarning("[Singleton] Instance '" + typeof(VibrationManager) +
+                /*Debug.LogWarning("[Singleton] Instance '" + typeof(VibrationManager) +
                                  "' already destroyed on application quit." +
-                                 " Won't create again - returning null.");
+                                 " Won't create again - returning null.");*/
                 return null;
             }
 
