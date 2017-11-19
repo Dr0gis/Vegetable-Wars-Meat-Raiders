@@ -21,10 +21,12 @@ public class SettingsPauseMenu : MonoBehaviour
 
     private void menuButtonListener()
     {
+        GameObject.Find("Manager").GetComponent<ObjectManagerScript>().LevelEnded = true;
         SceneManager.LoadScene(Scene);
     }
     private void retryButtonListener()
     {
+        GameObject.Find("Manager").GetComponent<ObjectManagerScript>().LevelEnded = true;
         SceneManager.LoadScene("GameScene");
     }
 }

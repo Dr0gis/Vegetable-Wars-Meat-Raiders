@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class ObjectManagerScript : MonoBehaviour
 {
-    public List<VegetableClass> AvaliableVegetables;
-    public List<BlockClass> AvaliableBlocks;
-    public List<MeatClass> AvaliableMeats;
+    public List<VegetableClass> AvailableVegetables;
+    public List<BlockClass> AvailableBlocks;
+    public List<MeatClass> AvailableMeats;
 
     public Button VegetableButton1;
     public Button VegetableButton2;
@@ -17,21 +17,23 @@ public class ObjectManagerScript : MonoBehaviour
     public Button VegetableButton4;
     public Button VegetableButton5;
 
+    public bool LevelEnded = false;
+
     private UnityEngine.Events.UnityAction changeVegetable(int indx)
     {
         return () =>
         {
-            if (AvaliableVegetables[indx].CurrentGameObject != null && !AvaliableVegetables[indx].CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+            if (AvailableVegetables[indx].CurrentGameObject != null && !AvailableVegetables[indx].CurrentGameObject.GetComponent<VegetableController>().IsShoted)
             {
-                foreach (var vegetable in AvaliableVegetables)
+                foreach (var vegetable in AvailableVegetables)
                 {
                     if (vegetable.CurrentGameObject != null && !vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
                     {
                         vegetable.CurrentGameObject.SetActive(false);
                     }
                 }
-                AvaliableVegetables[indx].CurrentGameObject.SetActive(true);
-                GameObject.Find("Catapult").GetComponent<ShotScript>().CurrentVegetable = AvaliableVegetables[indx].CurrentGameObject;
+                AvailableVegetables[indx].CurrentGameObject.SetActive(true);
+                GameObject.Find("Catapult").GetComponent<ShotScript>().CurrentVegetable = AvailableVegetables[indx].CurrentGameObject;
                 Camera.main.GetComponent<CameraMovementScript>().FocusOnVegetable = false;
                 Camera.main.GetComponent<CameraMovementScript>().MoveToCatapult();
             }
@@ -40,14 +42,14 @@ public class ObjectManagerScript : MonoBehaviour
 
     public void SetNextVagetable()
     {
-        foreach (var vegetable in AvaliableVegetables)
+        foreach (var vegetable in AvailableVegetables)
         {
             if (!vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
             {
                 vegetable.CurrentGameObject.SetActive(false);
             }
         }
-        foreach (var vegetable in AvaliableVegetables)
+        foreach (var vegetable in AvailableVegetables)
         {
             if (!vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
             {
@@ -58,7 +60,7 @@ public class ObjectManagerScript : MonoBehaviour
         }
     }
 
-    public List<VegetableClass> GetAvaliableVegetables()
+    public List<VegetableClass> GetAvailableVegetables()
     {
         return new List<VegetableClass>()
         {
@@ -70,7 +72,7 @@ public class ObjectManagerScript : MonoBehaviour
         };
     }
 
-    public List<BlockClass> GetAvaliableBlocks()
+    public List<BlockClass> GetAvailableBlocks()
     {
         List<BlockClass> listBlocks = new List<BlockClass>();
 
@@ -101,7 +103,7 @@ public class ObjectManagerScript : MonoBehaviour
         return listBlocks;
     }
 
-    public List<MeatClass> GetAvaliableMeats()
+    public List<MeatClass> GetAvailableMeats()
     {
         List<MeatClass> listMeats = new List<MeatClass>();
 
@@ -132,26 +134,29 @@ public class ObjectManagerScript : MonoBehaviour
 
         Vector3 vegetableStartPosition = new Vector3(positionVegetable.x, positionVegetable.y + 1, -1);
 
-        AvaliableVegetables = GetAvaliableVegetables();
-        foreach (var vegetable in AvaliableVegetables)
+        AvailableVegetables = GetAvailableVegetables();
+        foreach (var vegetable in AvailableVegetables)
         {
             vegetable.CurrentGameObject = Instantiate((GameObject)Resources.Load(vegetable.Prefab), vegetableStartPosition, Quaternion.identity);
             vegetable.CurrentGameObject.SetActive(false);
             vegetable.CurrentGameObject.GetComponent<VegetableController>().Vegetable = vegetable;
         }
 
-        AvaliableBlocks = GetAvaliableBlocks();
-        foreach (var block in AvaliableBlocks)
+        AvailableBlocks = GetAvailableBlocks();
+        foreach (var block in AvailableBlocks)
         {
             block.CurrentGameObject = Instantiate((GameObject)Resources.Load(block.Prefab), block.Position, block.Rotation);
             block.CurrentGameObject.GetComponent<BlockController>().Block = block;
+            GetComponent<Scores>().MaxScore += block.Score;
         }
 
-        AvaliableMeats = GetAvaliableMeats();
-        foreach (var meat in AvaliableMeats)
+        AvailableMeats = GetAvailableMeats();
+        foreach (var meat in AvailableMeats)
         {
             meat.CurrentGameObject = Instantiate((GameObject)Resources.Load(meat.Prefab), meat.Position, Quaternion.identity);
             meat.CurrentGameObject.GetComponent<MeatController>().Meat = meat;
+            GetComponent<Scores>().MaxScore += meat.Score;
+            GetComponent<Scores>().MinScore += meat.Score;
         }
     }
 
