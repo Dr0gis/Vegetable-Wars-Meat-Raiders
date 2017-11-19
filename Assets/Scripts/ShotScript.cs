@@ -6,6 +6,8 @@ public class ShotScript : MonoBehaviour
 {
     private Rigidbody2D catapultRigidbody;
 
+    private CameraMovementScript mainCameraMovementScript;
+
     private Vector2 startPoint;
 
     private int shotFingerId;
@@ -14,10 +16,10 @@ public class ShotScript : MonoBehaviour
 
     public ObjectManagerScript vegetableManager;
 
-    public float MaxTensionByX = 300;
-    public float MaxTensionByY = 300;
-    public float MinTensionByX = 55;
-    public float MinTensionByY = 55;
+    public float MaxTensionByX = 15;
+    public float MaxTensionByY = 15;
+    public float MinTensionByX = 2.75f;
+    public float MinTensionByY = 2.75f;
     public float StrengthScale = 0.05f;
 
     public GameObject CurrentVegetable;
@@ -90,9 +92,11 @@ public class ShotScript : MonoBehaviour
     private Vector2 PrepareVector(Vector2 vectorToPrepare)
     {
         Vector2 pushVector = vectorToPrepare;
+        pushVector *= StrengthScale * mainCameraMovementScript.CameraSize;
+
         pushVector.x = Mathf.Max(Mathf.Min(pushVector.x, MaxTensionByX), -MaxTensionByX);
         pushVector.y = Mathf.Max(Mathf.Min(pushVector.y, MaxTensionByY), -MaxTensionByY);
-        pushVector *= StrengthScale;
+
         return pushVector;
     }
 
@@ -149,6 +153,9 @@ public class ShotScript : MonoBehaviour
         vegetableManager.SetNextVagetable();
         GetComponent<LineRenderer>().startWidth = 0.2f;
         GetComponent<LineRenderer>().endWidth = 0.05f;
+
+        mainCameraMovementScript = GameObject.Find("Main Camera").GetComponent<CameraMovementScript>();
+        StrengthScale /= mainCameraMovementScript.CameraSize;
     }
 
     void Update()
@@ -164,6 +171,11 @@ public class ShotScript : MonoBehaviour
             (Mathf.Abs(shotVector.Value.x) > MinTensionByX || Mathf.Abs(shotVector.Value.y) > MinTensionByY))
         {
             Vector2 pushVector = PrepareVector(shotVector.Value);
+
+            print(pushVector.x);
+            print(pushVector.y);
+            print("----");
+
             if (isShotMade == false)
             {
                 Visualize(pushVector);

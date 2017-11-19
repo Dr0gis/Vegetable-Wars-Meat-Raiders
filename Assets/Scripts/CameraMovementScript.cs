@@ -13,20 +13,24 @@ public class CameraMovementScript : MonoBehaviour
     private float maxCameraYPosition;
     private float maxCameraSize;
     private float minCameraSize = 4.0f;
-    private float cameraSize = 7f;
     private const float zoomSpeed = 0.1f;
     private float MinDistanceToBound = 0.8f;
+
+    public float CameraSize { get; private set; }
+
     public bool FocusOnVegetable;
     public GameObject VegetableToFocus;
     public bool IsZooming { get; private set; }
 
 void Start()
 {
+        CameraSize = 7f;
+
         FocusOnVegetable = false;
         maxCameraSize = Mathf.Min(levelHeight / 2.0f, (levelLength * Screen.height) / (2.0f * Screen.width));
         minCameraSize = 1.5f * GameObject.Find("Catapult").GetComponent<Collider2D>().bounds.size.x * Screen.height /
                         Screen.width;
-        Camera.main.orthographicSize = Mathf.Clamp(cameraSize, minCameraSize, maxCameraSize);
+        Camera.main.orthographicSize = Mathf.Clamp(CameraSize, minCameraSize, maxCameraSize);
         SetCameraPosition();
         MoveToCatapult();
         IsZooming = false;
@@ -34,7 +38,7 @@ void Start()
 
     void SetCameraPositionBounds()
     {
-        var vertExtent = cameraSize;
+        var vertExtent = CameraSize;
         var horzExtent = vertExtent * Screen.width / Screen.height;
 
         minCameraXPosition = horzExtent - levelLength / 2.0f;
@@ -62,8 +66,8 @@ void Start()
         transform.position = tmpPosY;
         
         Vector3 tmpPosX = transform.position;
-        float rightDeltaPosition = XPosition - (tmpPosX.x + (cameraSize * Screen.width / Screen.height) * (1 - MinDistanceToBound));
-        float leftDeltaPosition = -XPosition + (tmpPosX.x - (cameraSize * Screen.width / Screen.height) * (1 - MinDistanceToBound));
+        float rightDeltaPosition = XPosition - (tmpPosX.x + (CameraSize * Screen.width / Screen.height) * (1 - MinDistanceToBound));
+        float leftDeltaPosition = -XPosition + (tmpPosX.x - (CameraSize * Screen.width / Screen.height) * (1 - MinDistanceToBound));
 
         if (rightDeltaPosition > 0)
         {
@@ -98,11 +102,11 @@ void Start()
                 float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
                 float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
                 float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
-                cameraSize += deltaMagnitudeDiff * zoomSpeed * Time.deltaTime;
+                CameraSize += deltaMagnitudeDiff * zoomSpeed * Time.deltaTime;
 
-                cameraSize = Mathf.Clamp(cameraSize, minCameraSize, maxCameraSize);
+                CameraSize = Mathf.Clamp(CameraSize, minCameraSize, maxCameraSize);
                 SetCameraPosition();
-                Camera.main.orthographicSize = cameraSize;
+                Camera.main.orthographicSize = CameraSize;
                 GameObject.Find("Catapult").GetComponent<ShotScript>().IsTakingAimNow = false;
             }
             else
