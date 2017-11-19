@@ -14,7 +14,8 @@ public class EndLevelSettings : MonoBehaviour
 
 	void Start ()
     {
-		RestartButton.onClick.AddListener(RestartButtonListener);
+        GameObject.Find("Manager").GetComponent<ObjectManagerScript>().LevelEnded = true;
+        RestartButton.onClick.AddListener(RestartButtonListener);
 	    NextLevelButton.onClick.AddListener(NextLevelButtonListener);
 	    LevelSelectionButton.onClick.AddListener(LevelSelectionButtonListener);
         //disable NextLevelButton if next level is blocked
@@ -41,6 +42,6 @@ public class EndLevelSettings : MonoBehaviour
 
 	void Update ()
     {
-		
-	}
+        Time.timeScale = 0;
+    }
 }

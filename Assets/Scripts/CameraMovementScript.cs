@@ -80,41 +80,44 @@ void Start()
 
     void LateUpdate()
     {
-        if (FocusOnVegetable)
+        if (!GameObject.Find("Manager").GetComponent<ObjectManagerScript>().LevelEnded)
         {
-            SetCameraPosition(VegetableToFocus.transform.position.x);
-        }
-        if (Input.touchCount == 2)
-        {
-            IsZooming = true;
-            Touch touchZero = Input.GetTouch(0);
-            Touch touchOne = Input.GetTouch(1);
+            if (FocusOnVegetable)
+            {
+                SetCameraPosition(VegetableToFocus.transform.position.x);
+            }
+            if (Input.touchCount == 2)
+            {
+                IsZooming = true;
+                Touch touchZero = Input.GetTouch(0);
+                Touch touchOne = Input.GetTouch(1);
 
-            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
-            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+                Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+                Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
-            float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-            float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
-            float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
-            cameraSize += deltaMagnitudeDiff * zoomSpeed * Time.deltaTime;
+                float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+                float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
+                float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+                cameraSize += deltaMagnitudeDiff * zoomSpeed * Time.deltaTime;
 
-            cameraSize = Mathf.Clamp(cameraSize, minCameraSize, maxCameraSize);
+                cameraSize = Mathf.Clamp(cameraSize, minCameraSize, maxCameraSize);
+                SetCameraPosition();
+                Camera.main.orthographicSize = cameraSize;
+                GameObject.Find("Catapult").GetComponent<ShotScript>().IsTakingAimNow = false;
+            }
+            else
+            {
+                IsZooming = false;
+            }
+            if (Input.touchCount > 0 && !IsZooming && Input.GetTouch(0).phase == TouchPhase.Moved && !GameObject.Find("Catapult").GetComponent<ShotScript>().IsTakingAimNow)
+            {
+                Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
+                transform.Translate(-touchDeltaPosition.x * speed, -touchDeltaPosition.y * speed, 0);
+                FocusOnVegetable = false;
+                SetCameraPosition();
+            }
             SetCameraPosition();
-            Camera.main.orthographicSize = cameraSize;
-            GameObject.Find("Catapult").GetComponent<ShotScript>().IsTakingAimNow = false;
         }
-        else
-        {
-            IsZooming = false;
-        }
-        if (Input.touchCount > 0 && !IsZooming && Input.GetTouch(0).phase == TouchPhase.Moved && !GameObject.Find("Catapult").GetComponent<ShotScript>().IsTakingAimNow)
-        {
-            Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
-            transform.Translate(-touchDeltaPosition.x * speed, -touchDeltaPosition.y * speed, 0);
-            FocusOnVegetable = false;
-            SetCameraPosition();
-        }
-        SetCameraPosition();
     }
 
     public void MoveToCatapult()

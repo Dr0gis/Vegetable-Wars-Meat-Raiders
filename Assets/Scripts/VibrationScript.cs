@@ -11,7 +11,7 @@ public class VibrationScript : MonoBehaviour
 
     void OnDestroy()
     {
-        if (GetComponent<VibrationManagerComponent>().GetEnableVibration().Equals(1f))
+        if (GetComponent<VibrationManagerComponent>().GetEnableVibration().Equals(1f) && !GameObject.Find("Manager").GetComponent<ObjectManagerScript>().LevelEnded)
         { 
             Handheld.Vibrate();
         }

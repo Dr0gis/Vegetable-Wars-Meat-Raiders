@@ -17,3 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SettingsMenu.unity
     guid: 495f6d1039d087746aea38d39d3ab717
+  - enabled: 1
+    path: Assets/Scenes/FailLevelEnd.unity
+    guid: f21182cb972a131458aeb87ae9db8c01
+  - enabled: 1
+    path: Assets/Scenes/SuccesLevelEnd.unity
+    guid: 2b59fbadd99ec3647810b1a225dbc18b

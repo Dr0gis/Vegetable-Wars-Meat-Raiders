@@ -33,7 +33,7 @@ public class MeatController : MonoBehaviour
         int availableMeats = -1; // because Destroy() works later
         foreach (var meat in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().AvailableMeats)
         {
-            if (meat.CurrentGameObject != null)
+            if (!meat.isDead)
             {
                 availableMeats++;
             }

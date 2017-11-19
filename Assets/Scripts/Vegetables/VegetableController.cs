@@ -53,7 +53,7 @@ public class VegetableController : MonoBehaviour
         int availableMeats = 0;
         foreach (var meat in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().AvailableMeats)
         {
-            if (meat.CurrentGameObject != null)
+            if (!meat.isDead)
             {
                 availableMeats++;
             }
