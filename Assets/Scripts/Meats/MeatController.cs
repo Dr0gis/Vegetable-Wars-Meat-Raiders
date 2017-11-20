@@ -48,4 +48,12 @@ public class MeatController : MonoBehaviour
             }
         }
     }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Wall"))
+        {
+            Meat.OnDestroy();
+        }
+    }
 }

@@ -72,8 +72,16 @@ public class VegetableController : MonoBehaviour
     {
         Vegetable.OnCollision2D(collision);
     }
-	
-	void Update ()
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Wall"))
+        {
+            Vegetable.OnDestroyObject();
+        }
+    }
+
+    void Update ()
     {
         Vegetable.CheckVelocity();
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && IsShoted && !abilityUsed)

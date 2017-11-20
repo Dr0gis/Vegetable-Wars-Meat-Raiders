@@ -8,6 +8,7 @@ TagManager:
   - Vegetable
   - Block
   - Meat
+  - Wall
   layers:
   - Default
   - TransparentFX
