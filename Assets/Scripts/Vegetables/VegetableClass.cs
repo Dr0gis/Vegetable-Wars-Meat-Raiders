@@ -13,7 +13,7 @@ public abstract class VegetableClass
     public float Speed;
     public string Prefab;
     public GameObject CurrentGameObject;
-
+    public bool IsDead;
     private bool wasCollision = false;
 
     public VegetableClass()
@@ -23,6 +23,7 @@ public abstract class VegetableClass
         Speed = 1;
         Prefab = null;
         CurrentGameObject = null;
+        IsDead = false;
     }
 
     public VegetableClass(int health, int damage, float speed, string prefab, GameObject gameObject)
@@ -32,6 +33,7 @@ public abstract class VegetableClass
         Speed = speed;
         Prefab = prefab;
         CurrentGameObject = gameObject;
+        IsDead = false;
     }
 
     public void OnCollision2D(Collision2D collider)
@@ -68,8 +70,9 @@ public abstract class VegetableClass
 
     public void OnDestroyObject()
     {
-        if (CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+        if (CurrentGameObject.GetComponent<VegetableController>().IsShoted && !IsDead)
         {
+            IsDead = true;
             CurrentGameObject.GetComponent<VegetableController>().CallDestroy();
         }
     }

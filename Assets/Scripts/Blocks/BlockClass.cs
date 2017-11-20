@@ -11,6 +11,7 @@ namespace Assets.Scripts
         public Vector2 Position;
         public Quaternion Rotation;
         public GameObject CurrentGameObject;
+        public bool IsDead;
         private bool isFirstCollision = false;
 
         protected BlockClass()
@@ -21,6 +22,7 @@ namespace Assets.Scripts
             Position = Vector2.zero;
             Rotation = Quaternion.identity;
             CurrentGameObject = null;
+            IsDead = false;
         }
 
         public BlockClass(int health, int score, string prefab, GameObject gameObject)
@@ -31,6 +33,7 @@ namespace Assets.Scripts
             Position = Vector2.zero;
             Rotation = Quaternion.identity;
             CurrentGameObject = gameObject;
+            IsDead = false;
         }
 
         public virtual void OnCollision2D(Collision2D collision)
@@ -69,13 +72,18 @@ namespace Assets.Scripts
         }
         public virtual void OnDestroy()
         {
-            ScoreChanges scoreChanges =  GameObject.Find("EventSystem").GetComponent<ScoreChanges>();
-            scoreChanges.ScoreValue += Score;
+            if (!IsDead)
+            {
 
-            GameObject.Find("Manager").GetComponent<Scores>().Score += Score;
+                IsDead = true;
+                ScoreChanges scoreChanges = GameObject.Find("EventSystem").GetComponent<ScoreChanges>();
+                scoreChanges.ScoreValue += Score;
 
-            scoreChanges.SetTextScore();
-            CurrentGameObject.GetComponent<BlockController>().CallDestroy();
+                GameObject.Find("Manager").GetComponent<Scores>().Score += Score;
+
+                scoreChanges.SetTextScore();
+                CurrentGameObject.GetComponent<BlockController>().CallDestroy();
+            }
         }
         public virtual void CheckHealth()
         {

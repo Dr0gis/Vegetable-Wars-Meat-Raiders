@@ -12,7 +12,7 @@ public class MeatClass
     public Vector2 Position;
     public string Prefab;
     public GameObject CurrentGameObject;
-    public bool isDead;
+    public bool IsDead;
     private bool isFirstCollision = false;
 
     public MeatClass()
@@ -23,7 +23,7 @@ public class MeatClass
         Position = Vector2.zero;
         Prefab = null;
         CurrentGameObject = null;
-        this.isDead = false;
+        this.IsDead = false;
     }
 
     public MeatClass(int health, int damage, int score, string prefab, GameObject currentGameObject, bool isDead)
@@ -34,7 +34,7 @@ public class MeatClass
         Position = Vector2.zero;
         Prefab = prefab;
         CurrentGameObject = currentGameObject;
-        this.isDead = isDead;
+        this.IsDead = isDead;
     }
 
     public void OnCollision2D(Collision2D collision2D)
@@ -71,13 +71,17 @@ public class MeatClass
 
     public void OnDestroy()
     {
-        ScoreChanges scoreChanges = GameObject.Find("EventSystem").GetComponent<ScoreChanges>();
-        scoreChanges.ScoreValue += Score;
+        if (!IsDead)
+        {
+            IsDead = true;
+            ScoreChanges scoreChanges = GameObject.Find("EventSystem").GetComponent<ScoreChanges>();
+            scoreChanges.ScoreValue += Score;
 
-        GameObject.Find("Manager").GetComponent<Scores>().Score += Score;
+            GameObject.Find("Manager").GetComponent<Scores>().Score += Score;
 
-        scoreChanges.SetTextScore();
-        CurrentGameObject.GetComponent<MeatController>().CallDestroy();
+            scoreChanges.SetTextScore();
+            CurrentGameObject.GetComponent<MeatController>().CallDestroy();
+        }
     }
 
     public void CheckHealth()
@@ -85,12 +89,11 @@ public class MeatClass
         if (Health <= 0)
         {
             OnDestroy();
-            isDead = true;
         }
     }
 
     public MeatClass Clone()
     {
-        return new MeatClass(Health, Damage, Score, Prefab, CurrentGameObject, isDead);
+        return new MeatClass(Health, Damage, Score, Prefab, CurrentGameObject, IsDead);
     }
 }

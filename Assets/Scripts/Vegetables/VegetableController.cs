@@ -10,7 +10,6 @@ public class VegetableController : MonoBehaviour
     private bool abilityUsed;
     public Rigidbody2D Rigidbody2D;
     public VegetableClass Vegetable;
-
 	void Start ()
 	{
 	    IsShoted = false;
@@ -42,10 +41,10 @@ public class VegetableController : MonoBehaviour
 
     void GameOver()
     {
-        int availableVegetables = -1; //kostil
+        int availableVegetables = 0; 
         foreach (var vegetable in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().AvailableVegetables)
         {
-            if (vegetable.CurrentGameObject != null)
+            if (!vegetable.IsDead)
             {
                 availableVegetables++;
             }
@@ -53,7 +52,7 @@ public class VegetableController : MonoBehaviour
         int availableMeats = 0;
         foreach (var meat in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().AvailableMeats)
         {
-            if (!meat.isDead)
+            if (!meat.IsDead)
             {
                 availableMeats++;
             }
