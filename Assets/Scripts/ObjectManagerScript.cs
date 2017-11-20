@@ -10,6 +10,7 @@ public class ObjectManagerScript : MonoBehaviour
     public List<VegetableClass> AvailableVegetables;
     public List<BlockClass> AvailableBlocks;
     public List<MeatClass> AvailableMeats;
+    public int CurrentLevel;
 
     public Button VegetableButton1;
     public Button VegetableButton2;
@@ -74,54 +75,15 @@ public class ObjectManagerScript : MonoBehaviour
 
     public List<BlockClass> GetAvailableBlocks()
     {
-        List<BlockClass> listBlocks = new List<BlockClass>();
-
-        BlockClass tempBlock = GetComponent<PullObjects>().Blocks[0].Clone();
-        tempBlock.Position = new Vector2(6, -7.5f);
-        tempBlock.Rotation = Quaternion.identity;
-
-        listBlocks.Add(tempBlock);
-
-        tempBlock = GetComponent<PullObjects>().Blocks[1].Clone();
-        tempBlock.Position = new Vector2(8, -7.5f);
-        tempBlock.Rotation = Quaternion.identity;
-
-        listBlocks.Add(tempBlock);
-
-        tempBlock = GetComponent<PullObjects>().Blocks[2].Clone();
-        tempBlock.Position = new Vector2(11, -7.5f);
-        tempBlock.Rotation = Quaternion.identity;
-
-        listBlocks.Add(tempBlock);
-
-        /*tempBlock = GetComponent<PullObjects>().Blocks[0].Clone();
-        tempBlock.Position = new Vector2(9.5f, -7.25f);
-        tempBlock.Rotation = new Quaternion(0, 0, 90, 0);
-
-        listBlocks.Add(tempBlock);*/
-
+        List<BlockClass> listBlocks = GetComponent<PullObjects>().Levels[CurrentLevel].Blocks;
+    
         return listBlocks;
     }
 
     public List<MeatClass> GetAvailableMeats()
     {
-        List<MeatClass> listMeats = new List<MeatClass>();
-
-        MeatClass tempMeat = GetComponent<PullObjects>().Meats[0].Clone();
-        tempMeat.Position = new Vector2(15, -9);
-
-        listMeats.Add(tempMeat);
-
-        tempMeat = GetComponent<PullObjects>().Meats[1].Clone();
-        tempMeat.Position = new Vector2(17, -8.7f);
-
-        listMeats.Add(tempMeat);
-
-        tempMeat = GetComponent<PullObjects>().Meats[2].Clone();
-        tempMeat.Position = new Vector2(19, -8.5f);
-
-        listMeats.Add(tempMeat);
-
+        List<MeatClass> listMeats = GetComponent<PullObjects>().Levels[CurrentLevel].Meats;
+        
         return listMeats;
     }
 
