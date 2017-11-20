@@ -117,6 +117,10 @@ namespace Assets.Scripts
             {
                 LastAvaliableLevelId = LastAvaliableLevelId + 1;
             }
+            if (index == scoreOnLevel.Count)
+            {
+                scoreOnLevel.Add(0);
+            }
             if (index < LastAvaliableLevelId)
             {
                 scoreOnLevel[index] = score;
@@ -129,6 +133,10 @@ namespace Assets.Scripts
             if (index == LastAvaliableLevelId)
             {
                 LastAvaliableLevelId = LastAvaliableLevelId + 1;
+            }
+            if (index == starsOnLevel.Count)
+            {
+                starsOnLevel.Add(0);
             }
             if (index < LastAvaliableLevelId)
             {
