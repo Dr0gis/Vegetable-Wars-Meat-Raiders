@@ -9,11 +9,11 @@ public class LevelSelectCamera : MonoBehaviour {
     private float maxHeight;
     private float maxWidth;
 
-    public Image Canvas;
+    public Image Background;
     void Start ()
     {
-        maxHeight = Canvas.GetComponent<RectTransform>().localToWorldMatrix.m13 * 2;
-        maxWidth = Canvas.GetComponent<RectTransform>().localToWorldMatrix.m03 * 2;
+        maxHeight = Background.GetComponent<RectTransform>().localToWorldMatrix.m13 * 2;
+        maxWidth = Background.GetComponent<RectTransform>().localToWorldMatrix.m03 * 2;
     }
 
     void LateUpdate()
