@@ -2462,10 +2462,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsTakingAimNow: 0
   vegetableManager: {fileID: 0}
-  MaxTensionByX: 15
-  MaxTensionByY: 15
-  MinTensionByX: 2.75
-  MinTensionByY: 2.75
+  MaxTensionByX: 300
+  MaxTensionByY: 300
+  MinTensionByX: 55
+  MinTensionByY: 55
   StrengthScale: 0.05
   CurrentVegetable: {fileID: 0}
   PredictionStepsNumber: 250
