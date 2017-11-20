@@ -173,8 +173,6 @@ public class ShotScript : MonoBehaviour
         {
             Vector2 pushVector = PrepareVector(shotVector.Value);
 
-            print(pushVector.x + "    " + pushVector.y);
-
             if (isShotMade == false)
             {
                 Visualize(pushVector);
