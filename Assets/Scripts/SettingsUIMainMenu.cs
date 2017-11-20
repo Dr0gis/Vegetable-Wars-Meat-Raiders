@@ -10,7 +10,8 @@ public class SettingsUIMainMenu : MonoBehaviour
     public Button LeaderboardButton;
     public Button SettingsButton;
 
-	void Start () {
+	void Start ()
+    {
 	    PlayButton.onClick.AddListener(playButtonListener);
 	    LeaderboardButton.onClick.AddListener(leaderboardButtonListener);
 	    SettingsButton.onClick.AddListener(settingsButtonListener);

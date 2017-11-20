@@ -22,8 +22,8 @@ public class CameraMovementScript : MonoBehaviour
     public GameObject VegetableToFocus;
     public bool IsZooming { get; private set; }
 
-void Start()
-{
+    void Start()
+    {
         CameraSize = 7f;
 
         FocusOnVegetable = false;
