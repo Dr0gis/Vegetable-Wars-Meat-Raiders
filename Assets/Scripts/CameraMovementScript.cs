@@ -13,7 +13,7 @@ public class CameraMovementScript : MonoBehaviour
     private float maxCameraYPosition;
     private float maxCameraSize;
     private float minCameraSize = 4.0f;
-    private const float zoomSpeed = 0.1f;
+    private const float zoomSpeed = 0.3f;
     private float MinDistanceToBound = 0.8f;
 
     public float CameraSize { get; private set; }
