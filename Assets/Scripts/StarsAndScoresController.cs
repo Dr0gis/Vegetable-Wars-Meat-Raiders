@@ -18,7 +18,7 @@ public class StarsAndScoresController : MonoBehaviour
 	    int minScore = GameObject.Find("Manager").GetComponent<Scores>().MinScore;
 	    int maxScore = GameObject.Find("Manager").GetComponent<Scores>().MaxScore;
         Score.text = Convert.ToString(GameObject.Find("Manager").GetComponent<Scores>().Score);
-	    if (GameObject.Find("Manager").GetComponent<Scores>().Score >= minScore + 0.4*(maxScore-minScore))
+	    if (GameObject.Find("Manager").GetComponent<Scores>().Score >= minScore + 0.4 * (maxScore-minScore))
 	    {
 	        SecondStar.interactable = true;
 	    }
