@@ -6,6 +6,7 @@ namespace Assets.Scripts
     {
 
         public int Health;
+        public float Damage;
         public int Score;
         public string Prefab;
         public Vector2 Position;
@@ -42,25 +43,36 @@ namespace Assets.Scripts
             {
                 case "Vegetable":
                     VegetableClass vegatable = collision.gameObject.GetComponent<VegetableController>().Vegetable;
-                    vegatable.Health -= 1;
+                    vegatable.Health -= Mathf.RoundToInt(Damage *
+                        (vegatable.CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude +
+                         CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
+                        CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient);
                     vegatable.CheckHealth();
                     CurrentGameObject.GetComponent<AudioSource>().Play();
                     break;
                 case "Block":
                     BlockClass block = collision.gameObject.GetComponent<BlockController>().Block;
-                    block.Health -= 1;
+                    block.Health -= Mathf.RoundToInt(Damage *
+                        (block.CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude +
+                         CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
+                        CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient);
                     block.CheckHealth();
                     CurrentGameObject.GetComponent<AudioSource>().Play();
                     break;
                 case "Meat":
                     MeatClass meat = collision.gameObject.GetComponent<MeatController>().Meat;
-                    meat.Health -= 1;
+                    meat.Health -= Mathf.RoundToInt(Damage *
+                        (meat.CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude +
+                         CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
+                        CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient);
                     meat.CheckHealth();
                     break;
                 default:
                     if (isFirstCollision)
                     {
-                        Health -= 1;
+                        Health -= Mathf.RoundToInt(PhysicsConstants.DefaultDamage *
+                            CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude * PhysicsConstants.MagnitudeCoefficient *
+                            CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient);
                         CheckHealth();
                     }
                     else
