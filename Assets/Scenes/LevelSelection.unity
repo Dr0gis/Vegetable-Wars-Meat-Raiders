@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 341e7c5b668246241a301b2d2994f7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Canvas: {fileID: 1174580230}
+  Background: {fileID: 1174580230}
 --- !u!92 &60607156
 Behaviour:
   m_ObjectHideFlags: 0
@@ -237,7 +237,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 63840901}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 760, y: 410, z: 0}
+  m_LocalPosition: {x: 760, y: 419.96198, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1598282037}
@@ -1100,7 +1100,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 852388575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -830, y: 410, z: 100}
+  m_LocalPosition: {x: -830, y: 419.96198, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 290988212}
@@ -1286,7 +1286,7 @@ RectTransform:
   m_GameObject: {fileID: 1121729834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.012962963, y: 0.012962963, z: 0.012962963}
+  m_LocalScale: {x: 0.012728152, y: 0.012728152, z: 0.012728152}
   m_Children:
   - {fileID: 852388576}
   - {fileID: 63840902}
@@ -1499,7 +1499,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1174580228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 213, y: 233, z: 0}
+  m_LocalPosition: {x: 225, y: 233, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 322937025}
@@ -1514,7 +1514,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 213, y: 233}
+  m_AnchoredPosition: {x: 225, y: 233}
   m_SizeDelta: {x: 2556.3, y: 1561.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1174580230
@@ -1911,6 +1911,33 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1076029322837090, guid: d68adccbae7106940909b3ae4694b5fa, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1834345354412580, guid: d68adccbae7106940909b3ae4694b5fa, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508079110848310, guid: d68adccbae7106940909b3ae4694b5fa,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114940239653568676, guid: d68adccbae7106940909b3ae4694b5fa,
+        type: 2}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101214370423372, guid: d68adccbae7106940909b3ae4694b5fa, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114002971867096446, guid: d68adccbae7106940909b3ae4694b5fa,
+        type: 2}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d68adccbae7106940909b3ae4694b5fa, type: 2}
   m_IsPrefabParent: 0
@@ -2193,6 +2220,7 @@ GameObject:
   - component: {fileID: 1899426968}
   - component: {fileID: 1899426971}
   - component: {fileID: 1899426972}
+  - component: {fileID: 1899426973}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2286,6 +2314,17 @@ MonoBehaviour:
   - {fileID: 441666676}
   - {fileID: 333918274}
   - {fileID: 1010077422}
+--- !u!114 &1899426973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1899426967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bedc42360bb41444bf15551a9ae3d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2114446360 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114426878680903848, guid: d68adccbae7106940909b3ae4694b5fa,

@@ -23,18 +23,43 @@ public class SettingsUILevelSelection : MonoBehaviour
 	void Start ()
     {
         BackButton.onClick.AddListener(backButtonListener);
+        //ProgressManagerComponent.LastAvaliableLevelId = 0; //use this to clear level locks
 
-        foreach (var level in LevelButtons)
+        for (int i = 0; i < LevelButtons.Count; i++)
         {
-            ChangeColor(level, "DisableLevel");
-            EnableButton(level, false);
-            EnableLock(level, true);
-            AddListenerOpenLevel(level);
+            ChangeColor(LevelButtons[i], "DisableLevel");
+            EnableButton(LevelButtons[i], false);
+            EnableLock(LevelButtons[i], true);
+            AddListenerOpenLevel(LevelButtons[i], i);
+        }
+        
+        for (int j = 0; j < ProgressManagerComponent.LastAvaliableLevelId; j++)
+        {
+            LevelButtons[j].transform.GetChild(2).gameObject.SetActive(true);
+            switch (ProgressManagerComponent.GetStarsOnLevel(j))
+            {
+                case 1:
+                    LevelButtons[j].transform.GetChild(2).GetComponentsInChildren<Button>()[1].interactable = false;
+                    LevelButtons[j].transform.GetChild(2).GetComponentsInChildren<Button>()[2].interactable = false;
+                    ChangeColor(LevelButtons[j], "OneStars");
+                    break;
+                case 2:
+                    LevelButtons[j].transform.GetChild(2).GetComponentsInChildren<Button>()[2].interactable = false;
+                    ChangeColor(LevelButtons[j], "TwoStars");
+                    break;
+                case 3:
+                    ChangeColor(LevelButtons[j], "ThreeStars");
+                    break;
+                default:
+                    break;
+            }
+            EnableButton(LevelButtons[j], true);
+            EnableLock(LevelButtons[j], false);
         }
 
-        ChangeColor(LevelButtons[0], "NewLevel");
-        EnableButton(LevelButtons[0], true);
-        EnableLock(LevelButtons[0], false);
+        ChangeColor(LevelButtons[ProgressManagerComponent.LastAvaliableLevelId], "NewLevel");
+        EnableButton(LevelButtons[ProgressManagerComponent.LastAvaliableLevelId], true);
+        EnableLock(LevelButtons[ProgressManagerComponent.LastAvaliableLevelId], false);
     }
 
     private void backButtonListener()
@@ -54,8 +79,18 @@ public class SettingsUILevelSelection : MonoBehaviour
     {
         level.transform.GetChild(3).gameObject.SetActive(enable);
     }
-    private void AddListenerOpenLevel(GameObject level)
+    private void AddListenerOpenLevel(GameObject level, int index)
     {
-        level.GetComponentInChildren<Button>().onClick.AddListener(() => SceneManager.LoadScene("GameScene"));
+        //level.GetComponentInChildren<Button>().onClick.AddListener(() => SceneManager.LoadScene("GameScene"));
+        level.GetComponentInChildren<Button>().onClick.AddListener(LoadLevel(index));
+    }
+
+    private UnityEngine.Events.UnityAction LoadLevel(int indx)
+    {
+        return () =>
+        {
+            SceneManager.LoadScene("GameScene");
+           // GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel = indx;
+        };
     }
 }

@@ -4,57 +4,54 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Scripts.ProgressManager
+class ProgressManagerComponent : MonoBehaviour
 {
-    class ProgressManagerComponent : MonoBehaviour
+    public static int LastAvaliableLevelId
     {
-        public static int LastAvaliableLevelId
+        get
         {
-            get
-            {
-                return ProgressManager.LastAvaliableLevelId;
-            }
-            set
-            {
-                ProgressManager.LastAvaliableLevelId = value;
-            }
+            return ProgressManager.LastAvaliableLevelId;
         }
+        set
+        {
+            ProgressManager.LastAvaliableLevelId = value;
+        }
+    }
 
-        public static int AmountOfMoney
+    public static int AmountOfMoney
+    {
+        get
         {
-            get
-            {
-                return ProgressManager.AmountOfMoney;
-            }
-            set
-            {
-                ProgressManager.AmountOfMoney = value;
-            }
+            return ProgressManager.AmountOfMoney;
         }
+        set
+        {
+            ProgressManager.AmountOfMoney = value;
+        }
+    }
 
-        public static bool IsLevelAvaliable(int index)
-        {
-            return ProgressManager.IsLevelAvaliable(index);
-        }
+    public static bool IsLevelAvaliable(int index)
+    {
+        return ProgressManager.IsLevelAvaliable(index);
+    }
 
-        public static int GetStarsOnLevel(int index)
-        {
-            return ProgressManager.GetStarsOnLevel(index);
-        }
+    public static int GetStarsOnLevel(int index)
+    {
+        return ProgressManager.GetStarsOnLevel(index);
+    }
 
-        public static int GetScoreOnLevel(int index)
-        {
-            return ProgressManager.GetScoreOnLevel(index);
-        }
+    public static int GetScoreOnLevel(int index)
+    {
+        return ProgressManager.GetScoreOnLevel(index);
+    }
 
-        public static void SetScoreOnLevel(int index, int score)
-        {
-            ProgressManager.SetScoreOnLevel(index, score);
-        }
+    public static void SetScoreOnLevel(int index, int score)
+    {
+        ProgressManager.SetScoreOnLevel(index, score);
+    }
 
-        public static void SetStarsOnLevel(int index, int stars)
-        {
-            ProgressManager.SetStarsOnLevel(index, stars);
-        }
+    public static void SetStarsOnLevel(int index, int stars)
+    {
+        ProgressManager.SetStarsOnLevel(index, stars);
     }
 }
