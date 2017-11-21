@@ -26,9 +26,10 @@ namespace Assets.Scripts
             IsDead = false;
         }
 
-        public BlockClass(int health, int score, string prefab, GameObject gameObject)
+        public BlockClass(int health, float damage, int score, string prefab, GameObject gameObject)
         {
             Health = health;
+            Damage = damage;
             Score = score;
             Prefab = prefab;
             Position = Vector2.zero;

@@ -8,13 +8,13 @@ namespace Assets.Scripts
             
         }
 
-        public DishClass(int health, int score, string prefab, GameObject gameObject) : base(health, score, prefab, gameObject)
+        public DishClass(int health, float damage, int score, string prefab, GameObject gameObject) : base(health, damage, score, prefab, gameObject)
         {
         }
 
         public override BlockClass Clone()
         {
-            return new BreadClass(Health, Score, Prefab, CurrentGameObject);
+            return new BreadClass(Health, Damage, Score, Prefab, CurrentGameObject);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Assets.Scripts
 
         }
 
-        public BreadClass(int health, int score, string prefab, GameObject gameObject) : base(health, score, prefab, gameObject)
+        public BreadClass(int health, float damage, int score, string prefab, GameObject gameObject) : base(health, damage, score, prefab, gameObject)
         {       
         }
 
@@ -28,7 +28,7 @@ namespace Assets.Scripts
 
         public override BlockClass Clone()
         {
-            return new BreadClass(Health, Score, Prefab, CurrentGameObject);
+            return new BreadClass(Health, Damage, Score, Prefab, CurrentGameObject);
         }
     }
 }

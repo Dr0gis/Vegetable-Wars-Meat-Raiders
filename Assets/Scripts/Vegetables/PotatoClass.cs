@@ -9,7 +9,7 @@ public class PotatoClass : VegetableClass
 
     }
 
-    public PotatoClass(int health, int damage, float speed, string prefab, GameObject gameObject) 
+    public PotatoClass(int health, float damage, float speed, string prefab, GameObject gameObject) 
         : base(health, damage, speed, prefab, gameObject)
     {
 

@@ -26,7 +26,7 @@ public abstract class VegetableClass
         IsDead = false;
     }
 
-    public VegetableClass(int health, int damage, float speed, string prefab, GameObject gameObject)
+    public VegetableClass(int health, float damage, float speed, string prefab, GameObject gameObject)
     {
         Health = health;
         Damage = damage;

@@ -26,7 +26,7 @@ public class MeatClass
         this.IsDead = false;
     }
 
-    public MeatClass(int health, int damage, int score, string prefab, GameObject currentGameObject, bool isDead)
+    public MeatClass(int health, float damage, int score, string prefab, GameObject currentGameObject, bool isDead)
     {
         Health = health;
         Damage = damage;
