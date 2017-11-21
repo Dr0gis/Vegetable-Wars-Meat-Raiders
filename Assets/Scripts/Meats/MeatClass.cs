@@ -43,7 +43,11 @@ public class MeatClass
         {
             case "Vegetable":
                 VegetableClass vegatable = collision2D.gameObject.GetComponent<VegetableController>().Vegetable;
-                vegatable.Health -= Damage;
+                vegatable.Health -= Mathf.RoundToInt(Damage *
+                    (vegatable.CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude +  ) *
+                    magnitudeCoefficient *
+                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass *
+                    massCoefficient); ;
                 vegatable.CheckHealth();
                 break;
             case "Block":

@@ -47,12 +47,20 @@ public abstract class VegetableClass
         {
             case "Block":
                 BlockClass block = collider.gameObject.GetComponent<BlockController>().Block;
-                block.Health -= Damage;
+                block.Health -= Mathf.RoundToInt(Damage * 
+                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude *
+                    magnitudeCoefficient *
+                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass *
+                    massCoefficient);
                 block.CheckHealth();
                 break;
             case "Meat":
                 MeatClass meat = collider.gameObject.GetComponent<MeatController>().Meat;
-                meat.Health -= Damage;
+                meat.Health -= Mathf.RoundToInt(Damage *
+                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude *
+                    magnitudeCoefficient *
+                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass *
+                    massCoefficient); ;
                 meat.CheckHealth();
                 break;
             case "Catapult":
@@ -62,7 +70,7 @@ public abstract class VegetableClass
 
                 break;
             default:
-                Health -= 1;
+                Health -= standartDamage;
                 CheckHealth();
                 break;
         }
