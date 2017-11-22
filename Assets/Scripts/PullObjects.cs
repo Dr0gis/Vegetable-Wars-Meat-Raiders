@@ -21,9 +21,9 @@ public class PullObjects : MonoBehaviour
 
         Blocks = new List<BlockClass>
         {
-            new DishClass(5, 30, "Dish", null),
-            new CookieClass(1, 20, "Cookie", null),
-            new BreadClass(3, 25, "Bread", null)
+            new DishClass(5, PhysicsConstants.DefaultDamage, 30, "Dish", null),
+            new CookieClass(1, PhysicsConstants.DefaultDamage, 20, "Cookie", null),
+            new BreadClass(3, PhysicsConstants.DefaultDamage, 25, "Bread", null)
         };
 
         Meats = new List<MeatClass>

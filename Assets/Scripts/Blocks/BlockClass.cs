@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
     public abstract class BlockClass
     {
 
-        public int Health;
+        public float Health;
+        public float Damage;
         public int Score;
         public string Prefab;
         public Vector2 Position;
@@ -25,9 +27,10 @@ namespace Assets.Scripts
             IsDead = false;
         }
 
-        public BlockClass(int health, int score, string prefab, GameObject gameObject)
+        public BlockClass(float health, float damage, int score, string prefab, GameObject gameObject)
         {
             Health = health;
+            Damage = damage;
             Score = score;
             Prefab = prefab;
             Position = Vector2.zero;
@@ -38,29 +41,57 @@ namespace Assets.Scripts
 
         public virtual void OnCollision2D(Collision2D collision)
         {
+            float damage;
             switch (collision.gameObject.tag)
             {
                 case "Vegetable":
                     VegetableClass vegatable = collision.gameObject.GetComponent<VegetableController>().Vegetable;
-                    vegatable.Health -= 1;
+                    damage = Damage *
+                        (vegatable.CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude +
+                         CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
+                        CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                    vegatable.Health -= damage;
                     vegatable.CheckHealth();
+
+                    Debug.Log("Block to vegetable   :   " + damage);
+
                     CurrentGameObject.GetComponent<AudioSource>().Play();
                     break;
                 case "Block":
                     BlockClass block = collision.gameObject.GetComponent<BlockController>().Block;
-                    block.Health -= 1;
+                    damage = Damage *
+                        (block.CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude +
+                         CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
+                        CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                    block.Health -= damage;
                     block.CheckHealth();
+
+                    Debug.Log("Block to block   :   " + damage);
+
                     CurrentGameObject.GetComponent<AudioSource>().Play();
                     break;
                 case "Meat":
                     MeatClass meat = collision.gameObject.GetComponent<MeatController>().Meat;
-                    meat.Health -= 1;
+                    damage = Damage *
+                        (meat.CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude +
+                         CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
+                        CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                    meat.Health -= damage;
+
+                    Debug.Log("Block to meat   :   " + damage);
+
                     meat.CheckHealth();
                     break;
                 default:
                     if (isFirstCollision)
                     {
-                        Health -= 1;
+                        damage = PhysicsConstants.DefaultDamage *
+                            CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude * PhysicsConstants.MagnitudeCoefficient *
+                            CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                        Health -= damage;
+
+                        Debug.Log("Default to block   :   " + damage);
+
                         CheckHealth();
                     }
                     else

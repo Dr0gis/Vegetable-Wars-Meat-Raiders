@@ -8,8 +8,8 @@ using System;
 
 public abstract class VegetableClass
 { 
-    public int Health;
-    public int Damage;
+    public float Health;
+    public float Damage;
     public float Speed;
     public string Prefab;
     public GameObject CurrentGameObject;
@@ -26,7 +26,7 @@ public abstract class VegetableClass
         IsDead = false;
     }
 
-    public VegetableClass(int health, int damage, float speed, string prefab, GameObject gameObject)
+    public VegetableClass(float health, float damage, float speed, string prefab, GameObject gameObject)
     {
         Health = health;
         Damage = damage;
@@ -43,16 +43,31 @@ public abstract class VegetableClass
             // GameObject.Find("Manager").GetComponent<ObjectManagerScript>().SetNextVagetable();
             wasCollision = true;
         }
+        float damage;
         switch (collider.gameObject.tag)
         {
             case "Block":
                 BlockClass block = collider.gameObject.GetComponent<BlockController>().Block;
-                block.Health -= Damage;
+                damage = Damage *
+                    (block.CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude +
+                     CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
+                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient;
+                block.Health -= damage;
+
+                Debug.Log("Vegetable to block   :   " + damage);
+
                 block.CheckHealth();
                 break;
             case "Meat":
                 MeatClass meat = collider.gameObject.GetComponent<MeatController>().Meat;
-                meat.Health -= Damage;
+                damage = Damage *
+                    (meat.CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude +
+                     CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
+                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient;
+                meat.Health -= damage;
+
+                Debug.Log("Vegetable to meat   :   " + damage);
+
                 meat.CheckHealth();
                 break;
             case "Catapult":
@@ -62,7 +77,13 @@ public abstract class VegetableClass
 
                 break;
             default:
-                Health -= 1;
+                damage = PhysicsConstants.DefaultDamage *
+                            CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude * PhysicsConstants.MagnitudeCoefficient *
+                            CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient;
+                Health -= damage;
+
+                Debug.Log("Default to vegetable   :   " + damage);
+
                 CheckHealth();
                 break;
         }
