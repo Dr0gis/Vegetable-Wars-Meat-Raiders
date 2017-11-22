@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraMovementScript : MonoBehaviour
 {
     private const float speed = 0.02f;
-    private float levelLength = 50;
-    private float levelHeight = 20;
+    //private float levelWidth = 50;
+    //private float levelHeight = 20;
     private float minCameraXPosition;
     private float maxCameraXPosition;
     private float minCameraYPosition;
@@ -24,10 +24,14 @@ public class CameraMovementScript : MonoBehaviour
 
     void Start()
     {
-        CameraSize = 7f;
+        CameraSize = 9f;
+        float levelWidth = GameObject.Find("Right Wall").transform.position.x -
+                           GameObject.Find("Left Wall").transform.position.x;
+        float levelHeight = GameObject.Find("Sky").transform.position.y -
+                            GameObject.Find("Floor").transform.position.y;
 
         FocusOnVegetable = false;
-        maxCameraSize = Mathf.Min(levelHeight / 2.0f, (levelLength * Screen.height) / (2.0f * Screen.width));
+        maxCameraSize = Mathf.Min(levelHeight / 2.0f, (levelWidth * Screen.height) / (2.0f * Screen.width));
         minCameraSize = 1.5f * GameObject.Find("Catapult").GetComponent<Collider2D>().bounds.size.x * Screen.height /
                         Screen.width;
         Camera.main.orthographicSize = Mathf.Clamp(CameraSize, minCameraSize, maxCameraSize);
@@ -41,10 +45,15 @@ public class CameraMovementScript : MonoBehaviour
         var vertExtent = CameraSize;
         var horzExtent = vertExtent * Screen.width / Screen.height;
 
-        minCameraXPosition = horzExtent - levelLength / 2.0f;
-        maxCameraXPosition = levelLength / 2.0f - horzExtent;
-        minCameraYPosition = vertExtent - levelHeight / 2.0f;
-        maxCameraYPosition = levelHeight / 2.0f - vertExtent;
+        //minCameraXPosition = horzExtent - levelLength / 2.0f;
+        //maxCameraXPosition = levelLength / 2.0f - horzExtent;
+        //minCameraYPosition = vertExtent - levelHeight / 2.0f;
+        //maxCameraYPosition = levelHeight / 2.0f - vertExtent;
+
+        minCameraXPosition = GameObject.Find("Left Wall").transform.position.x + horzExtent;
+        maxCameraXPosition = GameObject.Find("Right Wall").transform.position.x - horzExtent;
+        maxCameraYPosition = GameObject.Find("Sky").transform.position.y - vertExtent;
+        minCameraYPosition = GameObject.Find("Floor").transform.position.y + vertExtent;
     }
 
     void SetCameraPosition()
