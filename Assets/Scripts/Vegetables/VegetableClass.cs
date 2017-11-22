@@ -8,7 +8,7 @@ using System;
 
 public abstract class VegetableClass
 { 
-    public float Health;
+    public int Health;
     public float Damage;
     public float Speed;
     public string Prefab;
@@ -26,7 +26,7 @@ public abstract class VegetableClass
         IsDead = false;
     }
 
-    public VegetableClass(float health, float damage, float speed, string prefab, GameObject gameObject)
+    public VegetableClass(int health, float damage, float speed, string prefab, GameObject gameObject)
     {
         Health = health;
         Damage = damage;
@@ -43,15 +43,15 @@ public abstract class VegetableClass
             // GameObject.Find("Manager").GetComponent<ObjectManagerScript>().SetNextVagetable();
             wasCollision = true;
         }
-        float damage;
+        int damage;
         switch (collider.gameObject.tag)
         {
             case "Block":
                 BlockClass block = collider.gameObject.GetComponent<BlockController>().Block;
-                damage = Damage *
+                damage = Mathf.RoundToInt(Damage *
                     (block.CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude +
                      CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
-                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient;
+                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient);
                 block.Health -= damage;
 
                 Debug.Log("Vegetable to block   :   " + damage);
@@ -60,10 +60,10 @@ public abstract class VegetableClass
                 break;
             case "Meat":
                 MeatClass meat = collider.gameObject.GetComponent<MeatController>().Meat;
-                damage = Damage *
+                damage = Mathf.RoundToInt(Damage *
                     (meat.CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude +
                      CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
-                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient;
+                    CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient);
                 meat.Health -= damage;
 
                 Debug.Log("Vegetable to meat   :   " + damage);
@@ -77,9 +77,9 @@ public abstract class VegetableClass
 
                 break;
             default:
-                damage = PhysicsConstants.DefaultDamage *
+                damage = Mathf.RoundToInt(PhysicsConstants.DefaultDamage *
                             CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude * PhysicsConstants.MagnitudeCoefficient *
-                            CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient;
+                            CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.mass * PhysicsConstants.MassCoefficient);
                 Health -= damage;
 
                 Debug.Log("Default to vegetable   :   " + damage);

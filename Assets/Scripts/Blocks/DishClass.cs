@@ -8,7 +8,7 @@ namespace Assets.Scripts
             
         }
 
-        public DishClass(float health, float damage, int score, string prefab, GameObject gameObject) : base(health, damage, score, prefab, gameObject)
+        public DishClass(int health, float damage, int score, string prefab, GameObject gameObject) : base(health, damage, score, prefab, gameObject)
         {
         }
 

@@ -12,7 +12,7 @@ namespace Assets.Scripts
 
         }
 
-        public BreadClass(float health, float damage, int score, string prefab, GameObject gameObject) : base(health, damage, score, prefab, gameObject)
+        public BreadClass(int health, float damage, int score, string prefab, GameObject gameObject) : base(health, damage, score, prefab, gameObject)
         {       
         }
 

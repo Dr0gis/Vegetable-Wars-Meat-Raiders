@@ -368,8 +368,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 198248408}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 474, y: 266.5, z: 0}
-  m_LocalScale: {x: 0.49375, y: 0.49375, z: 0.49375}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1928004980}
   - {fileID: 366851175}
@@ -2463,10 +2463,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsTakingAimNow: 0
   vegetableManager: {fileID: 0}
-  MaxTensionByX: 15
-  MaxTensionByY: 15
-  MinTensionByX: 2.75
-  MinTensionByY: 2.75
+  MaxTensionByX: 300
+  MaxTensionByY: 300
+  MinTensionByX: 55
+  MinTensionByY: 55
   StrengthScale: 0.05
   CurrentVegetable: {fileID: 0}
   PredictionStepsNumber: 250
@@ -2831,8 +2831,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1385547589}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 474, y: 266.5, z: 0}
-  m_LocalScale: {x: 0.49375, y: 0.49375, z: 0.49375}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 17164143}
   m_Father: {fileID: 0}
@@ -3821,8 +3821,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1910461542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 474, y: 266.5, z: 0}
-  m_LocalScale: {x: 0.49375, y: 0.49375, z: 0.49375}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 428178638}
   - {fileID: 337126091}

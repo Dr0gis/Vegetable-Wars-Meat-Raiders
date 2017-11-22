@@ -7,6 +7,7 @@ public class ShotScript : MonoBehaviour
     private Rigidbody2D catapultRigidbody;
 
     private CameraMovementScript mainCameraMovementScript;
+    private float initialCameraSize;
 
     private Vector2 startPoint;
 
@@ -16,10 +17,10 @@ public class ShotScript : MonoBehaviour
 
     public ObjectManagerScript vegetableManager;
 
-    public float MaxTensionByX = 15;
-    public float MaxTensionByY = 15;
-    public float MinTensionByX = 2.75f;
-    public float MinTensionByY = 2.75f;
+    public float MaxTensionByX = 300;
+    public float MaxTensionByY = 300;
+    public float MinTensionByX = 55;
+    public float MinTensionByY = 55;
     public float StrengthScale = 0.05f;
 
     public GameObject CurrentVegetable;
@@ -92,10 +93,10 @@ public class ShotScript : MonoBehaviour
     private Vector2 PrepareVector(Vector2 vectorToPrepare)
     {
         Vector2 pushVector = vectorToPrepare;
-        pushVector *= StrengthScale * mainCameraMovementScript.CameraSize;
+        pushVector *= StrengthScale * mainCameraMovementScript.CameraSize / initialCameraSize;
 
-        pushVector.x = Mathf.Max(Mathf.Min(pushVector.x, MaxTensionByX), -MaxTensionByX);
-        pushVector.y = Mathf.Max(Mathf.Min(pushVector.y, MaxTensionByY), -MaxTensionByY);
+        pushVector.x = Mathf.Max(Mathf.Min(pushVector.x, MaxTensionByX * StrengthScale), -MaxTensionByX * StrengthScale);
+        pushVector.y = Mathf.Max(Mathf.Min(pushVector.y, MaxTensionByY * StrengthScale), -MaxTensionByY * StrengthScale);
 
         return pushVector;
     }
@@ -155,7 +156,7 @@ public class ShotScript : MonoBehaviour
         GetComponent<LineRenderer>().endWidth = 0.05f;
 
         mainCameraMovementScript = GameObject.Find("Main Camera").GetComponent<CameraMovementScript>();
-        StrengthScale /= mainCameraMovementScript.CameraSize;
+        initialCameraSize = mainCameraMovementScript.CameraSize;
     }
 
     void Update()

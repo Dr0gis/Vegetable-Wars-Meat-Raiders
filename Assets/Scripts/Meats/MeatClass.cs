@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MeatClass
 {
-    public float Health;
+    public int Health;
     public float Damage;
     public int Score;
     public Vector2 Position;
@@ -26,7 +26,7 @@ public class MeatClass
         this.IsDead = false;
     }
 
-    public MeatClass(float health, float damage, int score, string prefab, GameObject currentGameObject, bool isDead)
+    public MeatClass(int health, float damage, int score, string prefab, GameObject currentGameObject, bool isDead)
     {
         Health = health;
         Damage = damage;
@@ -39,15 +39,15 @@ public class MeatClass
 
     public void OnCollision2D(Collision2D collision2D)
     {
-        float damage;
+        int damage;
         switch (collision2D.gameObject.tag)
         {
             case "Vegetable":
                 VegetableClass vegatable = collision2D.gameObject.GetComponent<VegetableController>().Vegetable;
-                damage = Damage *
+                damage = Mathf.RoundToInt(Damage *
                     (vegatable.CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude +
                      CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
-                    CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                    CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient);
                 vegatable.Health -= damage;
 
                 Debug.Log("Meat to vegetable   :   " + damage);
@@ -56,10 +56,10 @@ public class MeatClass
                 break;
             case "Block":
                 BlockClass block = collision2D.gameObject.GetComponent<BlockController>().Block;
-                damage = Damage *
+                damage = Mathf.RoundToInt(Damage *
                     (block.CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude +
                      CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
-                    CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                    CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient);
                 block.Health -= damage;
 
                 Debug.Log("Meat to block   :   " + damage);
@@ -68,10 +68,10 @@ public class MeatClass
                 break;
             case "Meat":
                 MeatClass meat = collision2D.gameObject.GetComponent<MeatController>().Meat;
-                damage = Damage *
+                damage = Mathf.RoundToInt(Damage *
                     (meat.CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude +
                      CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
-                    CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                    CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient);
                 Health -= damage;
 
                 Debug.Log("Meat to meat   :   " + damage);
@@ -81,9 +81,9 @@ public class MeatClass
             default:
                 if (wasFirstCollision)
                 {
-                    damage = PhysicsConstants.DefaultDamage *
+                    damage = Mathf.RoundToInt(PhysicsConstants.DefaultDamage *
                             CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude * PhysicsConstants.MagnitudeCoefficient *
-                            CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                            CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient);
                     Health -= damage;
 
                     Debug.Log("Default to meat   :   " + damage);

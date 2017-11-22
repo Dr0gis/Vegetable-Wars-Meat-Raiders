@@ -6,7 +6,7 @@ namespace Assets.Scripts
     public abstract class BlockClass
     {
 
-        public float Health;
+        public int Health;
         public float Damage;
         public int Score;
         public string Prefab;
@@ -27,7 +27,7 @@ namespace Assets.Scripts
             IsDead = false;
         }
 
-        public BlockClass(float health, float damage, int score, string prefab, GameObject gameObject)
+        public BlockClass(int health, float damage, int score, string prefab, GameObject gameObject)
         {
             Health = health;
             Damage = damage;
@@ -41,15 +41,15 @@ namespace Assets.Scripts
 
         public virtual void OnCollision2D(Collision2D collision)
         {
-            float damage;
+            int damage;
             switch (collision.gameObject.tag)
             {
                 case "Vegetable":
                     VegetableClass vegatable = collision.gameObject.GetComponent<VegetableController>().Vegetable;
-                    damage = Damage *
+                    damage = Mathf.RoundToInt(Damage *
                         (vegatable.CurrentGameObject.GetComponent<VegetableController>().Rigidbody2D.velocity.magnitude +
                          CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
-                        CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                        CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient);
                     vegatable.Health -= damage;
                     vegatable.CheckHealth();
 
@@ -59,10 +59,10 @@ namespace Assets.Scripts
                     break;
                 case "Block":
                     BlockClass block = collision.gameObject.GetComponent<BlockController>().Block;
-                    damage = Damage *
+                    damage = Mathf.RoundToInt(Damage *
                         (block.CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude +
                          CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
-                        CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                        CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient);
                     block.Health -= damage;
                     block.CheckHealth();
 
@@ -72,10 +72,10 @@ namespace Assets.Scripts
                     break;
                 case "Meat":
                     MeatClass meat = collision.gameObject.GetComponent<MeatController>().Meat;
-                    damage = Damage *
+                    damage = Mathf.RoundToInt(Damage *
                         (meat.CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude +
                          CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude) * PhysicsConstants.MagnitudeCoefficient *
-                        CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                        CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient);
                     meat.Health -= damage;
 
                     Debug.Log("Block to meat   :   " + damage);
@@ -85,9 +85,9 @@ namespace Assets.Scripts
                 default:
                     if (isFirstCollision)
                     {
-                        damage = PhysicsConstants.DefaultDamage *
+                        damage = Mathf.RoundToInt(PhysicsConstants.DefaultDamage *
                             CurrentGameObject.GetComponent<Rigidbody2D>().velocity.magnitude * PhysicsConstants.MagnitudeCoefficient *
-                            CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient;
+                            CurrentGameObject.GetComponent<Rigidbody2D>().mass * PhysicsConstants.MassCoefficient);
                         Health -= damage;
 
                         Debug.Log("Default to block   :   " + damage);
