@@ -23,3 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SuccesLevelEnd.unity
     guid: 2b59fbadd99ec3647810b1a225dbc18b
+  - enabled: 1
+    path: Assets/Scenes/VegetablesSelection.unity
+    guid: 2a90db85ed4eaf8478e5836a0e14a4eb
+  - enabled: 1
+    path: Assets/Scenes/PreviewScene.unity
+    guid: c49683618b9e63246bff232beceb4d78
