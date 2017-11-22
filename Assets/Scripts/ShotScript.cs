@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +7,8 @@ public class ShotScript : MonoBehaviour
 {
     private Rigidbody2D catapultRigidbody;
 
-    private CameraMovementScript mainCameraMovementScript;
-    private float initialCameraSize;
-
     private Vector2 startPoint;
+    private Vector2 previousVegetablePosition;
 
     private int shotFingerId;
 
@@ -17,11 +16,11 @@ public class ShotScript : MonoBehaviour
 
     public ObjectManagerScript vegetableManager;
 
-    public float MaxTensionByX = 300;
-    public float MaxTensionByY = 300;
-    public float MinTensionByX = 55;
-    public float MinTensionByY = 55;
-    public float StrengthScale = 0.05f;
+    public float MaxTensionByX = 4.5f;
+    public float MaxTensionByY = 4.5f;
+    public float MinTensionByX = 0.5f;
+    public float MinTensionByY = 0.5f;
+    public float StrengthScale = 5;
 
     public GameObject CurrentVegetable;
 
@@ -59,7 +58,7 @@ public class ShotScript : MonoBehaviour
 
         float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations;
 
-        Vector3 gravityAccel = Physics2D.gravity * vegetableRigitbody.gravityScale * timestep * timestep * vegetableRigitbody.mass * vegetableRigitbody.mass;
+        Vector3 gravityAccel = Physics2D.gravity * PhysicsConstants.StandartGravityScale * timestep * timestep * vegetableRigitbody.mass * vegetableRigitbody.mass;
         float drag = 1f - timestep * vegetableRigitbody.drag;
         Vector3 moveStep = pushVector * timestep;
 
@@ -90,13 +89,44 @@ public class ShotScript : MonoBehaviour
         return CurrentVegetable;
     }
 
+    private Vector2 ClampVector(Vector2 vector, float minX, float maxX, float minY, float maxY)
+    {
+        Vector2 newVector = vector;
+        newVector.x = Mathf.Clamp(newVector.x, minX, maxX);
+        newVector.y = Mathf.Clamp(newVector.y, minY, maxY);
+        return newVector;
+    }
+
+    private bool areGoingToIntersect(Collider2D constant, PolygonCollider2D moving, Vector2 movement)
+    {
+        foreach (var point in moving.points)
+        {
+            //print((point + movement).x + "    " + (point + movement).y);
+            //print((point).x + "    " + (point).y);
+            //print((movement).x + "    " + (movement).y);
+
+            //print(constant.bounds.center.x + "                 " + constant.bounds.center.y);
+
+
+            if (constant.OverlapPoint(point + movement))
+            {
+                
+               
+                
+                print("good");
+                return true;
+            }
+        }
+        return false;
+    }
+
     private Vector2 PrepareVector(Vector2 vectorToPrepare)
     {
         Vector2 pushVector = vectorToPrepare;
-        pushVector *= StrengthScale * mainCameraMovementScript.CameraSize / initialCameraSize;
+        pushVector *= StrengthScale;
 
-        pushVector.x = Mathf.Max(Mathf.Min(pushVector.x, MaxTensionByX * StrengthScale), -MaxTensionByX * StrengthScale);
-        pushVector.y = Mathf.Max(Mathf.Min(pushVector.y, MaxTensionByY * StrengthScale), -MaxTensionByY * StrengthScale);
+        pushVector = ClampVector(pushVector, -MaxTensionByX * StrengthScale, MaxTensionByX * StrengthScale,
+                                             -MaxTensionByY * StrengthScale, MaxTensionByY * StrengthScale);
 
         return pushVector;
     }
@@ -121,8 +151,8 @@ public class ShotScript : MonoBehaviour
                 if (initialTouch.HasValue)
                 {
                     IsTakingAimNow = true;
-                    startPoint = initialTouch.Value.position;
                     shotFingerId = initialTouch.Value.fingerId;
+                    previousVegetablePosition = startPoint;
                 }
             }
             else
@@ -130,9 +160,22 @@ public class ShotScript : MonoBehaviour
                 Touch? shotTouch = GetShotTouch();
                 if (shotTouch.HasValue)
                 {
-                    shotVector = startPoint - shotTouch.Value.position;
+                    shotVector = startPoint - (Vector2)Camera.main.ScreenToWorldPoint(shotTouch.Value.position);
                     if (shotTouch.Value.phase == TouchPhase.Moved)
                     {
+                        Vector2 moveToPoint = ClampVector(Camera.main.ScreenToWorldPoint(shotTouch.Value.position),
+                            startPoint.x + -MaxTensionByX, startPoint.x + MaxTensionByX, startPoint.y + -MaxTensionByY, startPoint.y + MaxTensionByY);
+
+                        Vector2 movement = CurrentVegetable.GetComponent<Rigidbody2D>().position - moveToPoint;
+
+                        if (!areGoingToIntersect(CurrentVegetable.GetComponent<Collider2D>(), 
+                            gameObject.GetComponentInChildren<PolygonCollider2D>(), movement + catapultRigidbody.position) &&
+                            !gameObject.GetComponentInChildren<PolygonCollider2D>().OverlapPoint(moveToPoint))
+                        {
+                            CurrentVegetable.GetComponent<Rigidbody2D>().position = moveToPoint;
+                            //previousVegetablePosition = moveToPoint;
+                        }
+
                         isShotMade = false;
                     }
                     else if (shotTouch.Value.phase == TouchPhase.Ended)
@@ -155,8 +198,7 @@ public class ShotScript : MonoBehaviour
         GetComponent<LineRenderer>().startWidth = 0.2f;
         GetComponent<LineRenderer>().endWidth = 0.05f;
 
-        mainCameraMovementScript = GameObject.Find("Main Camera").GetComponent<CameraMovementScript>();
-        initialCameraSize = mainCameraMovementScript.CameraSize;
+        startPoint = CurrentVegetable.GetComponent<Rigidbody2D>().position;
     }
 
     void Update()
@@ -164,28 +206,28 @@ public class ShotScript : MonoBehaviour
         Vector2? shotVector;
         bool isShotMade;
 
-        TakeAim(out shotVector, out isShotMade);
-
-        if (CurrentVegetable != null &&
-            CurrentVegetable.GetComponent<VegetableController>().IsShoted == false &&
-            shotVector.HasValue && 
-            (Mathf.Abs(shotVector.Value.x) > MinTensionByX || Mathf.Abs(shotVector.Value.y) > MinTensionByY))
+        if (CurrentVegetable != null && CurrentVegetable.GetComponent<VegetableController>().IsShoted == false)
         {
-            Vector2 pushVector = PrepareVector(shotVector.Value);
+            TakeAim(out shotVector, out isShotMade);
 
-            if (isShotMade == false)
+            if (shotVector.HasValue && (Mathf.Abs(shotVector.Value.x) > MinTensionByX || Mathf.Abs(shotVector.Value.y) > MinTensionByY))
             {
-                Visualize(pushVector);
+                Vector2 pushVector = PrepareVector(shotVector.Value);
+
+                if (isShotMade == false)
+                {
+                    Visualize(pushVector);
+                }
+                else if (isShotMade == true)
+                {
+                    MakeShot(pushVector);
+                    CurrentVegetable = GetNextDefaultVegetable();
+                }
             }
-            else if (isShotMade == true)
+            else
             {
-                MakeShot(pushVector);
-                CurrentVegetable = GetNextDefaultVegetable();
+                GetComponent<LineRenderer>().positionCount = 0;
             }
-        }
-        else
-        {
-            GetComponent<LineRenderer>().positionCount = 0;
         }
     }
 }
