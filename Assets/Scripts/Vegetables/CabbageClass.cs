@@ -9,8 +9,8 @@ public class CabbageClass : VegetableClass
         
     }
 
-    public CabbageClass(int health, float damage, float speed, string prefab, GameObject gameObject)
-        : base(health, damage, speed, prefab, gameObject)
+    public CabbageClass(int health, float damage, int score, float speed, string prefab, GameObject gameObject)
+        : base(health, damage, score, speed, prefab, gameObject)
     {
         
     }
@@ -22,6 +22,6 @@ public class CabbageClass : VegetableClass
 
     public override VegetableClass Clone()
     {
-        return new CabbageClass(Health, Damage, Speed, Prefab, CurrentGameObject);
+        return new CabbageClass(Health, Damage, Score, Speed, Prefab, CurrentGameObject);
     }
 }
