@@ -126,14 +126,11 @@ public class ShotScript : MonoBehaviour
             rightLine *= 0.125f;
 
 
-
             leftLowerBlack.SetPosition(0, new Vector3(startPoint.x + 1          + leftLine.y, startPoint.y - 0.4f    - leftLine.x, 4f));
             leftLowerBlack.SetPosition(1, new Vector3(point.x                   + leftLine.y, point.y                - leftLine.x, 4f));
 
             leftUpperBlack.SetPosition(0, new Vector3(startPoint.x + 1          - leftLine.y, startPoint.y - 0.4f    + leftLine.x, 4f));
             leftUpperBlack.SetPosition(1, new Vector3(point.x                   - leftLine.y, point.y                + leftLine.x, 4f));
-
-
 
             rightLowerBlack.SetPosition(0, new Vector3(startPoint.x - 0.7f      + leftLine.y, startPoint.y - 0.4f     - leftLine.x, -0.4f));
             rightLowerBlack.SetPosition(1, new Vector3(point.x                  + leftLine.y, point.y                 - leftLine.x, -0.4f));
