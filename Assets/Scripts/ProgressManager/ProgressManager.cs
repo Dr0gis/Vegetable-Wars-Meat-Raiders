@@ -103,4 +103,9 @@ class ProgressManager : MonoBehaviour
     {
         Instance.progressState.SetStarsOnLevel(index, stars);
     }
+
+    public static ProgressState.SavableVegetableList GetVegetablesOnLevel(int index)
+    {
+        return Instance.progressState.GetVegetablesOnLevel(index);
+    }
 }
