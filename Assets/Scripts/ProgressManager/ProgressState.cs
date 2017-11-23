@@ -141,7 +141,7 @@ class ProgressState : ScriptableObject
             }
         }
 
-        for (int i = 0; ; ++i)
+        for (int i = 0; i <= lastAvaliableLevelId + 1; ++i)
         {
             for (int j = 0; ; ++j)
             {
@@ -246,6 +246,7 @@ class ProgressState : ScriptableObject
         {
             lastAvaliableLevelId = value;
             PlayerPrefs.SetInt("lastAvaliableLevelId", lastAvaliableLevelId);
+            vegetablesOnLevel.Add(new List<VegetableClass>());
         }
     }
 

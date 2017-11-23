@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4177944886584618}
   - component: {fileID: 212319220308199606}
   - component: {fileID: 50578569355565942}
-  - component: {fileID: 58414069209876724}
   - component: {fileID: 114744890171011242}
+  - component: {fileID: 60537997306026452}
   m_Layer: 0
   m_Name: Tomato
   m_TagString: Vegetable
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1832466786747982}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.04, y: -4.99, z: 0}
+  m_LocalPosition: {x: -8.9545145, y: -3.773089, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,21 +63,74 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58414069209876724
-CircleCollider2D:
+--- !u!60 &60537997306026452
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1832466786747982}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: fedb5b8822a5be04b8476050a59825dc, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.7, y: 1.69}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.6966648, y: -0.5740919}
+      - {x: 0.77181625, y: -0.46803284}
+      - {x: 0.8209095, y: -0.33500004}
+      - {x: 0.84504414, y: -0.21895933}
+      - {x: 0.83545494, y: 0.0062110424}
+      - {x: 0.7703028, y: 0.17621064}
+      - {x: 0.6299162, y: 0.3550012}
+      - {x: 0.5915127, y: 0.45015144}
+      - {x: 0.6198454, y: 0.48420238}
+      - {x: 0.6109085, y: 0.5556054}
+      - {x: 0.5117817, y: 0.60461354}
+      - {x: 0.4466648, y: 0.6062107}
+      - {x: 0.33848667, y: 0.64590836}
+      - {x: 0.14909172, y: 0.64045405}
+      - {x: 0.0062246323, y: 0.5467968}
+      - {x: -0.0993948, y: 0.5404539}
+      - {x: -0.16484833, y: 0.6607566}
+      - {x: -0.26454544, y: 0.8159082}
+      - {x: -0.34588337, y: 0.83493876}
+      - {x: -0.45090675, y: 0.8256054}
+      - {x: -0.52090836, y: 0.75045395}
+      - {x: -0.55575657, y: 0.64045405}
+      - {x: -0.46636295, y: 0.4904542}
+      - {x: -0.5806055, y: 0.42530274}
+      - {x: -0.5826149, y: 0.31153226}
+      - {x: -0.63974667, y: 0.28476906}
+      - {x: -0.7212715, y: 0.18056011}
+      - {x: -0.75121117, y: 0.050151587}
+      - {x: -0.8209076, y: 0.0004541874}
+      - {x: -0.835454, y: -0.125}
+      - {x: -0.84, y: -0.13499999}
+      - {x: -0.7296715, y: -0.20735979}
+      - {x: -0.7860594, y: -0.27015114}
+      - {x: -0.78999996, y: -0.37651348}
+      - {x: -0.7193947, y: -0.4756055}
+      - {x: -0.61488247, y: -0.49331617}
+      - {x: -0.5500002, y: -0.58136225}
+      - {x: -0.4227295, y: -0.69257355}
+      - {x: -0.2930317, y: -0.76681614}
+      - {x: -0.1833353, y: -0.81590796}
+      - {x: 0.105145454, y: -0.84984875}
+      - {x: 0.3127241, y: -0.8098488}
+      - {x: 0.46181583, y: -0.74984884}
+      - {x: 0.5815134, y: -0.66984844}
 --- !u!114 &114744890171011242
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4177944886584618}
   - component: {fileID: 212319220308199606}
   - component: {fileID: 50578569355565942}
-  - component: {fileID: 58414069209876724}
   - component: {fileID: 114831225510719552}
+  - component: {fileID: 60777483355857622}
   m_Layer: 0
   m_Name: Cabbage
   m_TagString: Vegetable
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1832466786747982}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.04, y: -4.99, z: 0}
+  m_LocalPosition: {x: -7.668, y: -4.4354534, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,21 +63,72 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58414069209876724
-CircleCollider2D:
+--- !u!60 &60777483355857622
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1832466786747982}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: ae6d5a64641298e4f85eeff14083de9e, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.54, y: 1.6}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.7069483, y: -0.4023161}
+      - {x: 0.7431059, y: -0.27463198}
+      - {x: 0.7782278, y: -0.1408813}
+      - {x: 0.74694824, y: 0.1500001}
+      - {x: 0.72310615, y: 0.21384192}
+      - {x: 0.6223159, y: 0.39615798}
+      - {x: 0.48463202, y: 0.53231585}
+      - {x: 0.32377148, y: 0.6068158}
+      - {x: 0.21979427, y: 0.6830909}
+      - {x: 0.12694836, y: 0.77847385}
+      - {x: 0.08158016, y: 0.79999995}
+      - {x: -0.03999996, y: 0.7807901}
+      - {x: -0.1023159, y: 0.7546321}
+      - {x: -0.14354801, y: 0.7021607}
+      - {x: -0.27694845, y: 0.64920986}
+      - {x: -0.31852818, y: 0.5833353}
+      - {x: -0.35079002, y: 0.53}
+      - {x: -0.5023165, y: 0.45463192}
+      - {x: -0.54463196, y: 0.39694798}
+      - {x: -0.5907903, y: 0.28463197}
+      - {x: -0.5749569, y: 0.17255831}
+      - {x: -0.65156794, y: 0.133955}
+      - {x: -0.6884737, y: 0.089999914}
+      - {x: -0.72389746, y: 0.006060362}
+      - {x: -0.73079014, y: -0.0853138}
+      - {x: -0.723896, y: -0.13847399}
+      - {x: -0.76989794, y: -0.20745373}
+      - {x: -0.77658176, y: -0.2987888}
+      - {x: -0.7507901, y: -0.366158}
+      - {x: -0.6692648, y: -0.45847416}
+      - {x: -0.6207361, y: -0.47005415}
+      - {x: -0.5478959, y: -0.52643514}
+      - {x: -0.46897316, y: -0.5401106}
+      - {x: -0.37694788, y: -0.6538422}
+      - {x: -0.24795103, y: -0.7366402}
+      - {x: -0.17700195, y: -0.76}
+      - {x: -0.08389616, y: -0.79231596}
+      - {x: 0.04471159, y: -0.8143089}
+      - {x: 0.25, y: -0.7884741}
+      - {x: 0.34384203, y: -0.7454221}
+      - {x: 0.42768407, y: -0.70926404}
+      - {x: 0.6246319, y: -0.5346322}
 --- !u!114 &114831225510719552
 MonoBehaviour:
   m_ObjectHideFlags: 1
