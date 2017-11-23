@@ -9,8 +9,8 @@ public class TomatoClass : VegetableClass
 
     }
 
-    public TomatoClass(int health, float damage, float speed, string prefab, GameObject gameObject) 
-        : base(health, damage, speed, prefab, gameObject)
+    public TomatoClass(int health, float damage, int score, float speed, string prefab, GameObject gameObject) 
+        : base(health, damage, score, speed, prefab, gameObject)
     {
 
     }
@@ -22,6 +22,6 @@ public class TomatoClass : VegetableClass
 
     public override VegetableClass Clone()
     {
-        return new TomatoClass(Health, Damage, Speed, Prefab, CurrentGameObject);
+        return new TomatoClass(Health, Damage, Score, Speed, Prefab, CurrentGameObject);
     }
 }

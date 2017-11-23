@@ -189,6 +189,7 @@ public class ShotScript : MonoBehaviour
         GetComponent<AudioSource>().Play();
         GetComponent<LineRenderer>().positionCount = 0;
         CurrentVegetable.GetComponent<VegetableController>().Shoot(pushVector);
+        vegetableManager.DisableShoted();
     }
 
     private void TakeAim(out Vector2? shotVector, out bool isShotMade)
@@ -252,7 +253,7 @@ public class ShotScript : MonoBehaviour
         catapultRigidbody = GetComponent<Rigidbody2D>();
         IsTakingAimNow = false;
         vegetableManager = GameObject.Find("Manager").GetComponent<ObjectManagerScript>();
-        vegetableManager.Initiate();
+        //vegetableManager.Initiate();
         vegetableManager.SetNextVagetable();
         GetComponent<LineRenderer>().startWidth = 0.2f;
         GetComponent<LineRenderer>().endWidth = 0.05f;

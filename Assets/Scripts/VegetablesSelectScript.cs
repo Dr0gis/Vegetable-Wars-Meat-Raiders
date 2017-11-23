@@ -9,12 +9,14 @@ public class VegetablesSelectScript : MonoBehaviour {
     public Button PreviewButton;
     public Button PlayButton;
     public Button BackButton;
+    public Text CoinsText;
 
     private Scene currentScene;
     private Scene previewScene;
 
 	void Start ()
     {
+        CoinsText.text = "" + ProgressManagerComponent.AmountOfMoney;
         PlayButton.onClick.AddListener(PlayButtonListener);
         BackButton.onClick.AddListener(() => SceneManager.LoadScene("LevelSelection"));
         PreviewButton.onClick.AddListener(PreviewButtonListener);

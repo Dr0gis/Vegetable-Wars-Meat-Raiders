@@ -24,6 +24,7 @@ public class VegetableController : MonoBehaviour
             Camera.main.GetComponent<CameraMovementScript>().VegetableToFocus = gameObject;
             Camera.main.GetComponent<CameraMovementScript>().FocusOnVegetable = true;
             IsShoted = true;
+            Vegetable.IsShoted = true;
             Rigidbody2D.gravityScale = PhysicsConstants.StandartGravityScale;
             gameObject.GetComponent<Collider2D>().isTrigger = false;
             //gameObject.GetComponent<Collider2D>().enabled = true;
@@ -64,10 +65,15 @@ public class VegetableController : MonoBehaviour
         {
             SceneManager.LoadScene("FailLevelEnd", LoadSceneMode.Additive);
             GameObject.Find("PauseButton").SetActive(false);
-            for (int i = 1; i < 6; i++)
+            /*for (int i = 1; i < 6; i++)
             {
                 GameObject.Find("SelectButton" + i).SetActive(false);
+            }*/
+            foreach (var button in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().VegetableButtons)
+            {
+                button.SetActive(false);
             }
+            
         }
     }
 
