@@ -42,9 +42,9 @@ public class MeatController : MonoBehaviour
         {
             SceneManager.LoadScene("SuccesLevelEnd", LoadSceneMode.Additive);
             GameObject.Find("PauseButton").SetActive(false);
-            for (int i = 1; i < 6; i++)
+            foreach (var button in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().VegetableButtons)
             {
-                GameObject.Find("SelectButton" + i).SetActive(false);
+                button.SetActive(false);
             }
         }
     }

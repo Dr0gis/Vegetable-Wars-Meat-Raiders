@@ -112,10 +112,12 @@ class ProgressState : ScriptableObject
 
     public void LoadState()
     {
+        //PlayerPrefs.DeleteAll();
         lastAvaliableLevelId = PlayerPrefs.GetInt("lastAvaliableLevelId", 0);
         amountOfMoney = PlayerPrefs.GetInt("amountOfMoney", 0);
         starsOnLevel = new List<int>();
         scoreOnLevel = new List<int>();
+        vegetablesOnLevel = new List<List<VegetableClass>>();
         for (int i = 0; ; ++i)
         {
             int stars = PlayerPrefs.GetInt("starsOnLevel " + i, -1);
@@ -143,6 +145,7 @@ class ProgressState : ScriptableObject
 
         for (int i = 0; i <= lastAvaliableLevelId + 1; ++i)
         {
+            vegetablesOnLevel.Add(new List<VegetableClass>());
             for (int j = 0; ; ++j)
             {
                 int health = PlayerPrefs.GetInt("onLevel " + i + " vegetable " + j + " health", -1);
@@ -153,10 +156,6 @@ class ProgressState : ScriptableObject
 
                 if (health != -1 && damage != -1 && speed != -1 && prefab != null && score != -1)
                 {
-                    if (vegetablesOnLevel.Count == i)
-                    {
-                        vegetablesOnLevel.Add(new List<VegetableClass>());
-                    }
                     switch (prefab)
                     {
                         case "Potato":

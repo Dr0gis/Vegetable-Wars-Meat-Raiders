@@ -55,7 +55,7 @@ public class StarsAndScoresController : MonoBehaviour
 	        ThirdStar.interactable = true;
 	    }
 
-        if (GameObject.Find("Manager").GetComponent<Scores>().Score > ProgressManagerComponent.GetScoreOnLevel(GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel))
+        if (score > ProgressManagerComponent.GetScoreOnLevel(currentLevel))
         {
             ProgressManagerComponent.SetScoreOnLevel(currentLevel, score);
             ProgressManagerComponent.SetStarsOnLevel(currentLevel, stars);
