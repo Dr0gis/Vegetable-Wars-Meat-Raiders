@@ -91,8 +91,9 @@ public class SettingsUILevelSelection : MonoBehaviour
     {
         return () =>
         {
-            SceneManager.LoadScene("GameScene");
-           // GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel = indx;
+            CurrentLevelSelected.NumberLevel = indx;
+            SceneManager.LoadScene("VegetablesSelection");
+            //GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel = indx;
         };
     }
 }

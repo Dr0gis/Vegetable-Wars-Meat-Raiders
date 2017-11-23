@@ -105,7 +105,6 @@ namespace Assets.Scripts
         {
             if (!IsDead)
             {
-
                 IsDead = true;
                 ScoreChanges scoreChanges = GameObject.Find("EventSystem").GetComponent<ScoreChanges>();
                 scoreChanges.ScoreValue += Score;

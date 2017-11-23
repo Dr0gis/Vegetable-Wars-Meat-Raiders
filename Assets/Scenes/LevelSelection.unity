@@ -1286,7 +1286,7 @@ RectTransform:
   m_GameObject: {fileID: 1121729834}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.012962963, y: 0.012962963, z: 0.012962963}
+  m_LocalScale: {x: 0.0129629625, y: 0.0129629625, z: 0.0129629625}
   m_Children:
   - {fileID: 852388576}
   - {fileID: 63840902}
@@ -2221,6 +2221,7 @@ GameObject:
   - component: {fileID: 1899426971}
   - component: {fileID: 1899426972}
   - component: {fileID: 1899426973}
+  - component: {fileID: 1899426974}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2324,6 +2325,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bedc42360bb41444bf15551a9ae3d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1899426974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1899426967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 683e6c926565a174dac219d0cbd21a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2114446360 stripped

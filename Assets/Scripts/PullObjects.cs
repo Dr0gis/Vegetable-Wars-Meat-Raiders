@@ -39,6 +39,7 @@ public class PullObjects : MonoBehaviour
     {
         Levels = new List<Level>();
         Level tempLevel = new Level();
+
         #region Level 1
         //Blocks
         tempLevel.AddBlock(Blocks[0].Clone(), new Vector2(6, -7.5f));
@@ -53,6 +54,9 @@ public class PullObjects : MonoBehaviour
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(15, -9));
         tempLevel.AddMeat(Meats[1].Clone(), new Vector2(17, -8.7f));
         tempLevel.AddMeat(Meats[2].Clone(), new Vector2(19, -8.5f));
+
+        //Max Vegetables
+        tempLevel.MaxVegetables = 6;
 
         Levels.Add(tempLevel);
         #endregion
@@ -73,6 +77,9 @@ public class PullObjects : MonoBehaviour
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(8.5f, -7.5f));
         tempLevel.AddMeat(Meats[1].Clone(), new Vector2(13, -7.5f));
         tempLevel.AddMeat(Meats[2].Clone(), new Vector2(17, -8.5f));
+
+        //Max Vegetables
+        tempLevel.MaxVegetables = 6;
 
         Levels.Add(tempLevel);
         #endregion

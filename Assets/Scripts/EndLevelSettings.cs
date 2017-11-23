@@ -6,7 +6,6 @@ using  UnityEngine.SceneManagement;
 
 public class EndLevelSettings : MonoBehaviour
 {
-
     public Button RestartButton;
     public Button NextLevelButton;
     public Button LevelSelectionButton;
