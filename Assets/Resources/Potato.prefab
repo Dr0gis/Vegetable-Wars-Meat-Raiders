@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4376346195343726}
   - component: {fileID: 212281685926897076}
   - component: {fileID: 50037970529135038}
-  - component: {fileID: 58275341892830278}
   - component: {fileID: 114460911406326374}
+  - component: {fileID: 60693778841448432}
   m_Layer: 0
   m_Name: Potato
   m_TagString: Vegetable
@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759599384383626}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.04, y: -4.99, z: 0}
+  m_LocalPosition: {x: -9.078992, y: -4.470366, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -63,21 +63,60 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58275341892830278
-CircleCollider2D:
+--- !u!60 &60693778841448432
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759599384383626}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 387e4f182181eeb44ab6f9aa9108f0d5, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.14, y: 1.8}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.53, y: -0.42999998}
+      - {x: 0.52610016, y: -0.26853228}
+      - {x: 0.45360184, y: -0.056764126}
+      - {x: 0.4453659, y: 0.059999943}
+      - {x: 0.5053673, y: 0.17999983}
+      - {x: 0.53146744, y: 0.32536697}
+      - {x: 0.51683426, y: 0.45610046}
+      - {x: 0.47615433, y: 0.5685947}
+      - {x: 0.54220104, y: 0.6231656}
+      - {x: 0.5731096, y: 0.7010231}
+      - {x: 0.55480003, y: 0.77480006}
+      - {x: 0.45683384, y: 0.8355341}
+      - {x: 0.20040035, y: 0.8544009}
+      - {x: -0.021938324, y: 0.9022865}
+      - {x: -0.13340282, y: 0.89170194}
+      - {x: -0.21170235, y: 0.79585075}
+      - {x: -0.23265743, y: 0.68000007}
+      - {x: -0.3609562, y: 0.5799999}
+      - {x: -0.4692545, y: 0.40999985}
+      - {x: -0.5699997, y: 0.23585033}
+      - {x: -0.5823431, y: -0.15515089}
+      - {x: -0.5368061, y: -0.4217019}
+      - {x: -0.4834032, y: -0.5858512}
+      - {x: -0.31755257, y: -0.755105}
+      - {x: -0.077552795, y: -0.87925434}
+      - {x: 0.15170097, y: -0.8834038}
+      - {x: 0.27925396, y: -0.8058505}
+      - {x: 0.36261082, y: -0.7390661}
+      - {x: 0.45, y: -0.65}
+      - {x: 0.48146725, y: -0.59000015}
 --- !u!114 &114460911406326374
 MonoBehaviour:
   m_ObjectHideFlags: 1

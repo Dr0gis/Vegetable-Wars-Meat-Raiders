@@ -14,18 +14,19 @@ public class ObjectManagerScript : MonoBehaviour
     public int ScoreForTwoStars;
     public int ScoreForThreeStars;
 
-    public Button VegetableButton1;
-    public Button VegetableButton2;
-    public Button VegetableButton3;
-    public Button VegetableButton4;
-    public Button VegetableButton5;
+    public GameObject ButtonGroupObject;
+    public List<GameObject> VegetableButtons;
 
     public bool LevelEnded = false;
 
     private UnityEngine.Events.UnityAction changeVegetable(int indx)
     {
         return () =>
-        {
+        {   
+            foreach (GameObject go in VegetableButtons)
+            {
+                go.GetComponent<Button>().interactable = true;
+            }
             if (AvailableVegetables[indx].CurrentGameObject != null && !AvailableVegetables[indx].CurrentGameObject.GetComponent<VegetableController>().IsShoted)
             {
                 foreach (var vegetable in AvailableVegetables)
@@ -39,6 +40,7 @@ public class ObjectManagerScript : MonoBehaviour
                 GameObject.Find("Catapult").GetComponent<ShotScript>().CurrentVegetable = AvailableVegetables[indx].CurrentGameObject;
                 Camera.main.GetComponent<CameraMovementScript>().FocusOnVegetable = false;
                 Camera.main.GetComponent<CameraMovementScript>().MoveToCatapult();
+                VegetableButtons[indx].GetComponent<Button>().interactable = false;
             }
         };
     }
@@ -126,10 +128,14 @@ public class ObjectManagerScript : MonoBehaviour
 
     void Start()
     {
-        VegetableButton1.onClick.AddListener(changeVegetable(0));
-        VegetableButton2.onClick.AddListener(changeVegetable(1));
-        VegetableButton3.onClick.AddListener(changeVegetable(2));
-        VegetableButton4.onClick.AddListener(changeVegetable(3));
-        VegetableButton5.onClick.AddListener(changeVegetable(4));
+        Initiate();
+        List<VegetableClass> vegetables = GetAvailableVegetables();
+        for (int i = 0; i < vegetables.Count; ++i)
+        {
+            VegetableButtons.Add(Instantiate((GameObject)Resources.Load("SelectButton"), ButtonGroupObject.transform));
+            VegetableButtons[i].GetComponent<Button>().onClick.AddListener(changeVegetable(i));
+            VegetableButtons[i].GetComponent<Button>().image.sprite = ((GameObject)Resources.Load(vegetables[i].Prefab)).GetComponent<SpriteRenderer>().sprite;
+            //    VegetableButtons[i].GetComponent<Image>().sprite = ((GameObject)Resources.Load(vegetables[i].Prefab)).GetComponent<SpriteRenderer>().sprite;
+        }
     }
 }
