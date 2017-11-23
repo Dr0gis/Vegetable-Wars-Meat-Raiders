@@ -45,13 +45,24 @@ public class ObjectManagerScript : MonoBehaviour
 
     public void SetNextVagetable()
     {
-        foreach (var vegetable in AvailableVegetables)
+        for (int i = 0; i < AvailableVegetables.Count; ++i)
         {
-            if (!vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+            if (!AvailableVegetables[i].CurrentGameObject.GetComponent<VegetableController>().IsShoted)
             {
-                vegetable.CurrentGameObject.SetActive(false);
+                AvailableVegetables[i].CurrentGameObject.SetActive(false);
+            }
+            else
+            {
+                VegetableButtons[i].SetActive(false);
             }
         }
+        //foreach (var vegetable in AvailableVegetables)
+        //{
+        //    if (!vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+        //    {
+        //        vegetable.CurrentGameObject.SetActive(false);
+        //    }
+        //}
         foreach (var vegetable in AvailableVegetables)
         {
             if (!vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
