@@ -8,7 +8,7 @@ public class ShotScript : MonoBehaviour
     private Rigidbody2D catapultRigidbody;
 
     private Vector2 startPoint;
-    private Vector2 previousVegetablePosition;
+    private Vector2? previousSHotVector = null;
 
     private int shotFingerId;
 
@@ -73,8 +73,7 @@ public class ShotScript : MonoBehaviour
             moveStep *= drag;
             currentPosition += moveStep;
 
-            if (Physics2D.OverlapPoint(currentPosition) != null &&
-                Physics2D.OverlapPoint(currentPosition) != CurrentVegetable.GetComponent<Collider2D>())
+            if (OverlappedByCollider(currentPosition))
             {
                 trajectoryLine.positionCount = i;
                 break;
@@ -97,23 +96,17 @@ public class ShotScript : MonoBehaviour
         return newVector;
     }
 
-    private bool areGoingToIntersect(Collider2D constant, PolygonCollider2D moving, Vector2 movement)
+    private bool OverlappedByCollider(Vector2 point)
+    {
+        return Physics2D.OverlapPoint(point) != null && Physics2D.OverlapPoint(point) != CurrentVegetable.GetComponent<Collider2D>();
+    }
+
+    private bool areGoingToIntersect(Collider2D constant, PolygonCollider2D moving, Vector2 movement, Vector2 scale)
     {
         foreach (var point in moving.points)
         {
-            //print((point + movement).x + "    " + (point + movement).y);
-            //print((point).x + "    " + (point).y);
-            //print((movement).x + "    " + (movement).y);
-
-            //print(constant.bounds.center.x + "                 " + constant.bounds.center.y);
-
-
-            if (constant.OverlapPoint(point + movement))
+            if (constant.OverlapPoint(new Vector2(point.x * scale.x, point.y * scale.y) + movement))
             {
-                
-               
-                
-                print("good");
                 return true;
             }
         }
@@ -152,7 +145,6 @@ public class ShotScript : MonoBehaviour
                 {
                     IsTakingAimNow = true;
                     shotFingerId = initialTouch.Value.fingerId;
-                    previousVegetablePosition = startPoint;
                 }
             }
             else
@@ -160,7 +152,7 @@ public class ShotScript : MonoBehaviour
                 Touch? shotTouch = GetShotTouch();
                 if (shotTouch.HasValue)
                 {
-                    shotVector = startPoint - (Vector2)Camera.main.ScreenToWorldPoint(shotTouch.Value.position);
+                    shotVector = previousSHotVector;
                     if (shotTouch.Value.phase == TouchPhase.Moved)
                     {
                         Vector2 moveToPoint = ClampVector(Camera.main.ScreenToWorldPoint(shotTouch.Value.position),
@@ -169,17 +161,21 @@ public class ShotScript : MonoBehaviour
                         Vector2 movement = CurrentVegetable.GetComponent<Rigidbody2D>().position - moveToPoint;
 
                         if (!areGoingToIntersect(CurrentVegetable.GetComponent<Collider2D>(), 
-                            gameObject.GetComponentInChildren<PolygonCollider2D>(), movement + catapultRigidbody.position) &&
-                            !gameObject.GetComponentInChildren<PolygonCollider2D>().OverlapPoint(moveToPoint))
+                                gameObject.GetComponentInChildren<PolygonCollider2D>(), movement + (Vector2)transform.Find("CatapultBack").transform.position,
+                                transform.Find("CatapultBack").transform.lossyScale) &&
+                            !OverlappedByCollider(moveToPoint))
                         {
                             CurrentVegetable.GetComponent<Rigidbody2D>().position = moveToPoint;
-                            //previousVegetablePosition = moveToPoint;
-                        }
 
+                            shotVector = startPoint - (Vector2)Camera.main.ScreenToWorldPoint(shotTouch.Value.position);
+                            previousSHotVector = shotVector;
+                        }
                         isShotMade = false;
                     }
                     else if (shotTouch.Value.phase == TouchPhase.Ended)
                     {
+                        shotVector = startPoint - (Vector2)Camera.main.ScreenToWorldPoint(shotTouch.Value.position);
+
                         isShotMade = true;
                         IsTakingAimNow = false;
                     }
