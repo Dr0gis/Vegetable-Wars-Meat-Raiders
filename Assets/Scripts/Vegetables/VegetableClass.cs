@@ -12,7 +12,6 @@ public abstract class VegetableClass
     public float Damage;
     public float Speed;
     public string Prefab;
-
     public GameObject CurrentGameObject;
     public bool IsDead;
     private bool wasCollision = false;

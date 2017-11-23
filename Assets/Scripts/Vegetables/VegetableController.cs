@@ -25,6 +25,7 @@ public class VegetableController : MonoBehaviour
             Camera.main.GetComponent<CameraMovementScript>().FocusOnVegetable = true;
             IsShoted = true;
             Rigidbody2D.gravityScale = PhysicsConstants.StandartGravityScale;
+            gameObject.GetComponent<Collider2D>().isTrigger = false;
             //gameObject.GetComponent<Collider2D>().enabled = true;
             //Rigidbody2D.velocity = velocity;
             Rigidbody2D.AddForce(velocity, ForceMode2D.Impulse);

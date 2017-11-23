@@ -7,10 +7,22 @@ public class ShotScript : MonoBehaviour
 {
     private Rigidbody2D catapultRigidbody;
 
+    private PolygonCollider2D calfTrigger;
+
+    private LineRenderer leftElastic;
+    private LineRenderer rightElastic;
+    private LineRenderer trajectoryLine;
+    private LineRenderer leftLowerBlack;
+    private LineRenderer leftUpperBlack;
+    private LineRenderer rightLowerBlack;
+    private LineRenderer rightUpperBlack;
+
     private Vector2 startPoint;
     private Vector2? previousSHotVector = null;
 
     private int shotFingerId;
+
+    private bool isCalfStopped;
 
     public bool IsTakingAimNow;
 
@@ -53,7 +65,6 @@ public class ShotScript : MonoBehaviour
 
     private void Visualize(Vector2 pushVector)
     {
-        LineRenderer trajectoryLine = GetComponent<LineRenderer>();
         Rigidbody2D vegetableRigitbody = CurrentVegetable.GetComponent<Rigidbody2D>();
 
         float timestep = Time.fixedDeltaTime / Physics2D.velocityIterations;
@@ -62,7 +73,7 @@ public class ShotScript : MonoBehaviour
         float drag = 1f - timestep * vegetableRigitbody.drag;
         Vector3 moveStep = pushVector * timestep;
 
-        Vector3 currentPosition = new Vector3(CurrentVegetable.transform.position.x, CurrentVegetable.transform.position.y, -1);
+        Vector3 currentPosition = new Vector3(CurrentVegetable.transform.position.x, CurrentVegetable.transform.position.y, 0.5f);
 
         trajectoryLine.positionCount = PredictionStepsNumber;
         trajectoryLine.SetPosition(0, currentPosition);
@@ -80,6 +91,55 @@ public class ShotScript : MonoBehaviour
             }
 
             trajectoryLine.SetPosition(i, currentPosition);
+        }
+    }
+
+    public void MoveCalf(bool moveAnyway = false)
+    {
+        moveCalf(new Vector2(CurrentVegetable.GetComponent<Collider2D>().bounds.min.x + 0.25f,
+                    (CurrentVegetable.transform.position.y + CurrentVegetable.GetComponent<Collider2D>().bounds.min.y) / 2), moveAnyway);
+    }
+
+    private void moveCalf(Vector2 point, bool moveAnyway = false)
+    {
+        if (!IsTakingAimNow && calfTrigger.OverlapPoint(point))
+        {
+            isCalfStopped = true;
+        }
+        if (!isCalfStopped || moveAnyway)
+        {
+            transform.Find("Calf").transform.position = new Vector3(point.x, point.y, -1.5f);
+
+            leftElastic.SetPosition(0, new Vector3(startPoint.x + 1, startPoint.y - 0.4f, 5f));
+            leftElastic.SetPosition(1, new Vector3(point.x, point.y, 5f));
+
+            rightElastic.SetPosition(0, new Vector3(startPoint.x - 0.7f, startPoint.y - 0.4f, -0.3f));
+            rightElastic.SetPosition(1, new Vector3(point.x, point.y, -0.3f));
+
+
+            Vector2 leftLine = new Vector2(startPoint.x + 1 - point.x, startPoint.y - 0.4f - point.y);
+            Vector2 rightLine = new Vector2(startPoint.x - 0.7f - point.x, startPoint.y - 0.4f - point.y);
+
+            leftLine.Normalize();
+            rightLine.Normalize();
+            leftLine *= 0.125f;
+            rightLine *= 0.125f;
+
+
+
+            leftLowerBlack.SetPosition(0, new Vector3(startPoint.x + 1          + leftLine.y, startPoint.y - 0.4f    - leftLine.x, 4f));
+            leftLowerBlack.SetPosition(1, new Vector3(point.x                   + leftLine.y, point.y                - leftLine.x, 4f));
+
+            leftUpperBlack.SetPosition(0, new Vector3(startPoint.x + 1          - leftLine.y, startPoint.y - 0.4f    + leftLine.x, 4f));
+            leftUpperBlack.SetPosition(1, new Vector3(point.x                   - leftLine.y, point.y                + leftLine.x, 4f));
+
+
+
+            rightLowerBlack.SetPosition(0, new Vector3(startPoint.x - 0.7f      + leftLine.y, startPoint.y - 0.4f     - leftLine.x, -0.4f));
+            rightLowerBlack.SetPosition(1, new Vector3(point.x                  + leftLine.y, point.y                 - leftLine.x, -0.4f));
+
+            rightUpperBlack.SetPosition(0, new Vector3(startPoint.x - 0.7f      - leftLine.y, startPoint.y - 0.4f     + leftLine.x, -0.4f));
+            rightUpperBlack.SetPosition(1, new Vector3(point.x                  - leftLine.y, point.y                 + leftLine.x, -0.4f));
         }
     }
 
@@ -145,6 +205,7 @@ public class ShotScript : MonoBehaviour
                 {
                     IsTakingAimNow = true;
                     shotFingerId = initialTouch.Value.fingerId;
+                    isCalfStopped = false;
                 }
             }
             else
@@ -156,7 +217,7 @@ public class ShotScript : MonoBehaviour
                     if (shotTouch.Value.phase == TouchPhase.Moved)
                     {
                         Vector2 moveToPoint = ClampVector(Camera.main.ScreenToWorldPoint(shotTouch.Value.position),
-                            startPoint.x + -MaxTensionByX, startPoint.x + MaxTensionByX, startPoint.y + -MaxTensionByY, startPoint.y + MaxTensionByY);
+                            startPoint.x + -MaxTensionByX, startPoint.x + 0.5f, startPoint.y + -MaxTensionByY, startPoint.y + 0.5f);
 
                         Vector2 movement = CurrentVegetable.GetComponent<Rigidbody2D>().position - moveToPoint;
 
@@ -165,9 +226,11 @@ public class ShotScript : MonoBehaviour
                                 transform.Find("CatapultBack").transform.lossyScale) &&
                             !OverlappedByCollider(moveToPoint))
                         {
-                            CurrentVegetable.GetComponent<Rigidbody2D>().position = moveToPoint;
+                            CurrentVegetable.transform.position = moveToPoint;
 
-                            shotVector = startPoint - (Vector2)Camera.main.ScreenToWorldPoint(shotTouch.Value.position);
+                            MoveCalf();
+
+                            shotVector = startPoint - moveToPoint;
                             previousSHotVector = shotVector;
                         }
                         isShotMade = false;
@@ -194,7 +257,29 @@ public class ShotScript : MonoBehaviour
         GetComponent<LineRenderer>().startWidth = 0.2f;
         GetComponent<LineRenderer>().endWidth = 0.05f;
 
+        calfTrigger = transform.Find("CalfTrigger").GetComponent<PolygonCollider2D>();
         startPoint = CurrentVegetable.GetComponent<Rigidbody2D>().position;
+
+        trajectoryLine = GetComponent<LineRenderer>();
+        leftElastic = transform.Find("LeftElastic").GetComponent<LineRenderer>();
+        rightElastic = transform.Find("RightElastic").GetComponent<LineRenderer>();
+
+        leftLowerBlack = transform.Find("LeftLowerBlack").GetComponent<LineRenderer>();
+        leftUpperBlack = transform.Find("LeftUpperBlack").GetComponent<LineRenderer>();
+
+        rightLowerBlack = transform.Find("RightLowerBlack").GetComponent<LineRenderer>();
+        rightUpperBlack = transform.Find("RightUpperBlack").GetComponent<LineRenderer>();
+
+        leftElastic.positionCount = 2;
+        rightElastic.positionCount = 2;
+
+        leftLowerBlack.positionCount = 2;
+        leftUpperBlack.positionCount = 2;
+
+        rightLowerBlack.positionCount = 2;
+        rightUpperBlack.positionCount = 2;
+
+        MoveCalf(true);
     }
 
     void Update()
@@ -202,27 +287,31 @@ public class ShotScript : MonoBehaviour
         Vector2? shotVector;
         bool isShotMade;
 
-        if (CurrentVegetable != null && CurrentVegetable.GetComponent<VegetableController>().IsShoted == false)
+        if (CurrentVegetable != null)
         {
-            TakeAim(out shotVector, out isShotMade);
-
-            if (shotVector.HasValue && (Mathf.Abs(shotVector.Value.x) > MinTensionByX || Mathf.Abs(shotVector.Value.y) > MinTensionByY))
+            MoveCalf();
+            if (CurrentVegetable.GetComponent<VegetableController>().IsShoted == false)
             {
-                Vector2 pushVector = PrepareVector(shotVector.Value);
+                TakeAim(out shotVector, out isShotMade);
 
-                if (isShotMade == false)
+                if (shotVector.HasValue && (Mathf.Abs(shotVector.Value.x) > MinTensionByX || Mathf.Abs(shotVector.Value.y) > MinTensionByY))
                 {
-                    Visualize(pushVector);
+                    Vector2 pushVector = PrepareVector(shotVector.Value);
+
+                    if (isShotMade == false)
+                    {
+                        Visualize(pushVector);
+                    }
+                    else if (isShotMade == true)
+                    {
+                        MakeShot(pushVector);
+                        CurrentVegetable = GetNextDefaultVegetable();
+                    }
                 }
-                else if (isShotMade == true)
+                else
                 {
-                    MakeShot(pushVector);
-                    CurrentVegetable = GetNextDefaultVegetable();
+                    GetComponent<LineRenderer>().positionCount = 0;
                 }
-            }
-            else
-            {
-                GetComponent<LineRenderer>().positionCount = 0;
             }
         }
     }
