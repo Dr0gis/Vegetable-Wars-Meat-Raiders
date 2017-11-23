@@ -47,24 +47,13 @@ public class ObjectManagerScript : MonoBehaviour
 
     public void SetNextVagetable()
     {
-        for (int i = 0; i < AvailableVegetables.Count; ++i)
+        foreach (var vegetable in AvailableVegetables)
         {
-            if (!AvailableVegetables[i].CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+            if (!vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
             {
-                AvailableVegetables[i].CurrentGameObject.SetActive(false);
-            }
-            else
-            {
-                VegetableButtons[i].SetActive(false);
+                vegetable.CurrentGameObject.SetActive(false);
             }
         }
-        //foreach (var vegetable in AvailableVegetables)
-        //{
-        //    if (!vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
-        //    {
-        //        vegetable.CurrentGameObject.SetActive(false);
-        //    }
-        //}
         foreach (var vegetable in AvailableVegetables)
         {
             if (!vegetable.CurrentGameObject.GetComponent<VegetableController>().IsShoted)
@@ -72,6 +61,18 @@ public class ObjectManagerScript : MonoBehaviour
                 vegetable.CurrentGameObject.SetActive(true);
                 GameObject.Find("Catapult").GetComponent<ShotScript>().CurrentVegetable = vegetable.CurrentGameObject;
                 break;
+            }
+        }
+        VegetableButtons[0].GetComponent<Button>().interactable = false;
+    }
+
+    public void DisableShoted()
+    {
+        for (int i = 0; i < AvailableVegetables.Count; ++i)
+        {
+            if (!AvailableVegetables[i].CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+            {
+                VegetableButtons[i].SetActive(false);
             }
         }
     }

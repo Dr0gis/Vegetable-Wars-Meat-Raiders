@@ -129,6 +129,7 @@ public class ShotScript : MonoBehaviour
         GetComponent<AudioSource>().Play();
         GetComponent<LineRenderer>().positionCount = 0;
         CurrentVegetable.GetComponent<VegetableController>().Shoot(pushVector);
+        vegetableManager.DisableShoted();
     }
 
     private void TakeAim(out Vector2? shotVector, out bool isShotMade)
