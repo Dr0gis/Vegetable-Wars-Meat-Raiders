@@ -10,6 +10,7 @@ public class EndLevelSettings : MonoBehaviour
     public Button RestartButton;
     public Button NextLevelButton;
     public Button LevelSelectionButton;
+    public Text CoinsText;
     public bool LevelCompleted;
     private int nextLevel;
     private ObjectManagerScript manager;
@@ -27,7 +28,8 @@ public class EndLevelSettings : MonoBehaviour
 	    {
 	        NextLevelButton.interactable = false; // now disabling if level failed
 	    }
-	}
+        CoinsText.text = "" + ProgressManagerComponent.AmountOfMoney;
+    }
 
     void RestartButtonListener()
     {

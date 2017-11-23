@@ -11,6 +11,8 @@ public class ObjectManagerScript : MonoBehaviour
     public List<BlockClass> AvailableBlocks;
     public List<MeatClass> AvailableMeats;
     public int CurrentLevel;
+    public int ScoreForTwoStars;
+    public int ScoreForThreeStars;
 
     public Button VegetableButton1;
     public Button VegetableButton2;
@@ -109,7 +111,6 @@ public class ObjectManagerScript : MonoBehaviour
         {
             block.CurrentGameObject = Instantiate((GameObject)Resources.Load(block.Prefab), block.Position, block.Rotation);
             block.CurrentGameObject.GetComponent<BlockController>().Block = block;
-            GetComponent<Scores>().MaxScore += block.Score;
         }
 
         AvailableMeats = GetAvailableMeats();
@@ -117,9 +118,10 @@ public class ObjectManagerScript : MonoBehaviour
         {
             meat.CurrentGameObject = Instantiate((GameObject)Resources.Load(meat.Prefab), meat.Position, Quaternion.identity);
             meat.CurrentGameObject.GetComponent<MeatController>().Meat = meat;
-            GetComponent<Scores>().MaxScore += meat.Score;
-            GetComponent<Scores>().MinScore += meat.Score;
         }
+
+        ScoreForTwoStars = GetComponent<PullObjects>().Levels[CurrentLevel].ScoreForTwoStars;
+        ScoreForThreeStars = GetComponent<PullObjects>().Levels[CurrentLevel].ScoreForThreeStars;
     }
 
     void Start()

@@ -8,6 +8,7 @@ public class SettingsUILevelSelection : MonoBehaviour
 {
     public Button BackButton;
     public string BackScene;
+    public Text CoinsText;
 
     public List<GameObject> LevelButtons;
 
@@ -22,6 +23,7 @@ public class SettingsUILevelSelection : MonoBehaviour
 
 	void Start ()
     {
+        CoinsText.text = "" + ProgressManagerComponent.AmountOfMoney;
         BackButton.onClick.AddListener(backButtonListener);
         //ProgressManagerComponent.LastAvaliableLevelId = 0; //use this to clear level locks
 

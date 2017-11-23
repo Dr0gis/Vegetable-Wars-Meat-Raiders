@@ -14,23 +14,23 @@ public class PullObjects : MonoBehaviour
     {
         Vegetables = new List<VegetableClass>
         {
-            new PotatoClass(4, 1, 1, "Potato", null),
-            new TomatoClass(1, 3, 0.75f, "Tomato", null),
-            new CabbageClass(10, 5, 0.5f, "Cabbage", null)
+            new PotatoClass(4, 1, 500, 1, "Potato", null),
+            new TomatoClass(1, 3, 500, 0.75f, "Tomato", null),
+            new CabbageClass(10, 5, 500, 0.5f, "Cabbage", null)
         };
 
         Blocks = new List<BlockClass>
         {
-            new DishClass(5, PhysicsConstants.DefaultDamage, 30, "Dish", null),
-            new CookieClass(1, PhysicsConstants.DefaultDamage, 20, "Cookie", null),
-            new BreadClass(3, PhysicsConstants.DefaultDamage, 25, "Bread", null)
+            new DishClass(5, PhysicsConstants.DefaultDamage, 5, "Dish", null),
+            new CookieClass(1, PhysicsConstants.DefaultDamage, 5, "Cookie", null),
+            new BreadClass(3, PhysicsConstants.DefaultDamage, 5, "Bread", null)
         };
 
         Meats = new List<MeatClass>
         {
-            new MeatClass(1, 1, 10, "MeatSmall", null, false),
-            new MeatClass(2, 2, 20, "MeatMiddle", null, false),
-            new MeatClass(3, 3, 30, "MeatBig", null, false)
+            new MeatClass(1, 1, 50, "MeatSmall", null, false),
+            new MeatClass(2, 2, 60, "MeatMiddle", null, false),
+            new MeatClass(3, 3, 70, "MeatBig", null, false)
         };
 
         InitiateLevels();
@@ -44,6 +44,10 @@ public class PullObjects : MonoBehaviour
         tempLevel.AddBlock(Blocks[0].Clone(), new Vector2(6, -7.5f));
         tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(8, -7.5f));
         tempLevel.AddBlock(Blocks[2].Clone(), new Vector2(11, -7.5f));
+
+        //Scores
+        tempLevel.ScoreForTwoStars = 1180;
+        tempLevel.ScoreForThreeStars = 1680;
 
         //Meat
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(15, -9));
@@ -60,6 +64,10 @@ public class PullObjects : MonoBehaviour
         tempLevel.AddBlock(Blocks[0].Clone(), new Vector2(7, -7.5f));
         tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(10, -7.5f));
         tempLevel.AddBlock(Blocks[2].Clone(), new Vector2(15, -7.5f));
+
+        //Scores
+        tempLevel.ScoreForTwoStars = 1180;
+        tempLevel.ScoreForThreeStars = 1680;
 
         //Meat
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(8.5f, -7.5f));

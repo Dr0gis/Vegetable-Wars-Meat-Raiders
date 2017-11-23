@@ -10,6 +10,8 @@ public class Level
     public List<BlockClass> Blocks;
     public List<MeatClass> Meats;
     public GameObject Landscape;
+    public int ScoreForTwoStars;
+    public int ScoreForThreeStars;
     public int MaxVegetables { get; set; }
     
     public Level()
