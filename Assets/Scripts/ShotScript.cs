@@ -36,7 +36,7 @@ public class ShotScript : MonoBehaviour
 
     public GameObject CurrentVegetable;
 
-    public int PredictionStepsNumber = 250;
+    public int PredictionStepsNumber = 60;
 
     private Touch? GetShotTouch()
     {
@@ -80,9 +80,12 @@ public class ShotScript : MonoBehaviour
 
         for (int i = 1; i < PredictionStepsNumber; ++i)
         {
-            moveStep += gravityAccel;
-            moveStep *= drag;
-            currentPosition += moveStep;
+            for (int j = 0; j < 5; ++j)
+            {
+                moveStep += gravityAccel;
+                moveStep *= drag;
+                currentPosition += moveStep;
+            }
 
             if (OverlappedByCollider(currentPosition))
             {
@@ -221,8 +224,7 @@ public class ShotScript : MonoBehaviour
 
                         if (!areGoingToIntersect(CurrentVegetable.GetComponent<Collider2D>(), 
                                 gameObject.GetComponentInChildren<PolygonCollider2D>(), movement + (Vector2)transform.Find("CatapultBack").transform.position,
-                                transform.Find("CatapultBack").transform.lossyScale) &&
-                            !OverlappedByCollider(moveToPoint))
+                                transform.Find("CatapultBack").transform.lossyScale))
                         {
                             CurrentVegetable.transform.position = moveToPoint;
 
@@ -235,7 +237,7 @@ public class ShotScript : MonoBehaviour
                     }
                     else if (shotTouch.Value.phase == TouchPhase.Ended)
                     {
-                        shotVector = startPoint - (Vector2)Camera.main.ScreenToWorldPoint(shotTouch.Value.position);
+                        //shotVector = startPoint - (Vector2)Camera.main.ScreenToWorldPoint(shotTouch.Value.position);
 
                         isShotMade = true;
                         IsTakingAimNow = false;
