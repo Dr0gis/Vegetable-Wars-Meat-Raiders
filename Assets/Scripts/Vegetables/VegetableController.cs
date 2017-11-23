@@ -64,10 +64,15 @@ public class VegetableController : MonoBehaviour
         {
             SceneManager.LoadScene("FailLevelEnd", LoadSceneMode.Additive);
             GameObject.Find("PauseButton").SetActive(false);
-            for (int i = 1; i < 6; i++)
+            /*for (int i = 1; i < 6; i++)
             {
                 GameObject.Find("SelectButton" + i).SetActive(false);
+            }*/
+            foreach (var button in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().VegetableButtons)
+            {
+                button.SetActive(false);
             }
+            
         }
     }
 

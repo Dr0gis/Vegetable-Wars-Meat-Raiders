@@ -70,7 +70,7 @@ public class ObjectManagerScript : MonoBehaviour
     {
         for (int i = 0; i < AvailableVegetables.Count; ++i)
         {
-            if (AvailableVegetables[i].CurrentGameObject.GetComponent<VegetableController>().IsShoted)
+            if (AvailableVegetables[i].IsShoted)
             {
                 VegetableButtons[i].SetActive(false);
             }
