@@ -7,7 +7,7 @@ using UnityEngine;
 
 class ProgressState : ScriptableObject
 {
-    public class SavableVegetableList : IList<Pair<VegetableClass, bool>>
+    public class SavableVegetableList : IList<VegetableClass>
     {
         private ProgressState state;
         private int levelIndx;
@@ -22,7 +22,7 @@ class ProgressState : ScriptableObject
 
         public bool IsReadOnly { get { return false; } }
 
-        public Pair<VegetableClass, bool> this[int index]
+        public VegetableClass this[int index]
         {
             get
             {
@@ -35,25 +35,36 @@ class ProgressState : ScriptableObject
                 state.saveVegetable(
                     levelIndx, 
                     index, 
-                    state.vegetablesOnLevel[levelIndx][index].First.Health, 
-                    state.vegetablesOnLevel[levelIndx][index].First.Damage,
-                    state.vegetablesOnLevel[levelIndx][index].First.Score, 
-                    state.vegetablesOnLevel[levelIndx][index].First.Speed, 
-                    state.vegetablesOnLevel[levelIndx][index].First.Prefab,
-                    state.vegetablesOnLevel[levelIndx][index].Second
+                    state.vegetablesOnLevel[levelIndx][index].Health, 
+                    state.vegetablesOnLevel[levelIndx][index].Damage,
+                    state.vegetablesOnLevel[levelIndx][index].Score, 
+                    state.vegetablesOnLevel[levelIndx][index].Speed, 
+                    state.vegetablesOnLevel[levelIndx][index].Prefab
                 );
             }
         }
 
-        public int IndexOf(Pair<VegetableClass, bool> item)
+        public void Save()
+        {
+            state.saveVegetablesOnLevel(levelIndx);
+        }
+
+        public int IndexOf(VegetableClass item)
         {
             return state.vegetablesOnLevel[levelIndx].IndexOf(item);
         }
 
-        public void Insert(int index, Pair<VegetableClass, bool> item)
+        public void Insert(int index, VegetableClass item)
         {
-            state.vegetablesOnLevel[levelIndx].Insert(index, item);
-            state.saveVegetablesOnLevel(levelIndx);
+            if (index < state.vegetablesOnLevel[levelIndx].Count)
+            {
+                state.vegetablesOnLevel[levelIndx][index] = item;
+                state.saveVegetablesOnLevel(levelIndx);
+            }
+            else
+            {
+                Add(item);
+            }
         }
 
         public void RemoveAt(int index)
@@ -61,14 +72,11 @@ class ProgressState : ScriptableObject
             if (index < state.vegetablesOnLevel[levelIndx].Count)
             {
                 state.forgetVegetable(levelIndx, state.vegetablesOnLevel[levelIndx].Count - 1);
+                state.vegetablesOnLevel[levelIndx][index] = null;
             }
-
-            state.vegetablesOnLevel[levelIndx].RemoveAt(index);
-
-            state.saveVegetablesOnLevel(levelIndx);
         }
 
-        public void Add(Pair<VegetableClass, bool> item)
+        public void Add(VegetableClass item)
         {
             state.vegetablesOnLevel[levelIndx].Add(item);
             state.saveVegetablesOnLevel(levelIndx);
@@ -76,32 +84,35 @@ class ProgressState : ScriptableObject
 
         public void Clear()
         {
-            state.vegetablesOnLevel[levelIndx].Clear();
             state.forgetOnLevel(levelIndx);
+            for (int i = 0; i < state.vegetablesOnLevel[levelIndx].Count; ++i)
+            {
+                state.vegetablesOnLevel[levelIndx][i] = null;
+            }
         }
 
-        public bool Contains(Pair<VegetableClass, bool> item)
+        public bool Contains(VegetableClass item)
         {
             return state.vegetablesOnLevel[levelIndx].Contains(item);
         }
 
-        public void CopyTo(Pair<VegetableClass, bool>[] array, int arrayIndex)
+        public void CopyTo(VegetableClass[] array, int arrayIndex)
         {
             state.vegetablesOnLevel[levelIndx].CopyTo(array, arrayIndex);
         }
 
-        public bool Remove(Pair<VegetableClass, bool> item)
+        public bool Remove(VegetableClass item)
         {
-            bool removed = state.vegetablesOnLevel[levelIndx].Remove(item);
-            if (removed)
+            int index = IndexOf(item);
+            if (index != -1)
             {
-                state.forgetVegetable(levelIndx, state.vegetablesOnLevel[levelIndx].Count - 1);
-                state.saveVegetablesOnLevel(levelIndx);
+                RemoveAt(index);
+                return true;
             }
-            return removed;
+            return false;
         }
 
-        public IEnumerator<Pair<VegetableClass, bool>> GetEnumerator()
+        public IEnumerator<VegetableClass> GetEnumerator()
         {
             return state.vegetablesOnLevel[levelIndx].GetEnumerator();
         }
@@ -116,7 +127,7 @@ class ProgressState : ScriptableObject
     private int amountOfMoney;
     private List<int> starsOnLevel;
     private List<int> scoreOnLevel;
-    private List<List<Pair<VegetableClass, bool>>> vegetablesOnLevel;
+    private List<List<VegetableClass>> vegetablesOnLevel;
 
     public void LoadState()
     {
@@ -125,7 +136,7 @@ class ProgressState : ScriptableObject
         amountOfMoney = PlayerPrefs.GetInt("amountOfMoney", 0);
         starsOnLevel = new List<int>();
         scoreOnLevel = new List<int>();
-        vegetablesOnLevel = new List<List<Pair<VegetableClass, bool>>>();
+        vegetablesOnLevel = new List<List<VegetableClass>>();
         for (int i = 0; ; ++i)
         {
             int stars = PlayerPrefs.GetInt("starsOnLevel " + i, -1);
@@ -153,28 +164,27 @@ class ProgressState : ScriptableObject
 
         for (int i = 0; i <= lastAvaliableLevelId + 1; ++i)
         {
-            vegetablesOnLevel.Add(new List<Pair<VegetableClass, bool>>());
-            for (int j = 0; ; ++j)
+            vegetablesOnLevel.Add(new List<VegetableClass>());
+            for (int j = 0; j <= 10; ++j)
             {
                 int health = PlayerPrefs.GetInt("onLevel " + i + " vegetable " + j + " health", -1);
                 float damage = PlayerPrefs.GetFloat("onLevel " + i + " vegetable " + j + " damage", -1);
                 int score = PlayerPrefs.GetInt("onLevel " + i + " vegetable " + j + " score", -1);
                 float speed = PlayerPrefs.GetFloat("onLevel " + i + " vegetable " + j + " speed", -1);
                 string prefab = PlayerPrefs.GetString("onLevel " + i + " vegetable " + j + " prefab", null);
-                bool isPlayed = PlayerPrefs.GetInt("onLevel " + i + " vegetable " + j + " isPlayed", 0) == 1;
 
                 if (health != -1 && damage != -1 && speed != -1 && prefab != null && score != -1)
                 {
                     switch (prefab)
                     {
                         case "Potato":
-                            vegetablesOnLevel[i].Add(new Pair<VegetableClass, bool>(new PotatoClass(health, damage, score, speed, "Potato", null), isPlayed));
+                            vegetablesOnLevel[i].Add(new PotatoClass(health, damage, score, speed, "Potato", null));
                             break;
                         case "Tomato":
-                            vegetablesOnLevel[i].Add(new Pair<VegetableClass, bool>(new TomatoClass(health, damage, score, speed, "Potato", null), isPlayed));
+                            vegetablesOnLevel[i].Add(new TomatoClass(health, damage, score, speed, "Tomato", null));
                             break;
                         case "Cabbage":
-                            vegetablesOnLevel[i].Add(new Pair<VegetableClass, bool>(new CabbageClass(health, damage, score, speed, "Potato", null), isPlayed));
+                            vegetablesOnLevel[i].Add(new CabbageClass(health, damage, score, speed, "Cabbage", null));
                             break;
                         default:
                             break;
@@ -182,7 +192,7 @@ class ProgressState : ScriptableObject
                 }
                 else
                 {
-                    break;
+                    vegetablesOnLevel[i].Add(null);
                 }
             }
         }
@@ -195,7 +205,6 @@ class ProgressState : ScriptableObject
         PlayerPrefs.DeleteKey("onLevel " + level + " vegetable " + index + " score");
         PlayerPrefs.DeleteKey("onLevel " + level + " vegetable " + index + " speed");
         PlayerPrefs.DeleteKey("onLevel " + level + " vegetable " + index + " prefab");
-        PlayerPrefs.DeleteKey("onLevel " + level + " vegetable " + index + " isPlayed");
     }
 
     private void forgetOnLevel(int level)
@@ -206,30 +215,31 @@ class ProgressState : ScriptableObject
         }
     }
 
-    private void saveVegetable(int level, int index, int health, float damage, int score, float speed, string prefab, bool isPlayed)
+    private void saveVegetable(int level, int index, int health, float damage, int score, float speed, string prefab)
     {
         PlayerPrefs.SetInt("onLevel " + level + " vegetable " + index + " health", health);
         PlayerPrefs.SetFloat("onLevel " + level + " vegetable " + index + " damage", damage);
         PlayerPrefs.SetInt("onLevel " + level + " vegetable " + index + " score", score);
         PlayerPrefs.SetFloat("onLevel " + level + " vegetable " + index + " speed", speed);
         PlayerPrefs.SetString("onLevel " + level + " vegetable " + index + " prefab", prefab);
-        PlayerPrefs.SetInt("onLevel " + level + " vegetable " + index + " isPlayed", Convert.ToInt32(isPlayed));
     }
 
     private void saveVegetablesOnLevel(int i)
     {
         for (int j = 0; j < vegetablesOnLevel[i].Count; ++j)
         {
-            saveVegetable(
-                i, 
-                j, 
-                vegetablesOnLevel[i][j].First.Health, 
-                vegetablesOnLevel[i][j].First.Damage, 
-                vegetablesOnLevel[i][j].First.Score, 
-                vegetablesOnLevel[i][j].First.Speed, 
-                vegetablesOnLevel[i][j].First.Prefab,
-                vegetablesOnLevel[i][j].Second
-            );
+            if (vegetablesOnLevel[i][j] != null)
+            {
+                saveVegetable(
+                    i,
+                    j,
+                    vegetablesOnLevel[i][j].Health,
+                    vegetablesOnLevel[i][j].Damage,
+                    vegetablesOnLevel[i][j].Score,
+                    vegetablesOnLevel[i][j].Speed,
+                    vegetablesOnLevel[i][j].Prefab
+                );
+            }
         }
     }
 
@@ -268,7 +278,7 @@ class ProgressState : ScriptableObject
         {
             lastAvaliableLevelId = value;
             PlayerPrefs.SetInt("lastAvaliableLevelId", lastAvaliableLevelId);
-            vegetablesOnLevel.Add(new List<Pair<VegetableClass, bool>>());
+            vegetablesOnLevel.Add(new List<VegetableClass>());
         }
     }
 

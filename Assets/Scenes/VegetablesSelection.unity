@@ -1443,6 +1443,11 @@ Prefab:
       propertyPath: m_Name
       value: Slot1
       objectReference: {fileID: 0}
+    - target: {fileID: 114972305378194644, guid: 265252766d3fded44b4374a69ea7236a,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 265252766d3fded44b4374a69ea7236a, type: 2}
   m_IsPrefabParent: 0
@@ -5181,7 +5186,13 @@ MonoBehaviour:
   - {fileID: 1969162448}
   - {fileID: 1963147590}
   - {fileID: 47891514}
+  SelectVegetables:
+  - {fileID: 72052066}
+  - {fileID: 421058369}
+  - {fileID: 105935708}
   CoinsText: {fileID: 346495349}
+  SelectCanvas: {fileID: 1264325625}
+  VegetableCanvas: {fileID: 5108617}
 --- !u!114 &2042228933
 MonoBehaviour:
   m_ObjectHideFlags: 0
