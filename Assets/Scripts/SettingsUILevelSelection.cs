@@ -58,10 +58,15 @@ public class SettingsUILevelSelection : MonoBehaviour
             EnableButton(LevelButtons[j], true);
             EnableLock(LevelButtons[j], false);
         }
+        GameObject.Find("Manager").GetComponent<PullObjects>().Initiate();
 
-        ChangeColor(LevelButtons[ProgressManagerComponent.LastAvaliableLevelId], "NewLevel");
-        EnableButton(LevelButtons[ProgressManagerComponent.LastAvaliableLevelId], true);
-        EnableLock(LevelButtons[ProgressManagerComponent.LastAvaliableLevelId], false);
+        if (GameObject.Find("Manager").GetComponent<PullObjects>().Levels.Count >
+            ProgressManagerComponent.LastAvaliableLevelId)
+        {
+            ChangeColor(LevelButtons[ProgressManagerComponent.LastAvaliableLevelId], "NewLevel");
+            EnableButton(LevelButtons[ProgressManagerComponent.LastAvaliableLevelId], true);
+            EnableLock(LevelButtons[ProgressManagerComponent.LastAvaliableLevelId], false);
+        }
     }
 
     private void backButtonListener()

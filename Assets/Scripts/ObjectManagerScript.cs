@@ -159,6 +159,7 @@ public class ObjectManagerScript : MonoBehaviour
 
     void Start()
     {
+        CurrentLevel = CurrentLevelSelected.NumberLevel;
         Initiate();
 
         ShowVegetableButtons();
