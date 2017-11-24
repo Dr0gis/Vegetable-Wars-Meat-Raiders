@@ -21,6 +21,7 @@ public class StarsAndScoresController : MonoBehaviour
 	    int score = GameObject.Find("Manager").GetComponent<Scores>().Score;
         int stars = 1;
 	    int currentLevel = GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel;
+	    int oldStars = ProgressManagerComponent.GetStarsOnLevel(currentLevel);
         //ProgressManagerComponent.LastAvaliableLevelId = Mathf.Max(GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel + 1, ProgressManagerComponent.LastAvaliableLevelId);
         //int minScore = GameObject.Find("Manager").GetComponent<Scores>().MinScore;
         //int maxScore = GameObject.Find("Manager").GetComponent<Scores>().MaxScore;
@@ -37,7 +38,7 @@ public class StarsAndScoresController : MonoBehaviour
         //   }
 
         // TODO: Add stars logic here 
-	    foreach (var vegetable in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().AvailableVegetables)
+        foreach (var vegetable in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().AvailableVegetables)
 	    {
 	        if (!vegetable.IsShoted)
 	        {
@@ -61,7 +62,7 @@ public class StarsAndScoresController : MonoBehaviour
             ProgressManagerComponent.SetStarsOnLevel(currentLevel, stars);
         }
 
-	    int receivedCoins = 5;
+	    /*int receivedCoins = 5;
 	    switch (stars)
 	    {
             case 1:
@@ -108,6 +109,24 @@ public class StarsAndScoresController : MonoBehaviour
 	            }
                 break;
         }
+        */
+	    int receivedCoins = 5 + 5 + 10 + 15;
+	    switch (oldStars)
+	    {
+            case 1:
+                receivedCoins -= 5;
+                break;
+            case 2:
+                receivedCoins -= 5;
+                receivedCoins -= 10;
+                break;
+            case 3:
+                receivedCoins -= 5;
+                receivedCoins -= 10;
+                receivedCoins -= 15;
+                break;
+	    }
+
 	    ReceivedCoins.text = "" + receivedCoins;
 	    ProgressManagerComponent.AmountOfMoney += receivedCoins;
         CoinsText.text = "" + ProgressManagerComponent.AmountOfMoney;
