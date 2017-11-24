@@ -12,6 +12,7 @@ public class Level
     public GameObject Landscape;
     public int ScoreForTwoStars;
     public int ScoreForThreeStars;
+    public string MusicTitle;
     public int MaxVegetables { get; set; }
     
     public Level()

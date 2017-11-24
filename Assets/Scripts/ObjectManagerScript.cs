@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ObjectManagerScript : MonoBehaviour
 {
@@ -19,6 +20,11 @@ public class ObjectManagerScript : MonoBehaviour
     public List<GameObject> VegetableButtons;
 
     public bool LevelEnded = false;
+
+    void Awake()
+    {
+        GetComponent<SoundManagerComponent>().PlaySound("LevelStartSound");
+    }
 
     private UnityEngine.Events.UnityAction changeVegetable(int indx)
     {
@@ -139,17 +145,25 @@ public class ObjectManagerScript : MonoBehaviour
         ScoreForTwoStars = GetComponent<PullObjects>().Levels[CurrentLevel].ScoreForTwoStars;
         ScoreForThreeStars = GetComponent<PullObjects>().Levels[CurrentLevel].ScoreForThreeStars;
     }
-
-    void Start()
+    public void ShowVegetableButtons()
     {
-        Initiate();
         List<VegetableClass> vegetables = GetAvailableVegetables();
         for (int i = 0; i < vegetables.Count; ++i)
         {
             VegetableButtons.Add(Instantiate((GameObject)Resources.Load("SelectButton"), ButtonGroupObject.transform));
             VegetableButtons[i].GetComponent<Button>().onClick.AddListener(changeVegetable(i));
+            GetComponent<SoundSettings>().Buttons.Add(VegetableButtons[i].GetComponent<Button>());
             VegetableButtons[i].GetComponent<Button>().image.sprite = ((GameObject)Resources.Load(vegetables[i].Prefab)).GetComponent<SpriteRenderer>().sprite;
-            //    VegetableButtons[i].GetComponent<Image>().sprite = ((GameObject)Resources.Load(vegetables[i].Prefab)).GetComponent<SpriteRenderer>().sprite;
         }
+    }
+
+    void Start()
+    {
+        Initiate();
+
+        ShowVegetableButtons();
+        string LevelMusicTitle = GetComponent<PullObjects>().Levels[CurrentLevel].MusicTitle;
+        if ( LevelMusicTitle != null && LevelMusicTitle != "")
+            SoundManager.PlayMusic(LevelMusicTitle);
     }
 }

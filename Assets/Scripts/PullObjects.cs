@@ -46,6 +46,9 @@ public class PullObjects : MonoBehaviour
         tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(8, -7.5f));
         tempLevel.AddBlock(Blocks[2].Clone(), new Vector2(11, -7.5f));
 
+        //Music
+        tempLevel.MusicTitle = "Dutty";
+
         //Scores
         tempLevel.ScoreForTwoStars = 1180;
         tempLevel.ScoreForThreeStars = 1680;
@@ -68,6 +71,9 @@ public class PullObjects : MonoBehaviour
         tempLevel.AddBlock(Blocks[0].Clone(), new Vector2(7, -7.5f));
         tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(10, -7.5f));
         tempLevel.AddBlock(Blocks[2].Clone(), new Vector2(15, -7.5f));
+
+        //Music
+        tempLevel.MusicTitle = "";
 
         //Scores
         tempLevel.ScoreForTwoStars = 1180;
