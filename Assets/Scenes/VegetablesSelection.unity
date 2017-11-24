@@ -1446,7 +1446,7 @@ Prefab:
     - target: {fileID: 114972305378194644, guid: 265252766d3fded44b4374a69ea7236a,
         type: 2}
       propertyPath: m_RaycastTarget
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 265252766d3fded44b4374a69ea7236a, type: 2}
@@ -5193,6 +5193,7 @@ MonoBehaviour:
   CoinsText: {fileID: 346495349}
   SelectCanvas: {fileID: 1264325625}
   VegetableCanvas: {fileID: 5108617}
+  MoneyFild: {fileID: 346495347}
 --- !u!114 &2042228933
 MonoBehaviour:
   m_ObjectHideFlags: 0

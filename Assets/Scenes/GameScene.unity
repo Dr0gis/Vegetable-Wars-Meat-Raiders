@@ -3310,7 +3310,7 @@ MonoBehaviour:
   MinTensionByY: 0.5
   StrengthScale: 5
   CurrentVegetable: {fileID: 0}
-  PredictionStepsNumber: 60
+  PredictionStepsNumber: 70
 --- !u!114 &1316536474
 MonoBehaviour:
   m_ObjectHideFlags: 0
