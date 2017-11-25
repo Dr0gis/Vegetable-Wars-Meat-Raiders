@@ -17,15 +17,18 @@ public class PreviewCameraScript : MonoBehaviour {
     private const float zoomSpeed = 0.3f;
     public Image Background;
 
+
     public float CameraSize { get; private set; }
 
     void Start()
     {
+        GameObject.Find("Manager").GetComponent<PreviewObjectManager>().CurrentLevel = CurrentLevelSelected.NumberLevel;
+        Camera.main.transform.position = CurrentLevelSelected.CameraPosition;
         float levelWidth = GameObject.Find("Right Wall").transform.position.x -
                           GameObject.Find("Left Wall").transform.position.x;
         float levelHeight = GameObject.Find("Sky").transform.position.y -
                            GameObject.Find("Floor").transform.position.y;
-        CameraSize = 9f;
+        CameraSize = CurrentLevelSelected.CameraScale;
         maxCameraSize = Mathf.Min(levelHeight / 2.0f, (levelWidth * Screen.height) / (2.0f * Screen.width));
         minCameraSize = 1.5f * GameObject.Find("Catapult").GetComponent<Collider2D>().bounds.size.x * Screen.height /
                         Screen.width;
@@ -77,6 +80,9 @@ public class PreviewCameraScript : MonoBehaviour {
             CameraSize = Mathf.Clamp(CameraSize, minCameraSize, maxCameraSize);
             SetCameraPosition();
             Camera.main.orthographicSize = CameraSize;
+            print(CameraSize);
+            print(minCameraSize);
+            print(maxCameraSize);
         }
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
@@ -85,5 +91,7 @@ public class PreviewCameraScript : MonoBehaviour {
             SetCameraPosition();
         }
         SetCameraPosition();
+        CurrentLevelSelected.CameraPosition = Camera.main.transform.position;
+        CurrentLevelSelected.CameraScale = CameraSize;
     }
 }

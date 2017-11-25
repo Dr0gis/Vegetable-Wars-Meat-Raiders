@@ -44,7 +44,7 @@ public class VegetableController : MonoBehaviour
     }
     private void playEndGameSound()
     {
-        GetComponent<SoundManagerComponent>().PlaySound("LevelEndSound");
+        GameObject.Find("Manager").GetComponent<SoundManagerComponent>().PlaySound("LevelEndSound");
     }
 
     void GameOver()

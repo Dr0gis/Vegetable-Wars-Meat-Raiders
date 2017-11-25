@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using  UnityEngine.SceneManagement;
 
@@ -22,10 +23,13 @@ public class EndLevelSettings : MonoBehaviour
         RestartButton.onClick.AddListener(RestartButtonListener);
 	    NextLevelButton.onClick.AddListener(NextLevelButtonListener);
 	    LevelSelectionButton.onClick.AddListener(LevelSelectionButtonListener);
+        GetComponent<PullObjects>().Initiate();
+        //GameObject.Find("EventSystem").GetComponent<PullObjects>().Initiate();
+        int totalLevelCount = GetComponent<PullObjects>().Levels.Count;
         //disable NextLevelButton if next level is blocked
-	    if (GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel == ProgressManagerComponent.LastAvaliableLevelId && !LevelCompleted)
+	    if ((GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel == ProgressManagerComponent.LastAvaliableLevelId && !LevelCompleted) || nextLevel >= totalLevelCount)
 	    {
-	        NextLevelButton.interactable = false; // now disabling if level failed
+	        NextLevelButton.interactable = false;
 	    }
         CoinsText.text = "" + ProgressManagerComponent.AmountOfMoney;
     }
@@ -37,10 +41,8 @@ public class EndLevelSettings : MonoBehaviour
 
     void NextLevelButtonListener()
     {
-        
-        SceneManager.LoadScene("GameScene");
-        manager.CurrentLevel = nextLevel; //doesn't work
-        //change level here
+        CurrentLevelSelected.NumberLevel = nextLevel;
+        SceneManager.LoadScene("VegetablesSelection");
     }
 
     void LevelSelectionButtonListener()
