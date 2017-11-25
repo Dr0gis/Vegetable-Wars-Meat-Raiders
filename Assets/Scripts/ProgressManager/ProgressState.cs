@@ -175,7 +175,7 @@ class ProgressState : ScriptableObject
                 string prefab = PlayerPrefs.GetString("onLevel " + i + " vegetable " + j + " prefab", null);
                 int cost = PlayerPrefs.GetInt("onLevel " + i + " vegetable " + j + " cost", -1);
 
-                if (health != -1 && damage != -1 && speed != -1 && prefab != null && score != -1)
+                if (health != -1 && damage != -1 && speed != -1 && prefab != null && score != -1 && cost != -1)
                 {
                     switch (prefab)
                     {
