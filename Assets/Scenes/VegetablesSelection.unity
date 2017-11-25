@@ -5193,7 +5193,7 @@ MonoBehaviour:
   CoinsText: {fileID: 346495349}
   SelectCanvas: {fileID: 1264325625}
   VegetableCanvas: {fileID: 5108617}
-  MoneyFild: {fileID: 346495347}
+  MoneyField: {fileID: 346495349}
 --- !u!114 &2042228933
 MonoBehaviour:
   m_ObjectHideFlags: 0

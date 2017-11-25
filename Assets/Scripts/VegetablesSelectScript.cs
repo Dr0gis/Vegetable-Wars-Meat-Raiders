@@ -14,7 +14,7 @@ public class VegetablesSelectScript : MonoBehaviour
     public Text CoinsText;
     public Canvas SelectCanvas;
     public Canvas VegetableCanvas;
-    public GameObject MoneyFild;
+    public Text MoneyField;
 
     private Scene currentScene;
     private Scene previewScene;
@@ -22,6 +22,7 @@ public class VegetablesSelectScript : MonoBehaviour
     private ProgressState.SavableVegetableList vegetablesOnLevel;
     private PullObjects pullObjects;
     private int lastSelectedSlotIndx = -1;
+    private bool isSelectCanvasOpen = false;
 
     void Start ()
 	{
@@ -63,16 +64,18 @@ public class VegetablesSelectScript : MonoBehaviour
 
         CoinsText.text = "" + ProgressManagerComponent.AmountOfMoney;
         PlayButton.onClick.AddListener(PlayButtonListener);
-        BackButton.onClick.AddListener(() => SceneManager.LoadScene("LevelSelection"));
+        BackButton.onClick.AddListener(BackButtonListener);
         PreviewButton.onClick.AddListener(PreviewButtonListener);
-    }
+
+	    EnablePlayButton();
+	}
 
     private void DeteleVegetable()
     {
         if (lastSelectedSlotIndx != -1)
         {
             ProgressManagerComponent.AmountOfMoney = ProgressManagerComponent.AmountOfMoney + vegetablesOnLevel[lastSelectedSlotIndx].Cost;
-            MoneyFild.GetComponent<Text>().text = ProgressManagerComponent.AmountOfMoney.ToString();
+            MoneyField.GetComponent<Text>().text = ProgressManagerComponent.AmountOfMoney.ToString();
 
             SlotsVegetables[lastSelectedSlotIndx].transform.GetChild(1).gameObject.transform.GetChild(3).gameObject.SetActive(false);
             SlotsVegetables[lastSelectedSlotIndx].transform.GetChild(1).gameObject.SetActive(false);
@@ -82,6 +85,7 @@ public class VegetablesSelectScript : MonoBehaviour
 
             lastSelectedSlotIndx = -1;
         }
+        EnablePlayButton();
     }
 
     private UnityEngine.Events.UnityAction OpenDeteleButton(int slotIndx)
@@ -106,8 +110,19 @@ public class VegetablesSelectScript : MonoBehaviour
                 SlotsVegetables[lastSelectedSlotIndx].transform.GetChild(1).gameObject.transform.GetChild(3).gameObject.SetActive(false);
             }
             lastSelectedSlotIndx = slotIndx;
+
+            for (int i = 0; i < SelectVegetables.Count; ++i)
+            {
+                if (pullObjects.Vegetables[i].Cost > ProgressManagerComponent.AmountOfMoney)
+                {
+                    SelectVegetables[i].interactable = false;
+                }
+            }
+
             SelectCanvas.gameObject.SetActive(true);
             VegetableCanvas.gameObject.SetActive(false);
+
+            isSelectCanvasOpen = true;
         };
     }
 
@@ -136,6 +151,8 @@ public class VegetablesSelectScript : MonoBehaviour
         }
 
         lastSelectedSlot.transform.GetChild(0).gameObject.SetActive(false);
+
+        EnablePlayButton();
     }
 
     private UnityEngine.Events.UnityAction SelectVegetable(int index)
@@ -145,7 +162,7 @@ public class VegetablesSelectScript : MonoBehaviour
             if (pullObjects.Vegetables[index].Cost <= ProgressManagerComponent.AmountOfMoney)
             {
                 ProgressManagerComponent.AmountOfMoney = ProgressManagerComponent.AmountOfMoney - pullObjects.Vegetables[index].Cost;
-                MoneyFild.GetComponent<Text>().text = ProgressManagerComponent.AmountOfMoney.ToString();
+                MoneyField.GetComponent<Text>().text = ProgressManagerComponent.AmountOfMoney.ToString();
 
                 SelectCanvas.gameObject.SetActive(false);
                 VegetableCanvas.gameObject.SetActive(true);
@@ -155,6 +172,7 @@ public class VegetablesSelectScript : MonoBehaviour
                 vegetablesOnLevel.Insert(lastSelectedSlotIndx, pullObjects.Vegetables[index].Clone());
 
                 lastSelectedSlotIndx = -1;
+                isSelectCanvasOpen = false;
             }
         };
     }
@@ -174,13 +192,28 @@ public class VegetablesSelectScript : MonoBehaviour
         SceneManager.LoadScene("GameScene");
     }
 
+    private void BackButtonListener()
+    {
+        if (isSelectCanvasOpen)
+        {
+            SelectCanvas.gameObject.SetActive(false);
+            VegetableCanvas.gameObject.SetActive(true);
+            lastSelectedSlotIndx = -1;
+            isSelectCanvasOpen = false;
+        }
+        else
+        {
+            SceneManager.LoadScene("LevelSelection");
+        }
+    }
+
     private void PreviewButtonListener()
     {
         //save selected vegetables here
         SceneManager.LoadScene("PreviewScene");
     }
 
-    void Update ()
+    private void EnablePlayButton()
     {
         bool ableToPlay = false;
         for (int i = 0; i < vegetablesOnLevel.Count; ++i)
@@ -193,11 +226,11 @@ public class VegetablesSelectScript : MonoBehaviour
         }
         if (ableToPlay)
         {
-            PlayButton.enabled = true;
+            PlayButton.interactable = true;
         }
         else
         {
-            PlayButton.enabled = false;
+            PlayButton.interactable = false;
         }
     }
 }
