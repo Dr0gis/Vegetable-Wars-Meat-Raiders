@@ -2300,7 +2300,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 20 coins
+  m_Text: 10 coins
 --- !u!222 &594461062
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4288,7 +4288,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10 coins
+  m_Text: 20 coins
 --- !u!222 &1389734605
 CanvasRenderer:
   m_ObjectHideFlags: 0
