@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,14 +88,23 @@ public class ObjectManagerScript : MonoBehaviour
 
     public List<VegetableClass> GetAvailableVegetables()
     {
-        return new List<VegetableClass>()
+        //return new List<VegetableClass>()
+        //{
+        //    GetComponent<PullObjects>().Vegetables[0].Clone(),
+        //    GetComponent<PullObjects>().Vegetables[0].Clone(),
+        //    GetComponent<PullObjects>().Vegetables[1].Clone(),
+        //    GetComponent<PullObjects>().Vegetables[1].Clone(),
+        //    GetComponent<PullObjects>().Vegetables[2].Clone()
+        //};
+        List<VegetableClass> result = new List<VegetableClass>();
+        foreach (var vegetable in ProgressManagerComponent.GetVegetablesOnLevel(CurrentLevel))
         {
-            GetComponent<PullObjects>().Vegetables[0].Clone(),
-            GetComponent<PullObjects>().Vegetables[0].Clone(),
-            GetComponent<PullObjects>().Vegetables[1].Clone(),
-            GetComponent<PullObjects>().Vegetables[1].Clone(),
-            GetComponent<PullObjects>().Vegetables[2].Clone()
-        };
+            if (vegetable != null)
+            {
+                result.Add(vegetable.Clone());
+            }
+        }
+        return result;
     }
 
     public List<BlockClass> GetAvailableBlocks()

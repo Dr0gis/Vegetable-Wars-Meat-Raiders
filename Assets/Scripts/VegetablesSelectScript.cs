@@ -71,7 +71,7 @@ public class VegetablesSelectScript : MonoBehaviour
     {
         if (lastSelectedSlotIndx != -1)
         {
-            ProgressManagerComponent.AmountOfMoney = ProgressManagerComponent.AmountOfMoney + vegetablesOnLevel[lastSelectedSlotIndx].Score;
+            ProgressManagerComponent.AmountOfMoney = ProgressManagerComponent.AmountOfMoney + vegetablesOnLevel[lastSelectedSlotIndx].Cost;
             MoneyFild.GetComponent<Text>().text = ProgressManagerComponent.AmountOfMoney.ToString();
 
             SlotsVegetables[lastSelectedSlotIndx].transform.GetChild(1).gameObject.transform.GetChild(3).gameObject.SetActive(false);
@@ -120,19 +120,19 @@ public class VegetablesSelectScript : MonoBehaviour
 
         lastSelectedSlot.transform.GetChild(1).gameObject.transform.GetChild(0).gameObject.GetComponent<Text>().text = vegetable.Prefab;
 
-        if (vegetable.Score == 0)
+        if (vegetable.Cost == 0)
         {
             lastSelectedSlot.transform.GetChild(1).gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text = "free";
         }
-        else if (vegetable.Score == 1)
+        else if (vegetable.Cost == 1)
         {
             lastSelectedSlot.transform.GetChild(1).gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text =
-                vegetable.Score.ToString() + " coin";
+                vegetable.Cost.ToString() + " coin";
         }
         else
         {
             lastSelectedSlot.transform.GetChild(1).gameObject.transform.GetChild(2).gameObject.GetComponent<Text>().text =
-                vegetable.Score.ToString() + " coins";
+                vegetable.Cost.ToString() + " coins";
         }
 
         lastSelectedSlot.transform.GetChild(0).gameObject.SetActive(false);
@@ -142,9 +142,9 @@ public class VegetablesSelectScript : MonoBehaviour
     {
         return () =>
         {
-            if (pullObjects.Vegetables[index].Score <= ProgressManagerComponent.AmountOfMoney)
+            if (pullObjects.Vegetables[index].Cost <= ProgressManagerComponent.AmountOfMoney)
             {
-                ProgressManagerComponent.AmountOfMoney = ProgressManagerComponent.AmountOfMoney - pullObjects.Vegetables[index].Score;
+                ProgressManagerComponent.AmountOfMoney = ProgressManagerComponent.AmountOfMoney - pullObjects.Vegetables[index].Cost;
                 MoneyFild.GetComponent<Text>().text = ProgressManagerComponent.AmountOfMoney.ToString();
 
                 SelectCanvas.gameObject.SetActive(false);
@@ -166,7 +166,7 @@ public class VegetablesSelectScript : MonoBehaviour
         {
             if (vegetablesOnLevel[i] != null)
             {
-                vegetablesOnLevel[i].Score = 0;
+                vegetablesOnLevel[i].Cost = 0;
                 ableToPlay = true;
             }
         }

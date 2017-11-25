@@ -16,6 +16,7 @@ public abstract class VegetableClass
     public bool IsDead;
     public int Score;
     public bool IsShoted = false;
+    public int Cost;
     private bool wasCollision = false;
 
     public VegetableClass()
@@ -27,10 +28,11 @@ public abstract class VegetableClass
         CurrentGameObject = null;
         IsDead = false;
         Score = 500;
+        Cost = 0;
         IsShoted = false;
     }
 
-    public VegetableClass(int health, float damage, int score, float speed, string prefab, GameObject gameObject)
+    public VegetableClass(int health, float damage, int score, float speed, string prefab, GameObject gameObject, int cost)
     {
         Health = health;
         Damage = damage;
@@ -40,6 +42,7 @@ public abstract class VegetableClass
         IsDead = false;
         IsShoted = false;
         Score = score;
+        Cost = cost;
     }
 
     public void OnCollision2D(Collision2D collider)

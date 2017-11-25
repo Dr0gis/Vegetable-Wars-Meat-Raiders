@@ -39,7 +39,8 @@ class ProgressState : ScriptableObject
                     state.vegetablesOnLevel[levelIndx][index].Damage,
                     state.vegetablesOnLevel[levelIndx][index].Score, 
                     state.vegetablesOnLevel[levelIndx][index].Speed, 
-                    state.vegetablesOnLevel[levelIndx][index].Prefab
+                    state.vegetablesOnLevel[levelIndx][index].Prefab,
+                    state.vegetablesOnLevel[levelIndx][index].Cost
                 );
             }
         }
@@ -172,19 +173,20 @@ class ProgressState : ScriptableObject
                 int score = PlayerPrefs.GetInt("onLevel " + i + " vegetable " + j + " score", -1);
                 float speed = PlayerPrefs.GetFloat("onLevel " + i + " vegetable " + j + " speed", -1);
                 string prefab = PlayerPrefs.GetString("onLevel " + i + " vegetable " + j + " prefab", null);
+                int cost = PlayerPrefs.GetInt("onLevel " + i + " vegetable " + j + " cost", -1);
 
                 if (health != -1 && damage != -1 && speed != -1 && prefab != null && score != -1)
                 {
                     switch (prefab)
                     {
                         case "Potato":
-                            vegetablesOnLevel[i].Add(new PotatoClass(health, damage, score, speed, "Potato", null));
+                            vegetablesOnLevel[i].Add(new PotatoClass(health, damage, score, speed, "Potato", null, cost));
                             break;
                         case "Tomato":
-                            vegetablesOnLevel[i].Add(new TomatoClass(health, damage, score, speed, "Tomato", null));
+                            vegetablesOnLevel[i].Add(new TomatoClass(health, damage, score, speed, "Tomato", null, cost));
                             break;
                         case "Cabbage":
-                            vegetablesOnLevel[i].Add(new CabbageClass(health, damage, score, speed, "Cabbage", null));
+                            vegetablesOnLevel[i].Add(new CabbageClass(health, damage, score, speed, "Cabbage", null, cost));
                             break;
                         default:
                             break;
@@ -205,6 +207,7 @@ class ProgressState : ScriptableObject
         PlayerPrefs.DeleteKey("onLevel " + level + " vegetable " + index + " score");
         PlayerPrefs.DeleteKey("onLevel " + level + " vegetable " + index + " speed");
         PlayerPrefs.DeleteKey("onLevel " + level + " vegetable " + index + " prefab");
+        PlayerPrefs.DeleteKey("onLevel " + level + " vegetable " + index + " cost");
     }
 
     private void forgetOnLevel(int level)
@@ -215,13 +218,14 @@ class ProgressState : ScriptableObject
         }
     }
 
-    private void saveVegetable(int level, int index, int health, float damage, int score, float speed, string prefab)
+    private void saveVegetable(int level, int index, int health, float damage, int score, float speed, string prefab, int cost)
     {
         PlayerPrefs.SetInt("onLevel " + level + " vegetable " + index + " health", health);
         PlayerPrefs.SetFloat("onLevel " + level + " vegetable " + index + " damage", damage);
         PlayerPrefs.SetInt("onLevel " + level + " vegetable " + index + " score", score);
         PlayerPrefs.SetFloat("onLevel " + level + " vegetable " + index + " speed", speed);
         PlayerPrefs.SetString("onLevel " + level + " vegetable " + index + " prefab", prefab);
+        PlayerPrefs.SetInt("onLevel " + level + " vegetable " + index + " cost", cost);
     }
 
     private void saveVegetablesOnLevel(int i)
@@ -237,7 +241,8 @@ class ProgressState : ScriptableObject
                     vegetablesOnLevel[i][j].Damage,
                     vegetablesOnLevel[i][j].Score,
                     vegetablesOnLevel[i][j].Speed,
-                    vegetablesOnLevel[i][j].Prefab
+                    vegetablesOnLevel[i][j].Prefab,
+                    vegetablesOnLevel[i][j].Cost
                 );
             }
         }

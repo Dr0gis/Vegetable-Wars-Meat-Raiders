@@ -40,6 +40,7 @@ public class StarsAndScoresController : MonoBehaviour
         // TODO: Add stars logic here 
         foreach (var vegetable in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().AvailableVegetables)
 	    {
+            print(vegetable.IsShoted + " " +  vegetable.Score);
 	        if (!vegetable.IsShoted)
 	        {
 	            score += vegetable.Score;
@@ -56,13 +57,8 @@ public class StarsAndScoresController : MonoBehaviour
 	        ThirdStar.interactable = true;
 	    }
 
-        if (score > ProgressManagerComponent.GetScoreOnLevel(currentLevel))
-        {
-            ProgressManagerComponent.SetScoreOnLevel(currentLevel, score);
-            ProgressManagerComponent.SetStarsOnLevel(currentLevel, stars);
-        }
-
 	    int receivedCoins = 5;
+        print(ProgressManagerComponent.GetStarsOnLevel(currentLevel));
 	    switch (stars)
 	    {
             case 1:
@@ -109,8 +105,14 @@ public class StarsAndScoresController : MonoBehaviour
 	            }
                 break;
         }
-        
-	    /*int receivedCoins = 5 + 5 + 10 + 15;
+
+	    if (score > ProgressManagerComponent.GetScoreOnLevel(currentLevel))
+	    {
+	        ProgressManagerComponent.SetScoreOnLevel(currentLevel, score);
+	        ProgressManagerComponent.SetStarsOnLevel(currentLevel, stars);
+	    }
+
+        /*int receivedCoins = 5 + 5 + 10 + 15;
 	    switch (oldStars)
 	    {
             case 1:
@@ -127,7 +129,7 @@ public class StarsAndScoresController : MonoBehaviour
                 break;
 	    }*/
 
-	    ReceivedCoins.text = "" + receivedCoins;
+        ReceivedCoins.text = "" + receivedCoins;
 	    ProgressManagerComponent.AmountOfMoney += receivedCoins;
         CoinsText.text = "" + ProgressManagerComponent.AmountOfMoney;
 	    Score.text = Convert.ToString(score);
