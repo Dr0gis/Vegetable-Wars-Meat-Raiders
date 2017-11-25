@@ -116,7 +116,7 @@ public class CameraMovementScript : MonoBehaviour
                 CameraSize = Mathf.Clamp(CameraSize, minCameraSize, maxCameraSize);
                 SetCameraPosition();
                 Camera.main.orthographicSize = CameraSize;
-                GameObject.Find("Catapult").GetComponent<ShotScript>().IsTakingAimNow = false;
+                GameObject.Find("Catapult").GetComponent<ShotScript>().ReturnBack();
             }
             else
             {

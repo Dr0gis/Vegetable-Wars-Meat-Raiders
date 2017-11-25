@@ -161,22 +161,17 @@ public class VegetablesSelectScript : MonoBehaviour
 
     private void PlayButtonListener()
     {
-        bool ableToPlay = false;
         for (int i = 0; i < vegetablesOnLevel.Count; ++i)
         {
             if (vegetablesOnLevel[i] != null)
             {
                 vegetablesOnLevel[i].Cost = 0;
-                ableToPlay = true;
             }
         }
         vegetablesOnLevel.Save();
 
         //return selected vegetables and other parameters to level
-        if (ableToPlay)
-        {
-            SceneManager.LoadScene("GameScene");
-        }
+        SceneManager.LoadScene("GameScene");
     }
 
     private void PreviewButtonListener()
@@ -187,6 +182,22 @@ public class VegetablesSelectScript : MonoBehaviour
 
     void Update ()
     {
-	    	
-	}
+        bool ableToPlay = false;
+        for (int i = 0; i < vegetablesOnLevel.Count; ++i)
+        {
+            if (vegetablesOnLevel[i] != null)
+            {
+                ableToPlay = true;
+                break;
+            }
+        }
+        if (ableToPlay)
+        {
+            PlayButton.enabled = true;
+        }
+        else
+        {
+            PlayButton.enabled = false;
+        }
+    }
 }

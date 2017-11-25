@@ -214,12 +214,17 @@ public class ShotScript : MonoBehaviour
                 Touch? shotTouch = GetShotTouch();
                 if (shotTouch.HasValue)
                 {
+                    Vector2 moveToPoint = ClampVector(Camera.main.ScreenToWorldPoint(shotTouch.Value.position),
+                               startPoint.x + -MaxTensionByX, startPoint.x + 0.5f, startPoint.y + -MaxTensionByY, startPoint.y + 0.5f);
+
+                    if (previousSHotVector == null)
+                    {
+                        previousSHotVector = startPoint - moveToPoint;
+                    }
                     shotVector = previousSHotVector;
+
                     if (shotTouch.Value.phase == TouchPhase.Moved)
                     {
-                        Vector2 moveToPoint = ClampVector(Camera.main.ScreenToWorldPoint(shotTouch.Value.position),
-                            startPoint.x + -MaxTensionByX, startPoint.x + 0.5f, startPoint.y + -MaxTensionByY, startPoint.y + 0.5f);
-
                         Vector2 movement = CurrentVegetable.GetComponent<Rigidbody2D>().position - moveToPoint;
 
                         if (!areGoingToIntersect(CurrentVegetable.GetComponent<Collider2D>(), 
@@ -245,6 +250,16 @@ public class ShotScript : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void ReturnBack()
+    {
+        IsTakingAimNow = false;
+        CurrentVegetable.transform.position = startPoint;
+        MoveCalf(true);
+        isCalfStopped = true;
+        previousSHotVector = null;
+        trajectoryLine.positionCount = 0;
     }
 
     void Start()
