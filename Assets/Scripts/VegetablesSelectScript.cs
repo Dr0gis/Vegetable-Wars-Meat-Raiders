@@ -43,13 +43,22 @@ public class VegetablesSelectScript : MonoBehaviour {
 
         CoinsText.text = "" + ProgressManagerComponent.AmountOfMoney;
         PlayButton.onClick.AddListener(PlayButtonListener);
-        BackButton.onClick.AddListener(() => SceneManager.LoadScene("LevelSelection"));
+        BackButton.onClick.AddListener(BackButtonListener);
         PreviewButton.onClick.AddListener(PreviewButtonListener);
 	}
-	
+
+
+    private void BackButtonListener()
+    {
+        CurrentLevelSelected.CameraScale = 9f;
+        CurrentLevelSelected.CameraPosition = new Vector3(0f, -4f, -10f);
+        SceneManager.LoadScene("LevelSelection");
+    }
     private void PlayButtonListener()
     {
         //return selected vegetables and other parameters to level
+        CurrentLevelSelected.CameraScale = 9f;
+        CurrentLevelSelected.CameraPosition = new Vector3(0f, -4f, -10f);
         SceneManager.LoadScene("GameScene");
     }
 

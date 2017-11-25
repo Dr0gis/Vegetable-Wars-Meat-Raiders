@@ -62,7 +62,7 @@ public class StarsAndScoresController : MonoBehaviour
             ProgressManagerComponent.SetStarsOnLevel(currentLevel, stars);
         }
 
-	    /*int receivedCoins = 5;
+	    int receivedCoins = 5;
 	    switch (stars)
 	    {
             case 1:
@@ -109,8 +109,8 @@ public class StarsAndScoresController : MonoBehaviour
 	            }
                 break;
         }
-        */
-	    int receivedCoins = 5 + 5 + 10 + 15;
+        
+	    /*int receivedCoins = 5 + 5 + 10 + 15;
 	    switch (oldStars)
 	    {
             case 1:
@@ -125,7 +125,7 @@ public class StarsAndScoresController : MonoBehaviour
                 receivedCoins -= 10;
                 receivedCoins -= 15;
                 break;
-	    }
+	    }*/
 
 	    ReceivedCoins.text = "" + receivedCoins;
 	    ProgressManagerComponent.AmountOfMoney += receivedCoins;
