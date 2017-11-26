@@ -42,7 +42,7 @@ public class VegetablesSelectScript : MonoBehaviour
 
             GetComponent<SoundSettings>().Buttons.Add(slot.transform.GetChild(0).GetComponent<Button>());
             GetComponent<SoundSettings>().Buttons.Add(slot.transform.GetChild(1).GetComponent<Button>());
-            GetComponent<SoundSettings>().Buttons.Add(slot.transform.GetChild(2).GetComponent<Button>());
+            GetComponent<SoundSettings>().Buttons.Add(slot.transform.GetChild(1).transform.GetChild(3).GetComponent<Button>());
         }
 
         for (int i = 0; i < SelectVegetables.Count; ++i)
