@@ -14,6 +14,7 @@ namespace Assets.Scripts
         public Quaternion Rotation;
         public GameObject CurrentGameObject;
         public bool IsDead;
+        public string CollisionSound;
         private bool isFirstCollision = false;
 
         protected BlockClass()
@@ -27,7 +28,7 @@ namespace Assets.Scripts
             IsDead = false;
         }
 
-        public BlockClass(int health, float damage, int score, string prefab, GameObject gameObject)
+        public BlockClass(int health, float damage, int score, string prefab, GameObject gameObject, string collisionSoundTitle)
         {
             Health = health;
             Damage = damage;
@@ -36,6 +37,7 @@ namespace Assets.Scripts
             Position = Vector2.zero;
             Rotation = Quaternion.identity;
             CurrentGameObject = gameObject;
+            CollisionSound = collisionSoundTitle;
             IsDead = false;
         }
 
@@ -55,7 +57,7 @@ namespace Assets.Scripts
 
                     Debug.Log("Block to vegetable   :   " + damage);
 
-                    CurrentGameObject.GetComponent<AudioSource>().Play();
+                    CurrentGameObject.GetComponent<SoundManagerComponent>().PlaySound(CollisionSound);
                     break;
                 case "Block":
                     BlockClass block = collision.gameObject.GetComponent<BlockController>().Block;
@@ -68,7 +70,7 @@ namespace Assets.Scripts
 
                     Debug.Log("Block to block   :   " + damage);
 
-                    CurrentGameObject.GetComponent<AudioSource>().Play();
+                    CurrentGameObject.GetComponent<SoundManagerComponent>().PlaySound(CollisionSound);
                     break;
                 case "Meat":
                     MeatClass meat = collision.gameObject.GetComponent<MeatController>().Meat;

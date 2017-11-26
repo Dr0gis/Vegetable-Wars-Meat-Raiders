@@ -267,7 +267,7 @@ public class ShotScript : MonoBehaviour
         catapultRigidbody = GetComponent<Rigidbody2D>();
         IsTakingAimNow = false;
         vegetableManager = GameObject.Find("Manager").GetComponent<ObjectManagerScript>();
-        //vegetableManager.Initiate();
+        vegetableManager.Initiate();
         vegetableManager.SetNextVagetable();
         GetComponent<LineRenderer>().startWidth = 0.2f;
         GetComponent<LineRenderer>().endWidth = 0.05f;

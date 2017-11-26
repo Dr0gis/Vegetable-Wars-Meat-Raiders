@@ -27,7 +27,10 @@ public class MeatController : MonoBehaviour
         Destroy(gameObject);
         GameOver();
     }
-
+    private void playEndGameSound()
+    {
+        GameObject.Find("Manager").GetComponent<SoundManagerComponent>().PlaySound("LevelEndSound");
+    }
     void GameOver()
     {
         int availableMeats = 0; 
@@ -40,6 +43,7 @@ public class MeatController : MonoBehaviour
         }
         if (availableMeats == 0)
         {
+            playEndGameSound();
             SceneManager.LoadScene("SuccesLevelEnd", LoadSceneMode.Additive);
             GameObject.Find("PauseButton").SetActive(false);
             foreach (var button in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().VegetableButtons)

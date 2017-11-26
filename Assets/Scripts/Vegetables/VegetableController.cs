@@ -49,7 +49,6 @@ public class VegetableController : MonoBehaviour
 
     void GameOver()
     {
-        playEndGameSound();
 
         int availableVegetables = 0; 
         foreach (var vegetable in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().AvailableVegetables)

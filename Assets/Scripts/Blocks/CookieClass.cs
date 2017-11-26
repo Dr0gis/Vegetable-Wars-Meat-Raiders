@@ -12,14 +12,14 @@ namespace Assets.Scripts
 
         }
 
-        public CookieClass(int health, float damage, int score, string prefab, GameObject gameObject) : base(health, damage, score, prefab, gameObject)
+        public CookieClass(int health, float damage, int score, string prefab, GameObject gameObject, string collisionSoundTitle) : base(health, damage, score, prefab, gameObject, collisionSoundTitle)
         {
             
         }
 
         public override BlockClass Clone()
         {
-            return new CookieClass(Health, Damage, Score, Prefab, CurrentGameObject);
+            return new CookieClass(Health, Damage, Score, Prefab, CurrentGameObject, CollisionSound);
         }
     }
 }
