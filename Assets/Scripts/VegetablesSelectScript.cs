@@ -36,14 +36,19 @@ public class VegetablesSelectScript : MonoBehaviour
 
         foreach (var slot in SlotsVegetables)
 	    {
-	        slot.transform.GetChild(1).gameObject.SetActive(false); // Empty
+	        slot.transform.GetChild(0).gameObject.SetActive(false); // Empty
 	        slot.transform.GetChild(1).gameObject.SetActive(false); // Vegetable
 	        slot.transform.GetChild(2).gameObject.SetActive(true); // Lock
-	    }
+
+            GetComponent<SoundSettings>().Buttons.Add(slot.transform.GetChild(0).GetComponent<Button>());
+            GetComponent<SoundSettings>().Buttons.Add(slot.transform.GetChild(1).GetComponent<Button>());
+            GetComponent<SoundSettings>().Buttons.Add(slot.transform.GetChild(2).GetComponent<Button>());
+        }
 
         for (int i = 0; i < SelectVegetables.Count; ++i)
         {
             SelectVegetables[i].onClick.AddListener(SelectVegetable(i));
+            GetComponent<SoundSettings>().Buttons.Add(SelectVegetables[i]);
         }
 
         for (int i = 0; i < maxVegetables; ++i)
