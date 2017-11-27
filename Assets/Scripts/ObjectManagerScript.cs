@@ -165,6 +165,7 @@ public class ObjectManagerScript : MonoBehaviour
 
     void Awake()
     {
+        CurrentLevel = CurrentLevelSelected.NumberLevel;
         Initiate();
         GetComponent<SoundManagerComponent>().PlaySound("LevelStartSound");
 
@@ -177,7 +178,7 @@ public class ObjectManagerScript : MonoBehaviour
 
     void Start()
     {
-        CurrentLevel = CurrentLevelSelected.NumberLevel;
+        
 
         ShowVegetableButtons();
         
