@@ -85,6 +85,11 @@ public class VegetableController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         Vegetable.OnCollision2D(collision);
+        if (!abilityUsed)
+        {
+            Vegetable.UseSpecialAbility();
+            abilityUsed = true;
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -100,6 +105,7 @@ public class VegetableController : MonoBehaviour
         Vegetable.CheckVelocity();
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && IsShoted && !abilityUsed)
         {
+            print("tap");
             Vegetable.UseSpecialAbility();
             abilityUsed = true;
         }
