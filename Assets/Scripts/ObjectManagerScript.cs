@@ -22,11 +22,6 @@ public class ObjectManagerScript : MonoBehaviour
 
     public bool LevelEnded = false;
 
-    void Awake()
-    {
-        GetComponent<SoundManagerComponent>().PlaySound("LevelStartSound");
-    }
-
     private UnityEngine.Events.UnityAction changeVegetable(int indx)
     {
         return () =>
@@ -167,10 +162,15 @@ public class ObjectManagerScript : MonoBehaviour
         }
     }
 
+    void Awake()
+    {
+        Initiate();
+        GetComponent<SoundManagerComponent>().PlaySound("LevelStartSound");
+    }
+
     void Start()
     {
         CurrentLevel = CurrentLevelSelected.NumberLevel;
-        //Initiate();
 
         ShowVegetableButtons();
         string LevelMusicTitle = GetComponent<PullObjects>().Levels[CurrentLevel].MusicTitle;
