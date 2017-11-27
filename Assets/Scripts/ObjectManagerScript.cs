@@ -170,11 +170,13 @@ public class ObjectManagerScript : MonoBehaviour
     void Start()
     {
         CurrentLevel = CurrentLevelSelected.NumberLevel;
-        Initiate();
+        //Initiate();
 
         ShowVegetableButtons();
         string LevelMusicTitle = GetComponent<PullObjects>().Levels[CurrentLevel].MusicTitle;
-        if ( LevelMusicTitle != null && LevelMusicTitle != "")
+        if (LevelMusicTitle != null && LevelMusicTitle != "")
+        {
             SoundManager.PlayMusic(LevelMusicTitle);
+        }
     }
 }
