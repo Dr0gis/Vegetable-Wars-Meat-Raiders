@@ -15,7 +15,7 @@ public class PullObjects : MonoBehaviour
         Vegetables = new List<VegetableClass>
         {
             new PotatoClass(4, 1, 500, 1, "Potato", null, 0),
-            new TomatoClass(1, 3, 500, 0.75f, "Tomato", null, 10),
+            new TomatoClass(20, 3, 500, 0.75f, "Tomato", null, 10),
             new CabbageClass(10, 5, 500, 0.5f, "Cabbage", null, 20)
         };
 

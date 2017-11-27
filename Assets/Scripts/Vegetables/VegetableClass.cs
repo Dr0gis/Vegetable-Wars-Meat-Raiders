@@ -17,7 +17,7 @@ public abstract class VegetableClass
     public int Score;
     public bool IsShoted = false;
     public int Cost;
-    private bool wasCollision = false;
+    public bool wasCollision = false;
 
     public VegetableClass()
     {
