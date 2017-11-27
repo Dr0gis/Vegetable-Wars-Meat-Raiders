@@ -92,6 +92,7 @@ public class ObjectManagerScript : MonoBehaviour
         //    GetComponent<PullObjects>().Vegetables[2].Clone()
         //};
         List<VegetableClass> result = new List<VegetableClass>();
+        print(CurrentLevel + " level");
         foreach (var vegetable in ProgressManagerComponent.GetVegetablesOnLevel(CurrentLevel))
         {
             if (vegetable != null)
@@ -166,6 +167,12 @@ public class ObjectManagerScript : MonoBehaviour
     {
         Initiate();
         GetComponent<SoundManagerComponent>().PlaySound("LevelStartSound");
+
+        string LevelMusicTitle = GetComponent<PullObjects>().Levels[CurrentLevel].MusicTitle;
+        if (LevelMusicTitle != null && LevelMusicTitle != "")
+        {
+            SoundManager.PlayMusic(LevelMusicTitle);
+        }
     }
 
     void Start()
@@ -173,10 +180,6 @@ public class ObjectManagerScript : MonoBehaviour
         CurrentLevel = CurrentLevelSelected.NumberLevel;
 
         ShowVegetableButtons();
-        string LevelMusicTitle = GetComponent<PullObjects>().Levels[CurrentLevel].MusicTitle;
-        if (LevelMusicTitle != null && LevelMusicTitle != "")
-        {
-            SoundManager.PlayMusic(LevelMusicTitle);
-        }
+        
     }
 }

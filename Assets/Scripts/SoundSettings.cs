@@ -16,8 +16,6 @@ public class SoundSettings : MonoBehaviour
         {
             button.onClick.AddListener(ClickSoundListener);
         }
-        SoundManager.PlayMusic("Nordic Title");
-        
     }
     public void ClickSoundListener()
     {

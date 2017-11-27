@@ -10,6 +10,11 @@ public class SettingsUIMainMenu : MonoBehaviour
     public Button LeaderboardButton;
     public Button SettingsButton;
 
+    void Awake()
+    {
+        SoundManager.PlayMusic("Nordic Title");
+    }
+
 	void Start ()
     {
 	    PlayButton.onClick.AddListener(playButtonListener);
