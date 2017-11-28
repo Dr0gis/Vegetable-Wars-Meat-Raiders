@@ -28,6 +28,7 @@ public class Landscape : MonoBehaviour
             pointCount = pc2.pointCount; //.GetTotalPointCount();
             MeshFilter mf = GetComponent<MeshFilter>();
             Mesh mesh = new Mesh();
+            Sprite sprite = new Sprite();
             Vector2[] points = pc2.points;
             Vector3[] vertices = new Vector3[pointCount];
             Vector2[] uv = new Vector2[pointCount];
