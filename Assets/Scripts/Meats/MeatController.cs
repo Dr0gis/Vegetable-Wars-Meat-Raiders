@@ -25,7 +25,9 @@ public class MeatController : MonoBehaviour
     public void CallDestroy()
     {
         Destroy(gameObject);
-        GameOver();
+        GameObject.Find("Manager").GetComponent<EndOfLevelCheck>().LeftMeats--;
+        print(GameObject.Find("Manager").GetComponent<EndOfLevelCheck>().LeftMeats);
+        //GameOver();
     }
     private void playEndGameSound()
     {

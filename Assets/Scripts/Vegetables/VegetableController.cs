@@ -40,7 +40,9 @@ public class VegetableController : MonoBehaviour
             Camera.main.GetComponent<CameraMovementScript>().FocusOnVegetable = false;
         }
         Destroy(gameObject);
-        GameOver();
+        GameObject.Find("Manager").GetComponent<EndOfLevelCheck>().LeftVegetables--;
+        print(GameObject.Find("Manager").GetComponent<EndOfLevelCheck>().LeftVegetables);
+        //GameOver();
     }
     private void playEndGameSound()
     {

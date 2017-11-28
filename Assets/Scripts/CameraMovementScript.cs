@@ -116,7 +116,7 @@ public class CameraMovementScript : MonoBehaviour
                 CameraSize = Mathf.Clamp(CameraSize, minCameraSize, maxCameraSize);
                 SetCameraPosition();
                 Camera.main.orthographicSize = CameraSize;
-                GameObject.Find("Catapult").GetComponent<ShotScript>().ReturnBack();
+                GameObject.Find("Catapult").GetComponent<ShotScript>().ReturnBack(); // don't call this when tere is no vegetable
             }
             else
             {
