@@ -92,7 +92,6 @@ public class ObjectManagerScript : MonoBehaviour
         //    GetComponent<PullObjects>().Vegetables[2].Clone()
         //};
         List<VegetableClass> result = new List<VegetableClass>();
-        print(CurrentLevel + " level");
         foreach (var vegetable in ProgressManagerComponent.GetVegetablesOnLevel(CurrentLevel))
         {
             if (vegetable != null)
@@ -174,13 +173,12 @@ public class ObjectManagerScript : MonoBehaviour
         {
             SoundManager.PlayMusic(LevelMusicTitle);
         }
+
+        ShowVegetableButtons();
     }
 
     void Start()
     {
-        
 
-        ShowVegetableButtons();
-        
     }
 }
