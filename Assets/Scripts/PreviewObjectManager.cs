@@ -44,6 +44,7 @@ public class PreviewObjectManager : MonoBehaviour {
 
     void Start()
     {
+        Time.timeScale = 1;
         Initiate();
         ShopButton.onClick.AddListener(ShopButtonListener);
     }
