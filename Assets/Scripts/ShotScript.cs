@@ -35,6 +35,7 @@ public class ShotScript : MonoBehaviour
     public float StrengthScale = 5;
 
     public GameObject CurrentVegetable;
+    public GameObject Floor;
 
     public int PredictionStepsNumber = 60;
 
@@ -215,7 +216,7 @@ public class ShotScript : MonoBehaviour
                 if (shotTouch.HasValue)
                 {
                     Vector2 moveToPoint = ClampVector(Camera.main.ScreenToWorldPoint(shotTouch.Value.position),
-                               startPoint.x + -MaxTensionByX, startPoint.x + 0.5f, startPoint.y + -MaxTensionByY, startPoint.y + 0.5f);
+                               startPoint.x + -MaxTensionByX, startPoint.x, startPoint.y + -MaxTensionByY, startPoint.y + MaxTensionByY);
 
                     if (previousSHotVector == null)
                     {
@@ -227,8 +228,15 @@ public class ShotScript : MonoBehaviour
                     {
                         Vector2 movement = CurrentVegetable.GetComponent<Rigidbody2D>().position - moveToPoint;
 
-                        if (!areGoingToIntersect(CurrentVegetable.GetComponent<Collider2D>(), 
-                                gameObject.GetComponentInChildren<PolygonCollider2D>(), movement + (Vector2)transform.Find("CatapultBack").transform.position,
+                        if (!areGoingToIntersect(
+                                CurrentVegetable.GetComponent<Collider2D>(), 
+                                gameObject.GetComponentInChildren<PolygonCollider2D>(), 
+                                movement + (Vector2)transform.Find("CatapultBack").transform.position,
+                                transform.Find("CatapultBack").transform.lossyScale) &&
+                            !areGoingToIntersect(
+                                CurrentVegetable.GetComponent<Collider2D>(),
+                                gameObject.GetComponentInChildren<PolygonCollider2D>(),
+                                movement + (Vector2)transform.Find("CatapultBack").transform.position,
                                 transform.Find("CatapultBack").transform.lossyScale))
                         {
                             CurrentVegetable.transform.position = moveToPoint;
