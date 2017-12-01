@@ -49,12 +49,12 @@ public class PullObjects : MonoBehaviour
         tempLevel.SetCatapultPosition(new Vector2(-15.79f, -1.75f));
 
         //Blocks
-        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(10.21347f, -2.891675f), Quaternion.Euler(0, 0, 90.28101f));
-        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(-0.1401889f, -6.457887f), Quaternion.Euler(0, 0, 0.042f));
-        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(12.96841f, -6.392318f), Quaternion.Euler(0, 0, 0.201f));
-        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(2.149633f, -2.936911f), Quaternion.Euler(0, 0, 90));
-        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(7.49945f, -6.418743f), Quaternion.Euler(0, 0, 0.11f));
-        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(4.529914f, -6.435915f), Quaternion.Euler(0, 0, 0.058f));
+        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(10.21593f, -2.892341f), Quaternion.Euler(0, 0, 90.26701f));
+        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(-0.1401955f, -6.457932f), Quaternion.Euler(0, 0, 0.041f));
+        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(12.9698f, -6.392479f), Quaternion.Euler(0, 0, 0.155f));
+        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(2.149655f, -2.937033f), Quaternion.Euler(0, 0, 90.269f));
+        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(7.500449f, -6.418904f), Quaternion.Euler(0, 0, 0.09100001f));
+        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(4.529908f, -6.435939f), Quaternion.Euler(0, 0, 0.056f));
 
         //Music
         tempLevel.MusicTitle = "Dutty";
@@ -117,7 +117,7 @@ public class PullObjects : MonoBehaviour
         tempLevel.SetCatapultPosition(new Vector2(-15.79f, -1.75f));
 
         //Blocks
-        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(9.68f, 3.78f), Quaternion.Euler(0, 0, 9.68f));
+        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(9.692039f, 3.819306f), Quaternion.Euler(0, 0, 80.50301f));
         tempLevel.AddBlock(Blocks[2].Clone(), new Vector2(-4.62f, 7.05f), Quaternion.Euler(0, 0, -102.658f));
 
         //Music
@@ -126,14 +126,14 @@ public class PullObjects : MonoBehaviour
         //Scores
         tempLevel.ScoreForTwoStars = 1180;
         tempLevel.ScoreForThreeStars = 1680;
-
+        
         //Meat
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(-5.89189f, 8.407306f));
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(-4.7099f, 8.111808f));
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(-3.593577f, 7.947642f));
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(-2.345921f, 7.652145f));
-        tempLevel.AddMeat(Meats[1].Clone(), new Vector2(8.594866f, 5.287334f));
-        tempLevel.AddMeat(Meats[2].Clone(), new Vector2(11.08316f, 5.3205f));
+        tempLevel.AddMeat(Meats[1].Clone(), new Vector2(8.374132f, 5.032763f));
+        tempLevel.AddMeat(Meats[2].Clone(), new Vector2(10.81295f, 4.844303f));
 
         //Max Vegetables
         tempLevel.MaxVegetables = 6;
@@ -148,13 +148,12 @@ public class PullObjects : MonoBehaviour
 
         //Catapult Position
         tempLevel.SetCatapultPosition(new Vector2(-15.79f, -1.75f));
-        
         //Blocks
-        tempLevel.AddBlock(Blocks[0].Clone(), new Vector2(18.38231f, 5.199947f), Quaternion.Euler(0, 0, -0.399f));
-        tempLevel.AddBlock(Blocks[0].Clone(), new Vector2(13.26378f, 3.227624f), Quaternion.Euler(0, 0, 0.7780001f));
+        tempLevel.AddBlock(Blocks[0].Clone(), new Vector2(18.38663f, 5.199508f), Quaternion.Euler(0, 0, -0.476f));
+        tempLevel.AddBlock(Blocks[0].Clone(), new Vector2(13.26352f, 3.227602f), Quaternion.Euler(0, 0, 0.7820001f));
         tempLevel.AddBlock(Blocks[0].Clone(), new Vector2(1.819896f, 3.539904f), Quaternion.Euler(0, 0, 91.31001f));
-        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(12.52413f, 6.404521f), Quaternion.Euler(0, 0, -2.081f));
-        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(15.94797f, 7.886763f), Quaternion.Euler(0, 0, -68.346f));
+        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(12.52407f, 6.404523f), Quaternion.Euler(0, 0, -2.081f));
+        tempLevel.AddBlock(Blocks[1].Clone(), new Vector2(15.94847f, 7.884973f), Quaternion.Euler(0, 0, -68.382f));
         tempLevel.AddBlock(Blocks[2].Clone(), new Vector2(-6.999947f, -0.2677824f), Quaternion.Euler(0, 0, -0.029f));
         tempLevel.AddBlock(Blocks[2].Clone(), new Vector2(-0.2620025f, -0.02361375f), Quaternion.Euler(0, 0, 1.303f));
         tempLevel.AddBlock(Blocks[2].Clone(), new Vector2(3.830903f, 0.06998272f), Quaternion.Euler(0, 0, 1.32f));
