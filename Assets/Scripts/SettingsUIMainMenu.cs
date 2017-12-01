@@ -12,6 +12,7 @@ public class SettingsUIMainMenu : MonoBehaviour
 
     void Awake()
     {
+        SoundManager.PlayMusic("Dutty");
         SoundManager.PlayMusic("Nordic Title");
     }
 

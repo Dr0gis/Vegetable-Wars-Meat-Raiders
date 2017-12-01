@@ -20,7 +20,7 @@ public class StarsAndScoresController : MonoBehaviour
 	{
 	    int score = GameObject.Find("Manager").GetComponent<Scores>().Score;
         int stars = 1;
-	    int currentLevel = GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel;
+	    int currentLevel = GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevelNumber;
 	    int oldStars = ProgressManagerComponent.GetStarsOnLevel(currentLevel);
         //ProgressManagerComponent.LastAvaliableLevelId = Mathf.Max(GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel + 1, ProgressManagerComponent.LastAvaliableLevelId);
         //int minScore = GameObject.Find("Manager").GetComponent<Scores>().MinScore;
