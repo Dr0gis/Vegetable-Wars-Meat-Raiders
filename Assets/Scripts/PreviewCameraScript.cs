@@ -55,7 +55,7 @@ public class PreviewCameraScript : MonoBehaviour {
     {
         SetCameraPositionBounds();
         Vector3 tmpPosY = transform.position;
-        tmpPosY.y = minCameraYPosition;
+        tmpPosY.y = Mathf.Clamp(tmpPosY.y, minCameraYPosition, maxCameraYPosition);
         transform.position = tmpPosY;
         Vector3 tmpPosX = transform.position;
         tmpPosX.x = Mathf.Clamp(tmpPosX.x, minCameraXPosition, maxCameraXPosition);
