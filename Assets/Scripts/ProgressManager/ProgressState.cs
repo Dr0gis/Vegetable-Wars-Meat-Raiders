@@ -328,6 +328,7 @@ class ProgressState : ScriptableObject
         if (index == LastAvaliableLevelId)
         {
             LastAvaliableLevelId = LastAvaliableLevelId + 1;
+            vegetablesOnLevel.Add(new List<VegetableClass>());
         }
         if (index == scoreOnLevel.Count)
         {
@@ -345,6 +346,7 @@ class ProgressState : ScriptableObject
         if (index == LastAvaliableLevelId)
         {
             LastAvaliableLevelId = LastAvaliableLevelId + 1;
+            vegetablesOnLevel.Add(new List<VegetableClass>());
         }
         if (index == starsOnLevel.Count)
         {

@@ -19,7 +19,7 @@ public class EndLevelSettings : MonoBehaviour
     {
         manager = GameObject.Find("Manager").GetComponent<ObjectManagerScript>();
         GameObject.Find("Manager").GetComponent<ObjectManagerScript>().LevelEnded = true;
-        nextLevel = GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel + 1;
+        nextLevel = GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevelNumber + 1;
         RestartButton.onClick.AddListener(RestartButtonListener);
 	    NextLevelButton.onClick.AddListener(NextLevelButtonListener);
 	    LevelSelectionButton.onClick.AddListener(LevelSelectionButtonListener);
@@ -27,7 +27,7 @@ public class EndLevelSettings : MonoBehaviour
         //GameObject.Find("EventSystem").GetComponent<PullObjects>().Initiate();
         int totalLevelCount = GetComponent<PullObjects>().Levels.Count;
         //disable NextLevelButton if next level is blocked
-	    if ((GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevel == ProgressManagerComponent.LastAvaliableLevelId && !LevelCompleted) || nextLevel >= totalLevelCount)
+	    if ((GameObject.Find("Manager").GetComponent<ObjectManagerScript>().CurrentLevelNumber == ProgressManagerComponent.LastAvaliableLevelId && !LevelCompleted) || nextLevel >= totalLevelCount)
 	    {
 	        NextLevelButton.interactable = false;
 	    }

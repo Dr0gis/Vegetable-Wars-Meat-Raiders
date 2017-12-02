@@ -27,6 +27,22 @@ public class PreviewObjectManager : MonoBehaviour {
     public void Initiate()
     {
         GetComponent<PullObjects>().Initiate();
+
+        Level currentLevel = GetComponent<PullObjects>().Levels[CurrentLevel];
+
+        GameObject catapult = GameObject.Find("Catapult");
+        catapult.transform.position = currentLevel.CatapultPosition;
+
+        //Vector2 positionVegetable = catapult.GetComponent<Rigidbody2D>().position;
+
+        //Vector3 vegetableStartPosition = new Vector3(positionVegetable.x, positionVegetable.y + 1, -1);
+
+        foreach (GameObject landscapeShape in currentLevel.Landscapes)
+        {
+            GameObject temp = Instantiate(landscapeShape);
+            temp.transform.SetParent(GameObject.Find("Boundaries").transform);
+        }
+
         AvailableBlocks = GetAvailableBlocks();
         foreach (var block in AvailableBlocks)
         {

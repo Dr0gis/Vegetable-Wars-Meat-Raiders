@@ -13,7 +13,7 @@ public class ObjectManagerScript : MonoBehaviour
     public List<VegetableClass> AvailableVegetables;
     public List<BlockClass> AvailableBlocks;
     public List<MeatClass> AvailableMeats;
-    public int CurrentLevel;
+    public int CurrentLevelNumber;
     public int ScoreForTwoStars;
     public int ScoreForThreeStars;
 
@@ -83,16 +83,8 @@ public class ObjectManagerScript : MonoBehaviour
 
     public List<VegetableClass> GetAvailableVegetables()
     {
-        //return new List<VegetableClass>()
-        //{
-        //    GetComponent<PullObjects>().Vegetables[0].Clone(),
-        //    GetComponent<PullObjects>().Vegetables[0].Clone(),
-        //    GetComponent<PullObjects>().Vegetables[1].Clone(),
-        //    GetComponent<PullObjects>().Vegetables[1].Clone(),
-        //    GetComponent<PullObjects>().Vegetables[2].Clone()
-        //};
         List<VegetableClass> result = new List<VegetableClass>();
-        foreach (var vegetable in ProgressManagerComponent.GetVegetablesOnLevel(CurrentLevel))
+        foreach (var vegetable in ProgressManagerComponent.GetVegetablesOnLevel(CurrentLevelNumber))
         {
             if (vegetable != null)
             {
@@ -104,14 +96,14 @@ public class ObjectManagerScript : MonoBehaviour
 
     public List<BlockClass> GetAvailableBlocks()
     {
-        List<BlockClass> listBlocks = GetComponent<PullObjects>().Levels[CurrentLevel].Blocks;
+        List<BlockClass> listBlocks = GetComponent<PullObjects>().Levels[CurrentLevelNumber].Blocks;
     
         return listBlocks;
     }
 
     public List<MeatClass> GetAvailableMeats()
     {
-        List<MeatClass> listMeats = GetComponent<PullObjects>().Levels[CurrentLevel].Meats;
+        List<MeatClass> listMeats = GetComponent<PullObjects>().Levels[CurrentLevelNumber].Meats;
         
         return listMeats;
     }
@@ -120,10 +112,20 @@ public class ObjectManagerScript : MonoBehaviour
     {
         GetComponent<PullObjects>().Initiate();
 
+        Level currentLevel = GetComponent<PullObjects>().Levels[CurrentLevelNumber];
+
         GameObject catapult = GameObject.Find("Catapult");
+        catapult.transform.position = currentLevel.CatapultPosition;
+
         Vector2 positionVegetable = catapult.GetComponent<Rigidbody2D>().position;
 
         Vector3 vegetableStartPosition = new Vector3(positionVegetable.x, positionVegetable.y + 1, -1);
+
+        foreach(GameObject landscapeShape in currentLevel.Landscapes)
+        {
+            GameObject temp = Instantiate(landscapeShape);
+            temp.transform.SetParent(GameObject.Find("Boundaries").transform);
+        }
 
         AvailableVegetables = GetAvailableVegetables();
         foreach (var vegetable in AvailableVegetables)
@@ -147,8 +149,8 @@ public class ObjectManagerScript : MonoBehaviour
             meat.CurrentGameObject.GetComponent<MeatController>().Meat = meat;
         }
 
-        ScoreForTwoStars = GetComponent<PullObjects>().Levels[CurrentLevel].ScoreForTwoStars;
-        ScoreForThreeStars = GetComponent<PullObjects>().Levels[CurrentLevel].ScoreForThreeStars;
+        ScoreForTwoStars = GetComponent<PullObjects>().Levels[CurrentLevelNumber].ScoreForTwoStars;
+        ScoreForThreeStars = GetComponent<PullObjects>().Levels[CurrentLevelNumber].ScoreForThreeStars;
     }
     public void ShowVegetableButtons()
     {
@@ -164,11 +166,11 @@ public class ObjectManagerScript : MonoBehaviour
 
     void Awake()
     {
-        CurrentLevel = CurrentLevelSelected.NumberLevel;
+        CurrentLevelNumber = CurrentLevelSelected.NumberLevel;
         Initiate();
         GetComponent<SoundManagerComponent>().PlaySound("LevelStartSound");
 
-        string LevelMusicTitle = GetComponent<PullObjects>().Levels[CurrentLevel].MusicTitle;
+        string LevelMusicTitle = GetComponent<PullObjects>().Levels[CurrentLevelNumber].MusicTitle;
         if (LevelMusicTitle != null && LevelMusicTitle != "")
         {
             SoundManager.PlayMusic(LevelMusicTitle);
