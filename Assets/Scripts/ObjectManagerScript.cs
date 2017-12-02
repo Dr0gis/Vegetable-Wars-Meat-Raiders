@@ -83,14 +83,6 @@ public class ObjectManagerScript : MonoBehaviour
 
     public List<VegetableClass> GetAvailableVegetables()
     {
-        //return new List<VegetableClass>()
-        //{
-        //    GetComponent<PullObjects>().Vegetables[0].Clone(),
-        //    GetComponent<PullObjects>().Vegetables[0].Clone(),
-        //    GetComponent<PullObjects>().Vegetables[1].Clone(),
-        //    GetComponent<PullObjects>().Vegetables[1].Clone(),
-        //    GetComponent<PullObjects>().Vegetables[2].Clone()
-        //};
         List<VegetableClass> result = new List<VegetableClass>();
         foreach (var vegetable in ProgressManagerComponent.GetVegetablesOnLevel(CurrentLevelNumber))
         {
