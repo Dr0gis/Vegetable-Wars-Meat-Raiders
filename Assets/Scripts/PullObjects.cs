@@ -132,8 +132,8 @@ public class PullObjects : MonoBehaviour
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(-4.7099f, 8.111808f));
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(-3.593577f, 7.947642f));
         tempLevel.AddMeat(Meats[0].Clone(), new Vector2(-2.345921f, 7.652145f));
-        tempLevel.AddMeat(Meats[1].Clone(), new Vector2(8.374132f, 5.032763f));
-        tempLevel.AddMeat(Meats[2].Clone(), new Vector2(10.81295f, 4.844303f));
+        tempLevel.AddMeat(Meats[1].Clone(), new Vector2(10.82321f, 4.816171f));
+        tempLevel.AddMeat(Meats[2].Clone(), new Vector2(12.08969f, 4.881282f));
 
         //Max Vegetables
         tempLevel.MaxVegetables = 6;
