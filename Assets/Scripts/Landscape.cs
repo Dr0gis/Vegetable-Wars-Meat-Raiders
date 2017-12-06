@@ -6,7 +6,6 @@ using System.Linq;
 [RequireComponent(typeof(EdgeCollider2D))]
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
-[ExecuteInEditMode]
 public class Landscape : MonoBehaviour
 {
     private float width = 0.4f;
@@ -46,6 +45,33 @@ public class Landscape : MonoBehaviour
         grass = new GameObject("Grass");
         grass.AddComponent<MeshFilter>();
         grass.AddComponent<MeshRenderer>();
+        grass.GetComponent<MeshRenderer>().materials = new Material[] { (Material)Resources.Load("Materials/Grass") };
+
+        // adding grass
+
+        int alreadyAdded = 0;
+        List<Vector2> allGrassPoints = new List<Vector2>();
+        List<int> grassTriangles = new List<int>();
+        List<List<Vector2>> grassParts = GetTopParts(pc2.points);
+        for (int i = 0; i < grassParts.Count; ++i)
+        {
+            List<Vector2> fullGrassPart = grassParts[i].Select(p => new Vector2(p.x, p.y - width)).Reverse().ToList();
+            fullGrassPart.AddRange(grassParts[i]);
+            fullGrassPart = fullGrassPart.Select(p => new Vector2(p.x, p.y + floorYTransparent)).ToList();
+
+            grassTriangles.AddRange(new Triangulator(fullGrassPart.ToArray()).Triangulate().Select(x => x + alreadyAdded));
+            allGrassPoints.AddRange(fullGrassPart);
+
+            alreadyAdded += fullGrassPart.Count;
+        }
+
+        MeshFilter grassMeshFilter = grass.GetComponent<MeshFilter>();
+        Mesh grassMesh = new Mesh();
+
+        grassMesh.vertices = allGrassPoints.Select(p => new Vector3(p.x, p.y, 0)).ToArray();
+        grassMesh.triangles = grassTriangles.ToArray();
+        grassMesh.uv = allGrassPoints.ToArray();
+        grassMeshFilter.mesh = grassMesh;
     }
 
     private static float VectorProduct(Vector2 from, Vector2 to1, Vector2 to2)
