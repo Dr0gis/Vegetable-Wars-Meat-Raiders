@@ -44,45 +44,8 @@ public class VegetableController : MonoBehaviour
         print(GameObject.Find("Manager").GetComponent<EndOfLevelCheck>().LeftVegetables);
         //GameOver();
     }
-    private void playEndGameSound()
-    {
-        GameObject.Find("Manager").GetComponent<SoundManagerComponent>().PlaySound("LevelEndSound");
-    }
 
-    void GameOver()
-    {
-
-        int availableVegetables = 0; 
-        foreach (var vegetable in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().AvailableVegetables)
-        {
-            if (!vegetable.IsDead)
-            {
-                availableVegetables++;
-            }
-        }
-        int availableMeats = 0;
-        foreach (var meat in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().AvailableMeats)
-        {
-            if (!meat.IsDead)
-            {
-                availableMeats++;
-            }
-        }
-        if (availableVegetables == 0 && availableMeats > 0)
-        {
-            SceneManager.LoadScene("FailLevelEnd", LoadSceneMode.Additive);
-            GameObject.Find("PauseButton").SetActive(false);
-            /*for (int i = 1; i < 6; i++)
-            {
-                GameObject.Find("SelectButton" + i).SetActive(false);
-            }*/
-            foreach (var button in GameObject.Find("Manager").GetComponent<ObjectManagerScript>().VegetableButtons)
-            {
-                button.SetActive(false);
-            }
-            
-        }
-    }
+    
 
     void OnCollisionEnter2D(Collision2D collision)
     {

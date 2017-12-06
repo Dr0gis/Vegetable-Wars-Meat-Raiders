@@ -39,6 +39,11 @@ public class EndOfLevelCheck : MonoBehaviour {
         }
 	}
 
+    private void playEndGameSound()
+    {
+        GameObject.Find("Manager").GetComponent<SoundManagerComponent>().PlaySound("LevelEndSound");
+    }
+
     void CheckMovement()
     {
         Movement = false;

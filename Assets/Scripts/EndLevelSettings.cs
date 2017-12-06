@@ -15,7 +15,8 @@ public class EndLevelSettings : MonoBehaviour
     private int nextLevel;
     private ObjectManagerScript manager;
 
-	void Start ()
+
+    void Start ()
     {
         manager = GameObject.Find("Manager").GetComponent<ObjectManagerScript>();
         GameObject.Find("Manager").GetComponent<ObjectManagerScript>().LevelEnded = true;
@@ -32,6 +33,7 @@ public class EndLevelSettings : MonoBehaviour
 	        NextLevelButton.interactable = false;
 	    }
         CoinsText.text = "" + ProgressManagerComponent.AmountOfMoney;
+        GetComponent<SoundManagerComponent>().PlaySound("LevelEndSound");
     }
 
     void RestartButtonListener()

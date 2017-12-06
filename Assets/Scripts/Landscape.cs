@@ -88,7 +88,7 @@ public class Landscape : MonoBehaviour
 
         for (int i = 0; i < polygon.Length; ++i)
         {
-            if (minIndx == -1 || minPoint.x < polygon[i].y)
+            if (minIndx == -1 || minPoint.x < polygon[i].x)
             {
                 minIndx = i;
                 minPoint = polygon[i];
